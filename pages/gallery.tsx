@@ -190,7 +190,12 @@ const fetchNftImages = async (tokens: Token[]) => {
     try {
       const metadata = await fetchMetadata(token.metadata.uri);
       if (metadata && metadata.image) {
-        images.push({ name: metadata.name, imageUrl: metadata.image });
+        images.push({
+          mint: token.mint, // Assurez-vous que `Token` inclut `mint`
+          offChainMetadata: metadata,
+          name: metadata.name,
+          imageUrl: metadata.image
+        });
       } else {
         console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
       }
@@ -200,6 +205,7 @@ const fetchNftImages = async (tokens: Token[]) => {
   }
   return images;
 };
+
 
 
 
