@@ -4,11 +4,11 @@ export const mintText = [
   { label: "WL", mintText: "WL mint paying with SOL", buttonLabel: "Mint now!", header: "WL Mint" },
   { label: "OG", mintText: "Mint Paying with ABC", buttonLabel: "Mint now!", header: "OG Mint" },
   { label: "publi", mintText: "Mint Paying with DEF", buttonLabel: "Mint now!", header: "Public Mint" },
-  { label: "default", mintText: "default mintText", buttonLabel: "Mint now!", header: "Default"}
+  { label: "default", mintText: "Public Mint", buttonLabel: "Mint now!", header: "Default"}
 ];
 
 //header image in the ui. replace with your own
-export const image = "https://avatars.githubusercontent.com/u/93528482?v=4";
+export const image = "https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZRjRJJro8ESkr8GA5rwQ6zFR8VzZZcxau8U1LTHTeMH3/collection.png";
 
 //website title
-export const headerText = "MarkSackerberg's mint UI";
+export const headerText = "Let's join the Gobelin Rave !";

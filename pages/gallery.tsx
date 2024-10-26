@@ -259,7 +259,7 @@ const fetchNftImages = async (tokens) => {
   };
   
 
-
+  const candyMachineAddress = "FGXsffTc4gPG4ugAsoPqUeqM8oPtL2vvRe6QpmoT7iXf";
 
 
   const PageContent = () => {
@@ -287,17 +287,20 @@ const fetchNftImages = async (tokens) => {
           <p>Chargement des NFTs...</p>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', justifyContent: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-            {mintsCreated?.length ? (
-              mintsCreated.map((nft, index) => (
-                <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#fff', textAlign: 'center' }}>
-                  <img src={nft.imageUrl} alt={nft.name} style={{ width: '200%', height: 'auto', objectFit: 'contain' }} />
-                  <p style={{ fontWeight: 'bold' }}>{nft.name}</p>
-                </div>
-              ))
-            ) : (
-              <p>Tu n'as pas encore de NFTs.</p>
-            )}
-          </div>
+  {mintsCreated?.length ? (
+    mintsCreated
+      //.filter(nft => nft.candyMachineAddress === candyMachineAddress) // Filtrez les NFTs par adresse de Candy Machine
+      .map((nft, index) => (
+        <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#fff', textAlign: 'center' }}>
+          <img src={nft.imageUrl} alt={nft.name} style={{ width: '200%', height: 'auto', objectFit: 'contain' }} />
+          <p style={{ fontWeight: 'bold' }}>{nft.name}</p>
+        </div>
+      ))
+  ) : (
+    <p>Tu n'as pas encore de NFTs.</p>
+  )}
+</div>
+
         )}
       </div>
     </>
