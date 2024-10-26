@@ -18,7 +18,7 @@ import { InitializeModal } from "../components/initializeModal";
 import { image, headerText } from "../settings";
 import { useSolanaTime } from "@/utils/SolanaTimeContext";
 //for the content page
-import Navbar from '@components/Navbar';
+//import Navbar from '@components/Navbar';
 import Link from 'next/link';
 import React from 'react';
 
