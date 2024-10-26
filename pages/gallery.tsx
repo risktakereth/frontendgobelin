@@ -212,41 +212,46 @@ const fetchNftImages = async (tokens: Token[]) => {
 
 
   
-  useEffect(() => {
-    const checkEligibilityFunc = async () => {
-      if (!candyMachine || !candyGuard || !checkEligibility || isShowNftOpen) {
-        return;
+useEffect(() => {
+  const checkEligibilityFunc = async () => {
+    if (!candyMachine || !candyGuard || !checkEligibility || isShowNftOpen) {
+      return;
+    }
+    setFirstRun(false);
+    
+    const { guardReturn, ownedTokens } = await guardChecker(
+      umi, candyGuard, candyMachine, solanaTime
+    );
+
+    setOwnedTokens(ownedTokens);
+    setGuards(guardReturn);
+    setIsAllowed(false);
+
+    let allowed = false;
+    for (const guard of guardReturn) {
+      if (guard.allowed) {
+        allowed = true;
+        break;
       }
-      setFirstRun(false);
-      
-      const { guardReturn, ownedTokens } = await guardChecker(
-        umi, candyGuard, candyMachine, solanaTime
-      );
+    }
 
-      setOwnedTokens(ownedTokens);
-      setGuards(guardReturn);
-      setIsAllowed(false);
+    setIsAllowed(allowed);
+    setLoading(false);
 
-      let allowed = false;
-      for (const guard of guardReturn) {
-        if (guard.allowed) {
-          allowed = true;
-          break;
-        }
-      }
+    // Vérification que `ownedTokens` n'est pas undefined avant d'appeler `fetchNftImages`
+    if (ownedTokens) {
+      const nftImages = await fetchNftImages(ownedTokens);
+      setMintsCreated(nftImages);
+    } else {
+      setMintsCreated([]); // Si `ownedTokens` est undefined, on assigne un tableau vide
+    }
+  };
 
-      setIsAllowed(allowed);
-      setLoading(false);
+  checkEligibilityFunc();
+  // On purpose: not check for candyMachine, candyGuard, solanaTime
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [umi, checkEligibility, firstRun]);
 
-      // Récupère les images des NFTs
-    const nftImages = await fetchNftImages(ownedTokens);
-    setMintsCreated(nftImages);
-    };
-
-    checkEligibilityFunc();
-    // On purpose: not check for candyMachine, candyGuard, solanaTime
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [umi, checkEligibility, firstRun]);
 
 
 
