@@ -173,13 +173,18 @@ export default function Home() {
 
 
 
-
+// Définissez un type pour un token, en fonction de ses propriétés
+interface Token {
+  metadata: {
+    uri: string;
+  };
+}
 
 
 
 
 // Ajoute cette fonction pour récupérer les liens d'image
-const fetchNftImages = async (tokens) => {
+const fetchNftImages = async (tokens: Token[]) => {
   const images = [];
   for (const token of tokens) {
     try {
