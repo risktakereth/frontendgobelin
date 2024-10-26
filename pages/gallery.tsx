@@ -175,6 +175,7 @@ export default function Home() {
 
 // Définissez un type pour un token, en fonction de ses propriétés
 interface Token {
+  mint : PublicKey;
   metadata: {
     uri: string;
   };
