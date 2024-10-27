@@ -172,10 +172,8 @@ export default function Home() {
 
 
 
-
 // Définissez un type pour un token, en fonction de ses propriétés
 interface Token {
-  mint : PublicKey;
   metadata: {
     uri: string;
   };
@@ -184,6 +182,7 @@ interface Token {
 
 
 
+/*
 // Ajoute cette fonction pour récupérer les liens d'image
 const fetchNftImages = async (tokens: Token[]) => {
   const images = [];
@@ -191,12 +190,7 @@ const fetchNftImages = async (tokens: Token[]) => {
     try {
       const metadata = await fetchMetadata(token.metadata.uri);
       if (metadata && metadata.image) {
-        images.push({
-          mint: token.mint, // Assurez-vous que `Token` inclut `mint`
-          offChainMetadata: metadata,
-          name: metadata.name,
-          imageUrl: metadata.image
-        });
+        images.push({ name: metadata.name, imageUrl: metadata.image });
       } else {
         console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
       }
@@ -207,6 +201,59 @@ const fetchNftImages = async (tokens: Token[]) => {
   return images;
 };
 
+const fetchNftImages = async (tokens: Token[]) => {
+  const images = [];
+  for (const token of tokens) {
+    try {
+      const metadata = await fetchMetadata(token.metadata.uri);
+      if (metadata && metadata.image) {
+        // Assuming token has a mint property and metadata is of type JsonMetadata
+        const mint = token.mint; // Replace with actual logic if different
+        const offChainMetadata = metadata; // Assuming metadata is of type JsonMetadata
+        images.push({ mint, offChainMetadata });
+      } else {
+        console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
+      }
+    } catch (error) {
+      console.error(`Erreur lors de la récupération de l'image pour l'URI ${token.metadata.uri}:`, error);
+    }
+  }
+  return images;
+};*/
+
+
+
+const fetchNftImages = async (tokens: Token[]) => {
+  const images = [];
+  for (const token of tokens) {
+    // Log the entire token object to inspect its properties
+    console.log("Token data:", token);
+
+    try {
+      const metadata = await fetchMetadata(token.metadata.uri);
+      if (metadata && metadata.image) {
+        // Check if the mint property exists
+        if ('mint' in token) {
+          const mint = token.mint; // Use the mint property
+          const offChainMetadata = metadata; // Assuming metadata is of type JsonMetadata
+
+          // Log name, imageUrl, and mint for debugging
+          console.log(`Nom: ${metadata.name}, Image URL: ${metadata.image}, Mint: ${mint}`);
+
+          // Push the correct object structure
+          images.push({ mint, offChainMetadata });
+        } else {
+          console.log("La propriété 'mint' n'existe pas sur ce token.");
+        }
+      } else {
+        console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
+      }
+    } catch (error) {
+      console.error(`Erreur lors de la récupération de l'image pour l'URI ${token.metadata.uri}:`, error);
+    }
+  }
+  return images;
+};
 
 
 
@@ -248,7 +295,8 @@ useEffect(() => {
     // Vérification que `ownedTokens` n'est pas undefined avant d'appeler `fetchNftImages`
     if (ownedTokens) {
       const nftImages = await fetchNftImages(ownedTokens);
-      setMintsCreated(nftImages);
+      setMintsCreated(nftImages as { mint: PublicKey<string>; offChainMetadata: JsonMetadata | undefined }[]);
+
     } else {
       setMintsCreated([]); // Si `ownedTokens` est undefined, on assigne un tableau vide
     }
@@ -262,7 +310,7 @@ useEffect(() => {
 
 
 
-  const fetchMetadata = async (uri) => {
+  const fetchMetadata = async (uri:string) => {
     try {
       const response = await fetch(uri);
       if (!response.ok) {
@@ -295,31 +343,29 @@ useEffect(() => {
 
 
 
-
-
-
         <div id="nft-display" style={{ marginTop: '5em', padding: '1em', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Mes NFTs</h2>
-        {loading ? (
-          <p>Chargement des NFTs...</p>
-        ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', justifyContent: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-  {mintsCreated?.length ? (
-    mintsCreated
-      //.filter(nft => nft.candyMachineAddress === candyMachineAddress) // Filtrez les NFTs par adresse de Candy Machine
-      .map((nft, index) => (
-        <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#fff', textAlign: 'center' }}>
-          <img src={nft.imageUrl} alt={nft.name} style={{ width: '200%', height: 'auto', objectFit: 'contain' }} />
-          <p style={{ fontWeight: 'bold' }}>{nft.name}</p>
-        </div>
-      ))
+  <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Mes NFTs</h2>
+  {loading ? (
+    <p>Chargement des NFTs...</p>
   ) : (
-    <p>Tu n'as pas encore de NFTs.</p>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', justifyContent: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+      {mintsCreated?.length ? (
+        mintsCreated.map((nft, index) => (
+          <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#fff', textAlign: 'center' }}>
+            <img src={nft.offChainMetadata?.image} alt={nft.offChainMetadata?.name} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
+            <p style={{ fontWeight: 'bold' }}>{nft.offChainMetadata?.name}</p>
+          </div>
+        ))
+      ) : (
+        <p>Tu n'as pas encore de NFTs.</p>
+      )}
+    </div>
   )}
 </div>
 
-        )}
-      </div>
+      
+
+      
     </>
   );
 };
