@@ -346,6 +346,10 @@ useEffect(() => {
         body {
           background: #2d3748; 
         }
+
+        .center {
+          max-width: 99vw;
+        }
           
       `}</style>
 

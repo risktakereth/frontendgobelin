@@ -205,8 +205,18 @@ export default function Home() {
       body {
           background: #2d3748; 
        }
+          
+      #centercolonne {
+          max-width: 600px;
+          margin: 0 auto;
+       }
    `}
         </style>
+
+
+
+
+        <div id="centercolonne">
         <Card>
           <CardHeader>
             <Flex minWidth='max-content' alignItems='center' gap='2'>
@@ -282,6 +292,8 @@ export default function Home() {
               </ModalContent>
             </Modal>
 
+            
+
           </>)
           :
           (<></>)
@@ -297,6 +309,7 @@ export default function Home() {
             </ModalBody>
           </ModalContent>
         </Modal>
+        </div>
       </>
     );
   };
