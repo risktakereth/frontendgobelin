@@ -73,3 +73,44 @@ button.wallet-adapter-button-trigger {
 button.wallet-adapter-button-trigger:hover {
   background-color: rgb(var(--hover-background-rgb)) !important;
 }
+
+
+#nft-display {
+  margin-top: 5em;
+  padding: 1em;
+  display: grid;
+  gap: 16px;
+  justify-content: center;
+  max-width: 1900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1050px) {
+  #nft-ligne {
+    grid-template-columns: repeat(5, 1fr); /* 5 colonnes sur les écrans plus grands */
+  }
+}
+
+@media (min-width: 850px) and (max-width: 1050px) {
+  #nft-ligne {
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes sur les écrans moyens */
+  }
+}
+
+@media (min-width: 600px) and (max-width: 850px) {
+  #nft-ligne {
+    grid-template-columns: repeat(3, 1fr); /* 4 colonnes sur les écrans moyens */
+  }
+}
+
+@media (min-width: 350px) and (max-width: 600px) {
+  #nft-ligne {
+    grid-template-columns: repeat(2, 1fr); /* 4 colonnes sur les écrans moyens */
+  }
+}
+
+@media (max-width: 350px) {
+  #nft-ligne {
+    grid-template-columns: 1fr; /* 1 colonne sur les très petits écrans */
+  }
+}

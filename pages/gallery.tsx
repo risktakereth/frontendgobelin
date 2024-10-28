@@ -18,9 +18,10 @@ import { InitializeModal } from "../components/initializeModal";
 import { image, headerText } from "../settings";
 import { useSolanaTime } from "@/utils/SolanaTimeContext";
 //for the content page
-//import Navbar from '@components/Navbar';
 import Link from 'next/link';
 import React from 'react';
+import { Tooltip } from "@chakra-ui/react";
+
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -223,37 +224,49 @@ const fetchNftImages = async (tokens: Token[]) => {
 
 
 
-const fetchNftImages = async (tokens: Token[]) => {
-  const images = [];
+const fetchNftImages = async (tokens: DigitalAssetWithToken[], targetKey: string) => {
+  const images: { mint: PublicKey<string>; offChainMetadata: JsonMetadata | undefined }[] = [];
+
   for (const token of tokens) {
-    // Log the entire token object to inspect its properties
     console.log("Token data:", token);
 
     try {
-      const metadata = await fetchMetadata(token.metadata.uri);
-      if (metadata && metadata.image) {
-        // Check if the mint property exists
-        if ('mint' in token) {
-          const mint = token.mint; // Use the mint property
-          const offChainMetadata = metadata; // Assuming metadata is of type JsonMetadata
+      if (
+        token.metadata &&
+        token.metadata.collection?.__option === "Some" && // Assure que collection est de type Some
+        token.metadata.collection.value.key === targetKey
+      ) {
+        const metadata = await fetchMetadata(token.metadata.uri);
+        if (metadata && metadata.image) {
+          // Utiliser `publicKey` de `token.mint` comme `PublicKey<string>`
+          const mint = publicKey(token.mint.publicKey) as PublicKey<string>;
+          const offChainMetadata = metadata;
 
-          // Log name, imageUrl, and mint for debugging
-          console.log(`Nom: ${metadata.name}, Image URL: ${metadata.image}, Mint: ${mint}`);
-
-          // Push the correct object structure
-          images.push({ mint, offChainMetadata });
+          images.push({
+            mint,
+            offChainMetadata,
+          });
         } else {
-          console.log("La propriété 'mint' n'existe pas sur ce token.");
+          console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
         }
       } else {
-        console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
+        console.log(`Le token ne correspond pas à la clé cible: ${targetKey}`);
       }
     } catch (error) {
       console.error(`Erreur lors de la récupération de l'image pour l'URI ${token.metadata.uri}:`, error);
     }
   }
+
+  // Trie les NFTs par le nom dans `offChainMetadata`
+  images.sort((a, b) => (a.offChainMetadata?.name || "").localeCompare(b.offChainMetadata?.name || ""));
+
   return images;
 };
+
+
+
+
+
 
 
 
@@ -292,20 +305,20 @@ useEffect(() => {
     setIsAllowed(allowed);
     setLoading(false);
 
-    // Vérification que `ownedTokens` n'est pas undefined avant d'appeler `fetchNftImages`
+    const targetKey = "BbHxPgUrQq7v2f2wayxpTSTEPjgVm7kXBQW1DxVN9Kxw";
     if (ownedTokens) {
-      const nftImages = await fetchNftImages(ownedTokens);
-      setMintsCreated(nftImages as { mint: PublicKey<string>; offChainMetadata: JsonMetadata | undefined }[]);
-
+      const nftImages = await fetchNftImages(ownedTokens, targetKey);
+      console.log('BBBBBBBBBBBBBBBBBBBBbb',nftImages)
+      setMintsCreated(nftImages); // Aucun `as` n'est nécessaire ici
     } else {
-      setMintsCreated([]); // Si `ownedTokens` est undefined, on assigne un tableau vide
+      setMintsCreated([]);
     }
   };
 
   checkEligibilityFunc();
-  // On purpose: not check for candyMachine, candyGuard, solanaTime
-  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [umi, checkEligibility, firstRun]);
+
+
 
 
 
@@ -324,49 +337,78 @@ useEffect(() => {
   };
   
 
-  const candyMachineAddress = "FGXsffTc4gPG4ugAsoPqUeqM8oPtL2vvRe6QpmoT7iXf";
 
 
   const PageContent = () => {
-    return (<>
-
-
-<style jsx global>
-          {`
-      body {
+    return (
+      <>
+      <style jsx global>{`
+        body {
           background: #2d3748; 
-       }
-   `}
-        </style>
+        }
+          
+      `}</style>
 
+      <div id="nft-display" style={{ marginTop: '5em', padding: '1em' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '10px', color:'#f9f9f9' }}>Mes NFTs</h2>
+        {loading ? (
+          <p>Chargement des NFTs...</p>
+        ) : (
+          <div id="nft-ligne" style={{
+            display: 'grid',
+            gap: '16px',
+            justifyContent: 'center',
+            maxWidth: '1900px',
+            margin: '0 auto' }}>
+            {mintsCreated?.length ? (
+              mintsCreated.map((nft, index) => (
+                <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center' }}>
+                  
+                  <Tooltip
+                    label={
+                      <Box 
+                        textAlign="left" 
+                        maxWidth="200px" 
+                        p={4} 
+                        borderRadius="md" 
+                        boxShadow="lg" 
+                        bg="rgba(0, 0, 0, 0.95)" // Transparence de fond
+                        color="white"
+                        border="1px solid #4A5568" // Bordure gris foncé
+                      >
+                        <h4 style={{ fontWeight: 'bold', marginBottom: '5px', fontSize: '16px', color: '#E2E8F0' }}>Attributs :</h4>
+                        <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+                          {nft.offChainMetadata?.attributes?.map((attribute, attrIndex) => (
+                            <li key={attrIndex} style={{ fontSize: '14px', marginBottom: '4px' }}>
+                              <strong style={{ color: '#63B3ED' }}>{attribute.trait_type}:</strong> <span style={{ color: '#E2E8F0' }}>{attribute.value}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </Box>
+                    }
+                    aria-label="NFT Attributes Tooltip"
+                    placement="top"
+                    hasArrow
+                    bg="transparent" // Pas de couleur de fond pour éviter le conflit avec `Box`
+                    color="white"
+                    p={0} // Pas d'espacement dans le Tooltip
+                  >
+                    <img src={nft.offChainMetadata?.image} alt={nft.offChainMetadata?.name} style={{ width: '512px', height: 'auto', objectFit: 'contain', cursor: 'pointer', borderRadius:'8px' }} />
+                  </Tooltip>
 
-
-
-
-        <div id="nft-display" style={{ marginTop: '5em', padding: '1em', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-  <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Mes NFTs</h2>
-  {loading ? (
-    <p>Chargement des NFTs...</p>
-  ) : (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', justifyContent: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-      {mintsCreated?.length ? (
-        mintsCreated.map((nft, index) => (
-          <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#fff', textAlign: 'center' }}>
-            <img src={nft.offChainMetadata?.image} alt={nft.offChainMetadata?.name} style={{ width: '100%', height: 'auto', objectFit: 'contain' }} />
-            <p style={{ fontWeight: 'bold' }}>{nft.offChainMetadata?.name}</p>
+                  <p style={{ fontWeight: 'bold', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{nft.offChainMetadata?.name}</p>
+                </div>
+              ))
+            ) : (
+              <p>Tu n'as pas encore de NFTs.</p>
+            )}
           </div>
-        ))
-      ) : (
-        <p>Tu n'as pas encore de NFTs.</p>
-      )}
-    </div>
-  )}
-</div>
-
-      
-
-      
+        )}
+      </div>
     </>
+
+
+
   );
 };
   

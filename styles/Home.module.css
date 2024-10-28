@@ -6,9 +6,9 @@
 
 .center {
   position: relative;
-  padding: 3rem;
+  padding: 3rem 1.5rem 3rem 1.5rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 99vw;
   margin: 0 auto;
 }
 
@@ -125,4 +125,14 @@
 
 .success:hover code {
   color: rgb(var(--accent-rgb));
+}
+
+#nft-display {
+  margin-top: 5em;
+  padding: 1em;
+  display: grid;
+  gap: 16px;
+  justify-content: center;
+  max-width: 1900px;
+  margin: 0 auto;
 }
