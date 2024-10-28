@@ -342,10 +342,18 @@ useEffect(() => {
   const PageContent = () => {
     return (
       <>
-      <style jsx global>{`
+      <style jsx global>
+        {`
         body {
-          background: #2d3748; 
-        }
+          background: #2d3748;
+          padding: 0;
+          height: 100vh; /* Pour permettre le scroll */
+          background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
+          background-attachment: fixed;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+       }
 
         .center {
           max-width: 99vw;
@@ -420,7 +428,7 @@ useEffect(() => {
   return (
     <main>
       <div className={styles.wallet}>
-        <WalletMultiButtonDynamic />
+        {/*<WalletMultiButtonDynamic />*/}
       </div>
 
       <div className={styles.center}>
