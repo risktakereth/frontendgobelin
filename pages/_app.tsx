@@ -12,7 +12,7 @@ import { image, headerText } from 'settings';
 import { SolanaTimeProvider } from "@/utils/SolanaTimeContext";
 import NextLink from 'next/link'; // Importez NextLink ici
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"; // Import du bouton de connexion au wallet
-import { FaTwitter, FaDiscord, IconName } from 'react-icons/fa';
+import { FaTwitter, FaDiscord } from 'react-icons/fa';
 
 export default function App({ Component, pageProps }: AppProps) {
   let network = WalletAdapterNetwork.Devnet;
