@@ -21,6 +21,7 @@ import { useSolanaTime } from "@/utils/SolanaTimeContext";
 import Link from 'next/link';
 import React from 'react';
 import { Tooltip } from "@chakra-ui/react";
+import rankingData from '../ranking.json';
 
 
 const WalletMultiButtonDynamic = dynamic(
@@ -182,48 +183,6 @@ interface Token {
 
 
 
-
-/*
-// Ajoute cette fonction pour récupérer les liens d'image
-const fetchNftImages = async (tokens: Token[]) => {
-  const images = [];
-  for (const token of tokens) {
-    try {
-      const metadata = await fetchMetadata(token.metadata.uri);
-      if (metadata && metadata.image) {
-        images.push({ name: metadata.name, imageUrl: metadata.image });
-      } else {
-        console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
-      }
-    } catch (error) {
-      console.error(`Erreur lors de la récupération de l'image pour l'URI ${token.metadata.uri}:`, error);
-    }
-  }
-  return images;
-};
-
-const fetchNftImages = async (tokens: Token[]) => {
-  const images = [];
-  for (const token of tokens) {
-    try {
-      const metadata = await fetchMetadata(token.metadata.uri);
-      if (metadata && metadata.image) {
-        // Assuming token has a mint property and metadata is of type JsonMetadata
-        const mint = token.mint; // Replace with actual logic if different
-        const offChainMetadata = metadata; // Assuming metadata is of type JsonMetadata
-        images.push({ mint, offChainMetadata });
-      } else {
-        console.log(`Pas d'image trouvée pour l'URI: ${token.metadata.uri}`);
-      }
-    } catch (error) {
-      console.error(`Erreur lors de la récupération de l'image pour l'URI ${token.metadata.uri}:`, error);
-    }
-  }
-  return images;
-};*/
-
-
-
 const fetchNftImages = async (tokens: DigitalAssetWithToken[], targetKey: string) => {
   const images: { mint: PublicKey<string>; offChainMetadata: JsonMetadata | undefined }[] = [];
 
@@ -262,18 +221,6 @@ const fetchNftImages = async (tokens: DigitalAssetWithToken[], targetKey: string
 
   return images;
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -320,9 +267,6 @@ useEffect(() => {
 
 
 
-
-
-
   const fetchMetadata = async (uri:string) => {
     try {
       const response = await fetch(uri);
@@ -335,60 +279,171 @@ useEffect(() => {
       console.error("Error fetching metadata:", error);
     }
   };
-  
+
+
+
+
+
+
+
+
+
 
 
 
   const PageContent = () => {
     return (
       <>
-      <style jsx global>
-        {`
-        body {
-          background: #2d3748;
-          padding: 0;
-          height: 100vh; /* Pour permettre le scroll */
-          background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
-          background-attachment: fixed;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-       }
-
-        .center {
-          max-width: 99vw;
-        }
+        <style jsx global>
+          {`
+          body {
+            background: #2d3748;
+            padding: 0;
+            height: 100vh; /* Pour permettre le scroll */
+            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+  
+          .center {
+            max-width: 99vw;
+          }
           
-      `}</style>
+          h4:hover {
+            color: white;
+          }
 
-      <div id="nft-display" style={{ marginTop: '5em', padding: '1em' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '10px', color:'#f9f9f9' }}>Mes NFTs</h2>
-        {loading ? (
-          <p>Chargement des NFTs...</p>
-        ) : (
-          <div id="nft-ligne" style={{
-            display: 'grid',
-            gap: '16px',
-            justifyContent: 'center',
-            maxWidth: '1900px',
-            margin: '0 auto' }}>
-            {mintsCreated?.length ? (
-              mintsCreated.map((nft, index) => (
-                <div key={index} style={{ border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff', textAlign: 'center' }}>
-                  
-                  <Tooltip
-                    label={
-                      <Box 
-                        textAlign="left" 
-                        maxWidth="200px" 
-                        p={4} 
-                        borderRadius="md" 
-                        boxShadow="lg" 
-                        bg="rgba(0, 0, 0, 0.95)" // Transparence de fond
-                        color="white"
-                        border="1px solid #4A5568" // Bordure gris foncé
+          
+          `}</style>
+
+          
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+  
+        <div id="nft-display" style={{ marginTop: '2em', padding: '1em' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '10px', color:'#f9f9f9' }}>Mes NFTs</h2>
+          {loading ? (
+            <p>Chargement des NFTs...</p>
+          ) : (
+            <div id="nft-ligne" style={{
+              display: 'grid',
+              gap: '16px',
+              justifyContent: 'center',
+              maxWidth: '1900px',
+              margin: '0 auto' }}>
+              {mintsCreated?.length ? (
+                mintsCreated.map((nft, index) => {
+                  // État pour contrôler l'affichage des attributs
+                  const [showAttributes, setShowAttributes] = useState(false);
+  
+                  // Fonction pour basculer l'affichage des attributs
+                  const toggleAttributes = () => {
+                    setShowAttributes(prevState => !prevState);
+                  };
+  
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        border: '1.9px solid #ccc',
+                        borderRadius: '8px',
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        textAlign: 'center',
+                        color:'#d0d0d0',
+                        boxShadow: 'rgb(0 0 0 / 55%) 3px 3px 5px',
+                        transition: 'box-shadow 0.6s ease',
+                      }}
+                      onMouseOver={(e) => (e.currentTarget.style.boxShadow = '0px 0px 13px rgba(252, 0, 207, 1)')}
+                      onMouseOut={(e) => (e.currentTarget.style.boxShadow = 'rgb(0 0 0 / 55%) 3px 3px 5px')}
                       >
-                        <h4 style={{ fontWeight: 'bold', marginBottom: '5px', fontSize: '16px', color: '#E2E8F0' }}>Attributs :</h4>
+
+                      <img
+                        onClick={toggleAttributes}
+                        src={nft.offChainMetadata?.image}
+                        alt={nft.offChainMetadata?.name}
+                        style={{ width: '512px', cursor: 'pointer', height: 'auto', objectFit: 'contain', borderRadius: '6px 6px 0px 0px', transition: 'filter 0.3s ease', }}
+                        onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
+                        onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
+                      />
+
+                      <div style={{ padding: '0px 10px'}}>  
+                      <div style={{
+                        color: 'white',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        whiteSpace: 'nowrap',
+                        marginTop: '7px',
+                        display: 'flex', // Pour aligner l'icône et le texte
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>{nft.offChainMetadata?.name}
+                      <a
+                        href={`https://eclipsescan.xyz/token/${nft.mint}?cluster=devnet`}
+                        style={{
+                          color: 'white',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          whiteSpace: 'nowrap',
+                          display: 'flex',
+                          transition: 'color 0.3s ease',
+                          }}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onMouseOver={(e) => (e.currentTarget.style.color = '#63B3ED')}
+                        onMouseOut={(e) => (e.currentTarget.style.color = 'white')}
+                        >
+                          <span className="material-icons" style={{ fontSize:'100%' }}>
+                            open_in_new
+                          </span>
+                      </a></div>
+
+
+
+
+
+                      
+
+                      {/* Affichage du classement */}
+                      <div className="ranking">
+                        <div>
+                         {Object.entries(rankingData).map(([name, rank]) => (
+                         name === nft.offChainMetadata?.name && ( // Vérifie si le nom correspond
+                            <div style={{textAlign: 'left'}}>
+                              Rank: {rank}/1555
+                            </div>
+                          )
+                          ))}
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+                      <h4
+                        onClick={toggleAttributes}
+                        style={{
+                          fontWeight: 'bold',
+                          marginBottom: '5px',
+                          fontSize: '16px',
+                          cursor: 'pointer',
+                          display: 'flex', // Pour aligner l'icône et le texte
+                          justifyContent: 'space-between',
+                          alignItems: 'center', // Centre l'icône avec le texte
+                          //padding: '3px 10px'
+                        }}
+                      >
+                        Attributes :
+                        <span className="material-icons" style={{ marginRight: '5px' }}>keyboard_arrow_down</span>
+                      </h4>
+                      </div>
+
+                          
+  
+                      {showAttributes && ( // Affiche les attributs uniquement si `showAttributes` est vrai
                         <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                           {nft.offChainMetadata?.attributes?.map((attribute, attrIndex) => (
                             <li key={attrIndex} style={{ fontSize: '14px', marginBottom: '4px' }}>
@@ -396,40 +451,23 @@ useEffect(() => {
                             </li>
                           ))}
                         </ul>
-                      </Box>
-                    }
-                    aria-label="NFT Attributes Tooltip"
-                    placement="top"
-                    hasArrow
-                    bg="transparent" // Pas de couleur de fond pour éviter le conflit avec `Box`
-                    color="white"
-                    p={0} // Pas d'espacement dans le Tooltip
-                  >
-                    <img src={nft.offChainMetadata?.image} alt={nft.offChainMetadata?.name} style={{ width: '512px', height: 'auto', objectFit: 'contain', cursor: 'pointer', borderRadius:'8px' }} />
-                  </Tooltip>
-
-                  <p style={{ fontWeight: 'bold', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{nft.offChainMetadata?.name}</p>
-                </div>
-              ))
-            ) : (
-              <p>Tu n'as pas encore de NFTs.</p>
-            )}
-          </div>
-        )}
-      </div>
-    </>
-
-
-
-  );
-};
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <div style={{marginBottom: '400px'}}>Tu n'as pas encore de NFTs.</div>
+              )}
+            </div>
+          )}
+        </div>
+      </>
+    );
+  };
   
 
   return (
     <main>
-      <div className={styles.wallet}>
-        {/*<WalletMultiButtonDynamic />*/}
-      </div>
 
       <div className={styles.center}>
         <PageContent key="content" />

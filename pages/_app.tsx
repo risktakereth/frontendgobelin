@@ -7,11 +7,12 @@ import { useMemo } from "react";
 import { UmiProvider } from "../utils/UmiProvider";
 import "@/styles/globals.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
-import { ChakraProvider, Text, Box, Link as ChakraLink } from '@chakra-ui/react'; // Importez ChakraLink ici
+import { ChakraProvider, Text, Box, Link as ChakraLink, Image, Flex, Link, Icon } from '@chakra-ui/react'; // Importez ChakraLink ici
 import { image, headerText } from 'settings';
 import { SolanaTimeProvider } from "@/utils/SolanaTimeContext";
 import NextLink from 'next/link'; // Importez NextLink ici
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"; // Import du bouton de connexion au wallet
+import { FaTwitter, FaDiscord } from 'react-icons/fa';
 
 export default function App({ Component, pageProps }: AppProps) {
   let network = WalletAdapterNetwork.Devnet;
@@ -45,18 +46,89 @@ export default function App({ Component, pageProps }: AppProps) {
             <WalletModalProvider>
               <SolanaTimeProvider>
                 {/* Barre de navigation avec menu et bouton wallet */}
-                <Box as="nav" p={4} bg="teal.500" display="flex" alignItems="center" justifyContent="space-between">
+                <Box 
+                  as="nav" 
+                  padding="0.3rem 1rem" 
+                  bg="transparent" 
+                  display="flex" 
+                  alignItems="center" 
+                  justifyContent="space-between" 
+                  transition="background-color 0.6s ease"
+                  borderBottom= "transparent 0.1px solid"
+                  _hover={{ bg: "rgba(0, 0, 0, 0.3)", borderBottom: "white 0.1px solid", color: "black" }} 
+                >
                   <Box>
-                    <ChakraLink as={NextLink} href="/" color="white" mr={4}>
+  <ChakraLink color="white">
+    <Image 
+      src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZRjRJJro8ESkr8GA5rwQ6zFR8VzZZcxau8U1LTHTeMH3/collection.png" // Remplacez par l'URL de votre image
+      alt="Home" 
+      width="4vw" // Ajustez la taille selon vos préférences
+      height="auto"
+      objectFit="cover"
+    />
+  </ChakraLink>
+</Box>
+                  <Box marginRight="0px" fontSize="120%">
+                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px">
                       Home
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px">
+                      Mint
                     </ChakraLink>
                     <ChakraLink as={NextLink} href="/gallery" color="white">
                       Gallery
                     </ChakraLink>
                   </Box>
-                  <WalletMultiButton />
+                  <Box
+                    as={WalletMultiButton}
+                    bg="transparent"
+                    backgroundImage="url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmaETkVfYdYo8v1djEstHtA1GNzjsWZhYha5okYRMA8yxv')" // Remplacez par votre URL
+                    backgroundSize="cover"
+                    backgroundPosition="center"
+                    padding="0.5rem 1rem"
+                    borderRadius="8px"
+                    boxShadow= "0px 4px 15px rgba(0, 0, 0, 0.3)"
+                    transition="background-image 0.5s ease, filter 0.5s ease" // Transition douce
+                    _hover={{
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 1)",
+                    }}
+                  />
                 </Box>
                 <Component {...pageProps} />
+                <Box
+                  as="footer"
+                  width="100%"
+                  py={4}
+                  borderTop="1px solid rgba(255, 255, 255, 0.6)"
+                  bgGradient="linear(to-t, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5))"
+                  color="white"
+                >
+                  <Flex
+                    maxW="1200px"
+                    mx="auto"
+                    px={4}
+                    justify="space-between"
+                    align="center"
+                  >
+                    {/* Logo à gauche */}
+                    <Image
+                      src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZRjRJJro8ESkr8GA5rwQ6zFR8VzZZcxau8U1LTHTeMH3/collection.png" // Remplace par l'URL de ton logo
+                      alt="Logo du projet"
+                      boxSize="50px"
+                    />
+
+                    {/* Icônes Twitter et Discord à droite */}
+                    <Flex gap={4}>
+                      <Link href="https://x.com/risktaker_eth" isExternal>
+                        <Icon as={FaTwitter} boxSize={6} _hover={{ color: "blue.400" }} />
+                      </Link>
+                      <Link href="https://discord.gg/8wMyc76t" isExternal>
+                        <Icon as={FaDiscord} boxSize={6} _hover={{ color: "purple.500" }} />
+                      </Link>
+                    </Flex>
+                  </Flex>
+                </Box>
               </SolanaTimeProvider>
             </WalletModalProvider>
           </UmiProvider>
