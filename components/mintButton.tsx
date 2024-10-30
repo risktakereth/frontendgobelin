@@ -523,7 +523,7 @@ export function ButtonList({
     let buttonElement: GuardButtonList = {
       label: guard ? guard.label : "default",
       allowed: guard.allowed,
-      header: text ? text.header : "header missing in settings.tsx",
+      //header: text ? text.header : "header missing in settings.tsx",
       mintText: text ? text.mintText : "mintText missing in settings.tsx",
       buttonLabel: text
         ? text.buttonLabel
@@ -537,8 +537,8 @@ export function ButtonList({
   }
 
   const listItems = buttonGuardList.map((buttonGuard, index) => (
-    <Box key={index} marginTop={"20px"}>
-      <Divider my="10px" />
+    <Box key={index} margin={"20px 0px 5px 0px"}>
+      <Divider margin="0px 0px 20px 0px" />
       <HStack>
         <Heading size="xs" textTransform="uppercase">
           {buttonGuard.header}
@@ -577,10 +577,10 @@ export function ButtonList({
         </Flex>
       </HStack>
       <SimpleGrid columns={2} spacing={5}>
-        <Text pt="2" fontSize="sm">
+        <Text pt="2" fontSize="150%" flexDirection="row"  textShadow="1px 1px 2px black" alignItems="center" paddingTop="0px" textAlign="center">
           {buttonGuard.mintText}
         </Text>
-        <VStack>
+        <VStack flexDirection="row">
           {process.env.NEXT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
             <NumberInput
               value={numberInputValues[buttonGuard.label] || 1}
@@ -592,7 +592,7 @@ export function ButtonList({
                 handleNumberInputChange(buttonGuard.label, valueAsNumber)
               }
             >
-              <NumberInputField />
+              <NumberInputField textAlign="center"/>
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -619,6 +619,8 @@ export function ButtonList({
                 )
               }
               key={buttonGuard.label}
+              padding="20px"
+              _hover={{ bg: "rgba(255, 255, 255, 1)", color: "black", boxShadow:"pink 0px 0px 4px, pink 0px 0px 8px, magenta 0px 0px 15px, magenta 0px 0px 22px"}} 
               size="sm"
               backgroundColor="teal.100"
               isDisabled={!buttonGuard.allowed}

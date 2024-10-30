@@ -65,17 +65,36 @@ export default function App({ Component, pageProps }: AppProps) {
       width="4vw" // Ajustez la taille selon vos préférences
       height="auto"
       objectFit="cover"
+      marginRight="80px"
     />
   </ChakraLink>
 </Box>
                   <Box marginRight="0px" fontSize="120%">
-                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px">
+                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+                    }}
+                    >
                       Home
                     </ChakraLink>
-                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px">
+                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+                    }}
+                    >
                       Mint
                     </ChakraLink>
-                    <ChakraLink as={NextLink} href="/gallery" color="white">
+                    <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+                    }}
+                    >
                       Gallery
                     </ChakraLink>
                   </Box>

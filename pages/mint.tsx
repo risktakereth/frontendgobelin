@@ -214,7 +214,7 @@ export default function Home() {
        }
           
       #centercolonne {
-          max-width: 600px;
+          max-width: 700px;
           margin: 0 auto;
        }
    `}
@@ -224,13 +224,9 @@ export default function Home() {
 
 
         <div id="centercolonne">
-        <Card>
-          <CardHeader>
-            <Flex minWidth='max-content' alignItems='center' gap='2'>
-              <Box>
-                <Heading size='md'>{headerText}</Heading>
-              </Box>
-              {loading ? (<></>) : (
+
+
+        {loading ? (<></>) : (
                 <Flex justifyContent="flex-end" marginLeft="auto">
                   <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
                     <VStack >
@@ -240,7 +236,74 @@ export default function Home() {
                   </Box>
                 </Flex>
               )}
+
+
+
+
+
+
+        <Card margin='25px 0px 0px 10px'
+        backgroundSize='cover'
+        backgroundRepeat='no-repeat'
+        boxShadow='0px 0px 3px black'
+        border='1px solid black'
+        color='white'
+        //filter= 'brightness(1.1)'
+        backgroundImage='url(https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmPWNP1nsrxTH342juNwLqLGqvTxZFjWNG5zJ8ggobDAXU)'
+        >
+          <CardHeader>
+            <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection='column' fontSize='150%'>
+              <Box marginTop='5px'>
+                {/*<Heading size='md'>{headerText}</Heading>*/}
+                <h2 style={{
+                  marginBottom: '0em',
+                  color: 'white',
+                  textShadow: `
+                    0 0 5px pink,
+                    0 0 10px pink,
+                    0 0 20px magenta,
+                    0 0 30px magenta
+                  `,
+                  filter: 'brightness(1.05)',
+                  fontSize: '140%',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase', // Mettre le texte en majuscules
+                  border: '5px solid white', // Bordure blanche
+                  padding: '10px',
+                  borderRadius: '8px',
+                  display: 'inline-block',
+                  backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
+                  position: 'relative',
+                  //transform: 'skew(-5deg)',
+                  transform: 'rotate(-1deg)',
+                  boxShadow: `
+                  0 0 5px pink,
+                  0 0 8px pink,
+                  0 0 10px magenta,
+                  0 0 12px magenta
+                  `
+                }}>
+                  Welcome to the Gobelin Rave!
+                  <span style={{
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                right: '0',
+                bottom: '0',
+                backgroundColor: 'transparent',
+                boxShadow: `
+                  inset 0 0 5px pink,
+                  inset 0 0 8px pink,
+                  inset 0 0 10px magenta,
+                  inset 0 0 12px magenta
+                `,
+                zIndex: +1 // Met l'ombre derrière le texte
+                }} />
+                </h2>
+              </Box>              
             </Flex>
+
+            
           </CardHeader>
 
           <CardBody>
@@ -248,13 +311,18 @@ export default function Home() {
               <Box
                 rounded={'lg'}
                 mt={-12}
-                pos={'relative'}>
+                pos={'relative'}
+                marginTop={'-10px'}>
                 <Image
                   rounded={'lg'}
                   height={230}
                   objectFit={'cover'}
                   alt={"project Image"}
                   src={image}
+                  cursor={'pointer'}
+                  boxShadow={'black 0px 0px 5px, brown 0px 0px 10px, brown 0px 0px 20px'}
+                  onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
+                  onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
                 />
               </Box>
             </Center>

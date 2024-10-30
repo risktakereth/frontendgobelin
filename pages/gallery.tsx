@@ -300,7 +300,7 @@ useEffect(() => {
             background: #2d3748;
             padding: 0;
             height: 100vh; /* Pour permettre le scroll */
-            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.35),rgba(199, 0, 163, 0.1)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmYxDryTuLrf3LtGPqmmF6WiDPuv9ANh7RH78o1vJc394t');
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
@@ -321,8 +321,8 @@ useEffect(() => {
           
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
   
-        <div id="nft-display" style={{ marginTop: '2em', padding: '1em' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '10px', color:'#f9f9f9' }}>Mes NFTs</h2>
+        <div id="nft-display" style={{ marginTop: '0em', padding: '0em 1em' }}>
+          <h2 style={{ textAlign: 'left', fontSize: '200%', marginBottom: '10px', color:'#f9f9f9', fontWeight: '750', textShadow: '0px 0px 10px #ff00bc' }}>Join the Gobelin Rave !</h2>
           {loading ? (
             <p>Chargement des NFTs...</p>
           ) : (
