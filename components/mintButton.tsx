@@ -523,7 +523,7 @@ export function ButtonList({
     let buttonElement: GuardButtonList = {
       label: guard ? guard.label : "default",
       allowed: guard.allowed,
-      //header: text ? text.header : "header missing in settings.tsx",
+      header: text ? text.header : "header missing in settings.tsx",
       mintText: text ? text.mintText : "mintText missing in settings.tsx",
       buttonLabel: text
         ? text.buttonLabel
@@ -540,7 +540,7 @@ export function ButtonList({
     <Box key={index} margin={"20px 0px 5px 0px"}>
       <Divider margin="0px 0px 20px 0px" />
       <HStack>
-        <Heading size="xs" textTransform="uppercase">
+        <Heading size="xs" textTransform="uppercase" display="none">
           {buttonGuard.header}
         </Heading>
         <Flex justifyContent="flex-end" marginLeft="auto">
