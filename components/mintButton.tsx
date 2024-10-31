@@ -78,6 +78,18 @@ const updateLoadingText = (
   setGuardList(newGuardList);
 };
 
+const requestTwitterTweet = (message: string) => {
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+  window.open(tweetUrl, "_blank");
+};
+
+const checkTwitterStatus = async () => {
+  // Vous devrez ici ajouter une vérification si le tweet a bien été publié.
+  // Simulons cette vérification avec un délai.
+  await new Promise((resolve) => setTimeout(resolve, 12000)); // Simuler une attente pour vérification
+  return true;
+};
+
 const fetchNft = async (
   umi: Umi,
   nftAdress: PublicKey,
@@ -125,6 +137,77 @@ const mintClick = async (
   onOpen: () => void,
   setCheckEligibility: Dispatch<SetStateAction<boolean>>
 ) => {
+
+
+
+  try {
+    // Étape 1 : Demander la connexion et le tweet
+    const tweetMessage = `Future Apex NFT collection on @EclipseFND is here!  🚀
+
+I just minted a @GobelinRave elixir potion for FREE !
+
+👉 a couple more and I'll be granted a WL spot...
+#Eclipse
+
+https://x.com/risktaker_eth/status/1849558058495787447`; // Remplacez par le lien de votre image
+requestTwitterTweet(tweetMessage);
+
+    // Étape 2 : Vérifier le statut du tweet
+    const tweetConfirmed = await checkTwitterStatus();
+
+    if (!tweetConfirmed) {
+      createStandaloneToast().toast({
+        title: "Tweet non confirmé!",
+        description: "Veuillez publier le tweet pour continuer.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    // Si tweet confirmé, procéder au mint
+    // Votre logique de minting actuelle ici...
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Affichage du toast en cas de succès
+    createStandaloneToast().toast({
+      title: "Mint réussi!",
+      status: "success",
+      duration: 3000,
+    });
+
+  } catch (e) {
+    console.error(`minting failed because of ${e}`);
+    createStandaloneToast().toast({
+      title: "Échec du mint!",
+      description: "Veuillez réessayer.",
+      status: "error",
+      duration: 900,
+      isClosable: true,
+    });
+  } finally {
+    setCheckEligibility(true); // Réinitialiser l'état d'éligibilité
+  }
+
+
+
+
+
+
+  
   const guardToUse = chooseGuardToUse(guard, candyGuard);
   if (!guardToUse.guards) {
     console.error("no guard defined!");

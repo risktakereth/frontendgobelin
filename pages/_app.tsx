@@ -88,6 +88,24 @@ export default function App({ Component, pageProps }: AppProps) {
                     >
                       Mint
                     </ChakraLink>
+                    <ChakraLink as={NextLink} href="/elixir" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+                    }}
+                    >
+                      Elixir
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/test" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      backgroundColor: "rgb(0,0,0,0.5)",
+                      filter: "brightness(1.2)", // Effet d'éclaircissement
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
+                    }}
+                    >
+                      Test
+                    </ChakraLink>
                     <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
                       backgroundColor: "rgb(0,0,0,0.5)",
