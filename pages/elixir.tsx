@@ -59,7 +59,7 @@ import {
           let candyMachine;
           try {
             candyMachine = await fetchCandyMachine(umi, publicKey(candyMachineId));
-            //verify CM Version
+            //verify CM Version RIIISK
             if (candyMachine.version != AccountVersion.V2){
               toast({
                 id: "wrong-account-version",
