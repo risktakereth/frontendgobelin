@@ -306,14 +306,14 @@ export default function BlackScreenPage() {
     <style jsx global>
             {`
         body {
-            background: #2d3748;
-            padding: 0;
-            height: 100vh; /* Pour permettre le scroll */
-            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: #2d3748  !important;
+            padding: 0  !important;
+            height: 100vh  !important; /* Pour permettre le scroll */
+            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK') !important;
+            background-attachment: fixed  !important;
+            background-size: cover  !important;
+            background-position: center  !important;
+            background-repeat: no-repeat  !important;
          }
 
          .button {
