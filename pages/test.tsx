@@ -131,6 +131,14 @@ const WalletMultiButtonDynamic = dynamic(
 export default function BlackScreenPage() {
   const [visible, setVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false); // État pour gérer la disparition
+  const [visible2, setVisible2] = useState(true);
+  const [fadeOut2, setFadeOut2] = useState(false);
+  const [showImage, setShowImage] = useState(false); // État pour afficher l'image
+  const [showGoblin, setShowGoblin] = useState(false);
+  const [showNext, setShowNext] = useState(false);
+  const [showBulle2, setShowBulle2] = useState(false);
+  const [showBulle1, setShowBulle1] = useState(false);
+  const [fadeOutImage, setFadeOutImage] = useState(false); // État pour faire disparaître l'image
   const umi = useUmi();
     const solanaTime = useSolanaTime();
     const toast = useToast();
@@ -151,8 +159,39 @@ export default function BlackScreenPage() {
             setFadeOut(true); // Démarre l'animation de disparition
             setTimeout(() => {
               setVisible(false); // Cache l'écran noir après l'animation
+              setFadeOut2(true); // Démarre l'animation de disparition pour le deuxième écran noir
+      setTimeout(() => {
+        setVisible2(false); // Cache le deuxième écran noir
+      }, 200); // Durée de disparition pour le deuxième écran noir
             }, 500); // Doit correspondre à la durée de l'animation de disparition
       };
+  
+  
+      // Fonction pour gérer le clic sur "Skip" pour faire disparaître l'image
+  const handleSkipClick = () => {
+    setFadeOutImage(true); // Démarre la disparition de l'image
+    setTimeout(() => {
+      setShowImage(false); // Cache complètement l'image après le fondu
+    }, 500); // Durée de l'animation de fondu pour l'image
+    setVisible(false); // Cache l'écran principal si souhaité
+  };
+
+  const handleClick = () => {
+    setShowGoblin(true); // Affiche l'image du gobelin lors du clic
+    setTimeout(() => {
+      setShowBulle1(true);
+    }, 0);
+    setTimeout(() => {
+      setShowBulle2(true);
+    }, 2000);
+    setTimeout(() => {
+      setShowBulle1(false);
+    }, 1850);
+    setTimeout(() => {
+      setShowNext(true);
+    }, 4000);
+  };
+
   
   
     if (!process.env.NEXT_PUBLIC_CANDY_MACHINE_ID) {
@@ -219,12 +258,46 @@ export default function BlackScreenPage() {
       // On purpose: not check for candyMachine, candyGuard, solanaTime
       // eslint-disable-next-line react-hooks/exhaustive-deps
       
-    const timer = setTimeout(() => {
-      setFadeOut(true); // Démarre l'animation de disparition
+      // Timer pour faire disparaître l'écran rouge en premier
+    const timerRedScreen = setTimeout(() => {
+      setFadeOut2(true); // Démarre l'animation de fondu de l'écran rouge
       setTimeout(() => {
-        setVisible(false); // Cache l'écran noir après l'animation
-      }, 500); // Doit correspondre à la durée de l'animation de disparition
-    }, 3000); // Temps avant que l'écran noir disparaisse (3 secondes)
+        setVisible2(false); // Cache complètement l'écran rouge après le fondu
+      }, 2000); // Durée de l'animation de fondu pour l'écran rouge
+    }, 300); // Délai initial avant que l'écran rouge commence à disparaître
+
+
+    // Timer pour afficher l'image à t=2.5s
+    const timerShowImage = setTimeout(() => {
+      setShowImage(true); // Affiche l'image
+    }, 100); // Délai pour l'apparition de l'image
+
+    // Timer pour faire disparaître l'écran noir indépendamment
+    const timerBlackScreen = setTimeout(() => {
+      setFadeOut(true); // Démarre l'animation de fondu de l'écran noir
+      setTimeout(() => {
+        setVisible(false); // Cache complètement l'écran noir après le fondu
+      }, 1000); // Durée de l'animation de fondu pour l'écran noir
+    }, 100000); // Délai avant la disparition de l'écran noir (après l'écran rouge)
+
+
+    // Timer pour faire disparaître l'image automatiquement à t=5s
+    const timerHideImage = setTimeout(() => {
+      setFadeOutImage(true); // Démarre la disparition de l'image
+      setTimeout(() => {
+        setShowImage(false); // Cache complètement l'image
+      }, 500); // Durée de l'animation de fondu pour l'image
+    }, 100000); // Disparition automatique à 5 secondes
+
+    // Nettoyage des timers
+    return () => {
+      clearTimeout(timerRedScreen);
+      clearTimeout(timerBlackScreen);
+      clearTimeout(timerShowImage);
+      clearTimeout(timerHideImage);
+    };
+
+      
 
     return () => clearTimeout(timer); // Nettoyage du timer
   }, [umi, checkEligibility, firstRun]);
@@ -259,24 +332,175 @@ export default function BlackScreenPage() {
 
           .button:hover {
             transform: scale(1.05);
+            color: white;
           }
 
         #centercolonne {
             max-width: 700px;
             margin: 0px auto 120px auto;
          }
+
+
+        @keyframes blinkAnimation {
+          0%, 100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 15px rgba(199, 0, 163, 0.8)) brightness(1.2);
+          }
+          50% {
+            opacity: 0.5;
+            filter: drop-shadow(0 0 10px rgba(199, 0, 163, 0.3)) brightness(1);
+          }
+        }
+
+        .blinkEffect {
+          animation: blinkAnimation 2s infinite;
+        }
+
+        
+        .blinkEffect:hover {
+          animation: none; /* Désactive le clignotement au survol */
+        }
+        
+
+         .highlightEffect {
+          transition: filter 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .highlightEffect:hover {
+          filter: brightness(1.2); /* Légère augmentation de la luminosité */
+          filter: drop-shadow(0 0 15px rgba(199, 0, 163, 0.6)) brightness(1.1); /* Effet de lueur */
+          filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9)) brightness(1.3); /* Effet de lueur */
+        }
+
+        .goblinImage {
+          opacity: 0;
+          animation: fadeInGoblin 0.5s forwards;
+        }
+
+        .fadeInGoblin {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
      `}
           </style>
+
+
+
+      
+
+      
+
     <div className={styles.container}>
-      {visible && (
-        <div className={`${styles.blackScreen} ${fadeOut ? styles.fadeOut : ''}`}></div>
-      )}
-      <div className={`${styles.textContainer} ${fadeOut ? styles.fadeOut : ''}`}>
-        <h1 style={{ color: "white" }}>Bienvenue sur la page des Gobelins!</h1>
-        <button className="button" onClick={handleButtonClick}>
-                Skip
-            </button>
-      </div>
+
+        {visible2 && (
+          <div className={`${styles.redScreen} ${fadeOut2 ? styles.fadeOut2 : ''}`}>
+          </div>
+        )}
+
+
+              
+{visible && (
+          <div className={`${styles.blackScreen} ${fadeOut ? styles.fadeOut : ''}`}>
+            <div className={`${styles.textContainer} ${fadeOut ? styles.fadeOut : ''}`}>
+              <button className="button" onClick={handleSkipClick} style={{fontSize:"150%"}}>Skip</button>
+            </div>
+            
+
+            {/* Affiche l'image sur le fond noir à t=2.5s */}
+            {showImage && (
+              
+              <img
+                src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZ9GMp4W1XUKNyCCeieZ69h1FcnxfMPdpryVfvVaVL5Vb"
+                alt="Surprise Image"
+                className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'}`}
+                style={{ position: "fixed", top: "-5vw", left: "0px", width: "100%"}}
+              />
+            )}
+            {/* Affiche l'image sur le fond noir à t=2.5s */}
+            {showImage && (
+              
+              <img
+                src="/panneau3.png"
+                alt="Surprise Image"
+                className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'} highlightEffect ${!showGoblin ? 'blinkEffect' : ''}`}
+                onClick={handleClick}
+                style={{ position: "fixed", top: "15vw", left: "35vw", width: "13.3%", cursor: "pointer"}}
+              />
+            )}
+
+  {/*images qui apparaissent après le clic*/}
+            {showGoblin && (
+              <div
+                  className={styles.goblinImage}
+                  style={{position: "fixed", /* Utilisez fixed pour couvrir tout l'écran */
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "rgb(0, 0, 0)",
+                    filter: "opacity(50%)",}}
+              >
+              </div>
+            )}
+            {showGoblin && (
+              <img
+                src="https://png.pngtree.com/png-clipart/20211116/original/pngtree-frightened-goblin-cartoon-png-image_6929568.png" // Remplacez par le chemin de votre image de gobelin
+                alt="Goblin Image"
+                className={styles.goblinImage}
+                className="fadeInGoblin"
+                style={{ position: "fixed", top: "20vw", left: "50vw", width: "40%" }}
+              />
+            )}
+            {showBulle1 && (
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png" // Remplacez par le chemin de votre image de gobelin
+                alt="Goblin Image"
+                className={styles.goblinImage}
+                className="fadeInGoblin"
+                style={{ position: "fixed", top: "10vw", left: "30vw", width: "25%" }}
+              />
+            )}
+
+            {/* Afficher le bouton Next*/}
+            {showBulle2 && (
+              <img
+                src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png" // Remplacez par le chemin de votre image de gobelin
+                alt="Goblin Image"
+                className={styles.goblinImage}
+                className="fadeInGoblin"
+                style={{ position: "fixed", top: "19vw", left: "35vw", width: "25%" }}
+              />
+            )}
+            {showNext && (
+              <img
+                src="https://png.pngtree.com/png-clipart/20211116/original/pngtree-frightened-goblin-cartoon-png-image_6929568.png" // Remplacez par le chemin de votre image de gobelin
+                alt="Goblin Image"
+                className={styles.goblinImage}
+                className="fadeInGoblin"
+                style={{ position: "fixed", top: "20vw", left: "60vw", width: "40%" }}
+              />
+            )}
+            
+
+            
+          </div>
+        )}
+        
 
 
 
@@ -285,7 +509,7 @@ export default function BlackScreenPage() {
 
       
       <div id="centercolonne">
-  
+
   
           {loading ? (<></>) : (
                   <Flex justifyContent="flex-end" marginLeft="auto">
