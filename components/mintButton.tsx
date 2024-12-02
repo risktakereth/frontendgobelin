@@ -30,6 +30,7 @@ import {
 import { mintText } from "../settings";
 import {
   Box,
+  Icon,
   Button,
   Flex,
   HStack,
@@ -531,7 +532,7 @@ type Props = {
   umi: Umi;
   guardList: GuardReturn[];
   candyMachine: CandyMachine | undefined;
-  candyGuard: CandyGuard | undefined;
+  candyGuard: CandyGuard;
   ownedTokens: DigitalAssetWithToken[] | undefined;
   setGuardList: Dispatch<SetStateAction<GuardReturn[]>>;
   mintsCreated:
@@ -549,6 +550,27 @@ type Props = {
   onOpen: () => void;
   setCheckEligibility: Dispatch<SetStateAction<boolean>>;
 };
+
+
+
+// Fonction utilitaire pour trouver l'élément avec la valeur maximale auquel l'utilisateur est éligible
+function getMaxEligibleGuard(guardList: GuardReturn[]) {
+  // Filtrer uniquement les guards éligibles
+  const eligibleGuards = guardList.filter((guard) => guard.allowed);
+
+  // Trouver le guard avec la valeur la plus élevée
+  const maxEligibleGuard = eligibleGuards.reduce((maxGuard, currentGuard) => {
+    const currentValue = mintText.find((elem) => elem.label === currentGuard.label)?.value;
+    const maxValue = maxGuard && mintText.find((elem) => elem.label === maxGuard.label)?.value;
+    
+    return currentValue && maxValue && Number(currentValue) > Number(maxValue) 
+      ? currentGuard 
+      : maxGuard;
+  }, eligibleGuards[0]);
+
+  return maxEligibleGuard;
+}
+
 
 export function ButtonList({
   umi,
@@ -570,6 +592,9 @@ export function ButtonList({
     return <></>;
   }
 
+  // Utiliser getMaxEligibleGuard pour obtenir le guard avec la valeur maximale auquel l'utilisateur est éligible
+  const maxEligibleGuard = getMaxEligibleGuard(guardList);
+
   const handleNumberInputChange = (label: string, value: number) => {
     setNumberInputValues((prev) => ({ ...prev, [label]: value }));
   };
@@ -583,6 +608,14 @@ export function ButtonList({
   if (filteredGuardlist.length === 0) {
     return <></>;
   }
+
+  // Garder seulement le guard ayant le même label que maxValueGuard
+  //////////////////////////
+  //////////////////////////
+  /// a suppr pour tout afficher
+  /////////////////////////
+  /////////////////////////
+
   // Guard "default" can only be used to mint in case no other guard exists
   if (filteredGuardlist.length > 1) {
     filteredGuardlist = guardList.filter((elem) => elem.label != "default");
@@ -619,57 +652,172 @@ export function ButtonList({
     buttonGuardList.push(buttonElement);
   }
 
+  const [showDetails, setShowDetails] = useState<boolean[]>([]); // Tableau d'états
+
+const toggleDetails = (index: number) => {
+  setShowDetails((prev) => {
+    const newState = [...prev];
+    newState[index] = !newState[index]; // Inverse l'état de l'élément à l'index donné
+    return newState;
+  });
+};
+
   const listItems = buttonGuardList.map((buttonGuard, index) => (
     <Box key={index} margin={"20px 0px 5px 0px"}>
-      <Divider margin="0px 0px 20px 0px" />
-      <HStack>
-        <Heading size="xs" textTransform="uppercase" display="none">
-          {buttonGuard.header}
-        </Heading>
-        <Flex justifyContent="flex-end" marginLeft="auto">
-          {buttonGuard.endTime > createBigInt(0) &&
-            buttonGuard.endTime - solanaTime > createBigInt(0) &&
-            (!buttonGuard.startTime ||
-              buttonGuard.startTime - solanaTime <= createBigInt(0)) && (
-              <>
-                <Text fontSize="sm" marginRight={"2"}>
-                  Ending in:{" "}
-                </Text>
-                <Timer
-                  toTime={buttonGuard.endTime}
-                  solanaTime={solanaTime}
-                  setCheckEligibility={setCheckEligibility}
-                />
-              </>
+      
+      <SimpleGrid gridTemplateColumns="10fr 6fr" spacing={5}>
+
+        <div style={{display:'flex', flexDirection: 'column'}}>
+
+          <div style={{
+    textShadow: "1px 1px 2px black",
+    alignItems: "center",
+    paddingTop: "2px",
+    textAlign: "center",
+    fontSize: "200%",
+    justifyContent: "space-between",
+    display: "flex",
+    flexDirection: 'row',
+  }}>
+            
+          <Flex justifyContent="center" alignItems="center">
+            {buttonGuard.startTime > createBigInt(0) && solanaTime < buttonGuard.startTime ? (
+              <img
+                src="/icon_circle.svg"
+                alt="Not Started"
+                width="24"
+                height="24"
+              />
+            ) : buttonGuard.endTime > createBigInt(0) && solanaTime < buttonGuard.endTime ? (
+              <img
+                src="/icon_point.svg"
+                alt="In Progress"
+                width="24"
+                height="24"
+              />
+            ) : (
+              <img
+                src="/icon_check.svg"
+                alt="Completed"
+                width="24"
+                height="24"
+              />
             )}
-          {buttonGuard.startTime > createBigInt(0) &&
-            buttonGuard.startTime - solanaTime > createBigInt(0) &&
-            (!buttonGuard.endTime ||
-              solanaTime - buttonGuard.endTime <= createBigInt(0)) && (
-              <>
-                <Text fontSize="sm" marginRight={"2"}>
-                  Starting in:{" "}
-                </Text>
-                <Timer
-                  toTime={buttonGuard.startTime}
-                  solanaTime={solanaTime}
-                  setCheckEligibility={setCheckEligibility}
-                />
-              </>
-            )}
-        </Flex>
-      </HStack>
-      <SimpleGrid columns={2} spacing={5}>
-        <Text pt="2" fontSize="150%" flexDirection="row"  textShadow="1px 1px 2px black" alignItems="center" paddingTop="0px" textAlign="center">
-          {buttonGuard.mintText}
-        </Text>
-        <VStack flexDirection="row">
-          {process.env.NEXT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
+          </Flex>
+            
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              paddingTop: '0px',
+            }}>
+              <div style={{ fontWeight: '800', fontSize: '120%', marginLeft: '10px' }}>
+                {buttonGuard.mintText}
+              </div>
+            </div>
+
+            <Flex justifyContent="flex-start" marginLeft="auto" alignItems="center">
+              {buttonGuard.endTime > createBigInt(0) &&
+                buttonGuard.endTime - solanaTime > createBigInt(0) &&
+                (!buttonGuard.startTime ||
+                  buttonGuard.startTime - solanaTime <= createBigInt(0)) && (
+                  <>
+                    <Text fontSize="sm" marginRight={"2"}>
+                      Live
+                    </Text>
+                  </>
+                )}
+                {buttonGuard.endTime > createBigInt(0) &&
+                buttonGuard.endTime - solanaTime <= createBigInt(0) ? (
+                  <Text fontSize="sm" marginRight={"2"}>
+                      Ended
+                    </Text>
+                ) : (
+                  <div></div>
+                )}
+              </Flex>
+            
+              <Button
+            size="sm"
+            color="#dadada"
+            bg="rgb(0,0,0,0)"
+             alignItems="center"
+            onClick={() => toggleDetails(index)} // Toggle spécifique à l'index
+            _hover={{ color: "white" }}
+          >
+            <span
+              className="material-icons"
+              style={{ marginRight: "5px" }}
+            >
+              keyboard_arrow_down
+            </span>
+          </Button>
+
+
+          </div>
+
+          
+
+          {/* Contenu déroulant */}
+        {showDetails[index] && ( // Affiche uniquement pour l'élément spécifique
+          <Box
+            marginTop="0px"
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="flex-end"
+          >
+            <Heading size="xs" textTransform="uppercase" marginLeft='34px'>
+              {buttonGuard.header}
+            </Heading>
+            <Flex justifyContent="flex-start" marginLeft="0"  alignItems="start"
+          style={{
+            margin: '0px !important'
+            }}>
+              {buttonGuard.endTime > createBigInt(0) &&
+                buttonGuard.endTime - solanaTime > createBigInt(0) &&
+                (!buttonGuard.startTime ||
+                  buttonGuard.startTime - solanaTime <= createBigInt(0)) && (
+                  <>
+                    <Text fontSize="sm" marginRight={"2"}>
+                      Ending in:{" "}
+                    </Text>
+                    <Timer
+                      toTime={buttonGuard.endTime}
+                      solanaTime={solanaTime}
+                      setCheckEligibility={setCheckEligibility}
+                    />
+                  </>
+                )}
+              {buttonGuard.startTime > createBigInt(0) &&
+                buttonGuard.startTime - solanaTime > createBigInt(0) &&
+                (!buttonGuard.endTime ||
+                  solanaTime - buttonGuard.endTime <= createBigInt(0)) && (
+                  <>
+                    <Text fontSize="sm" marginRight={"2"}>
+                      Starting in:{" "}
+                    </Text>
+                    <Timer
+                      toTime={buttonGuard.startTime}
+                      solanaTime={solanaTime}
+                      setCheckEligibility={setCheckEligibility}
+                    />
+                  </>
+                )}
+              </Flex>
+          </Box>
+        )}
+        </div>
+
+        
+
+        <VStack flexDirection="row" style={{justifyContent: 'end'}} padding='0px 0px 30px 0px'>
+          
             <NumberInput
               value={numberInputValues[buttonGuard.label] || 1}
               min={1}
               max={buttonGuard.maxAmount < 1 ? 1 : buttonGuard.maxAmount}
-              size="sm"
+              width="30%"
+              alignItems="right"
               isDisabled={!buttonGuard.allowed}
               onChange={(valueAsString, valueAsNumber) =>
                 handleNumberInputChange(buttonGuard.label, valueAsNumber)
@@ -681,7 +829,6 @@ export function ButtonList({
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
-          ) : null}
 
           <Tooltip label={buttonGuard.tooltip} aria-label="Mint button">
             <Button
@@ -703,6 +850,7 @@ export function ButtonList({
               }
               key={buttonGuard.label}
               padding="20px"
+              width="75%"
               _hover={{ bg: "rgba(255, 255, 255, 1)", color: "black", boxShadow:"pink 0px 0px 4px, pink 0px 0px 8px, magenta 0px 0px 15px, magenta 0px 0px 22px"}} 
               size="sm"
               backgroundColor="teal.100"
@@ -720,6 +868,7 @@ export function ButtonList({
             </Button>
           </Tooltip>
         </VStack>
+
       </SimpleGrid>
     </Box>
   ));

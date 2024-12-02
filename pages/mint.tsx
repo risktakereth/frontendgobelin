@@ -12,6 +12,7 @@ import styles from "../styles/Home.module.css";
 import { guardChecker } from "../utils/checkAllowed";
 import { Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
 import { ButtonList } from "../components/mintButton";
+import { ButtonSection } from "../components/mintsection";
 import { GuardReturn } from "../utils/checkerHelper";
 import { ShowNft } from "../components/showNft";
 import { InitializeModal } from "../components/initializeModal";
@@ -207,14 +208,14 @@ export default function Home() {
           padding: 0;
           height: 100vh; /* Pour permettre le scroll */
           background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
-          background-attachment: fixed;
+          background-attachment: relative;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
        }
           
       #centercolonne {
-          max-width: 700px;
+          max-width: 900px;
           margin: 0 auto;
        }
    `}
@@ -223,21 +224,7 @@ export default function Home() {
 
 
 
-        <div id="centercolonne">
-
-
-        {loading ? (<></>) : (
-                <Flex justifyContent="flex-end" marginLeft="auto">
-                  <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
-                    <VStack >
-                      <Text fontSize={"sm"}>Available NFTs:</Text>
-                      <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
-                    </VStack>
-                  </Box>
-                </Flex>
-              )}
-
-
+        <div id="centercolonne">         
 
 
 
@@ -269,7 +256,7 @@ export default function Home() {
                   fontWeight: 'bold',
                   textTransform: 'uppercase', // Mettre le texte en majuscules
                   border: '5px solid white', // Bordure blanche
-                  padding: '10px',
+                  padding: '10px 20px',
                   borderRadius: '8px',
                   display: 'inline-block',
                   backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
@@ -313,9 +300,10 @@ export default function Home() {
                 mt={-12}
                 pos={'relative'}
                 marginTop={'-10px'}>
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'top'}}>
                 <Image
                   rounded={'lg'}
-                  height={230}
+                  height={'22vw'}
                   objectFit={'cover'}
                   alt={"project Image"}
                   src={image}
@@ -324,6 +312,52 @@ export default function Home() {
                   onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
                   onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
                 />
+                {loading ? (<></>) : (
+
+<div style={{ marginLeft: '50px', width: '40vw'}}>
+      <div style={{ display: 'flex', paddingBottom: '5px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+        <div style={{ color: 'white', fontWeight: '600'}}>{100*Number(candyMachine?.itemsRedeemed)/Number(candyMachine?.data.itemsAvailable)}% minted</div>
+        <div style={{ color: '#d2d2d2', fontWeight: '300'}}>{Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</div>
+      </div>
+
+
+
+
+                <div style={{ width: '100%', backgroundColor: '#e0e0e0', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      width: `${candyMachine && candyMachine.itemsRedeemed && candyMachine.data?.itemsAvailable?(Number(candyMachine.itemsRedeemed) / Number(candyMachine.data.itemsAvailable)) * 100: 0}%`,                      
+                      height: '20px',
+                      backgroundColor: 'blue',
+                      transition: 'width 0.5s ease-in-out',
+                    }}
+                  />
+              </div>
+              <Stack divider={<StackDivider />} spacing='8'>
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <ButtonSection
+                guardList={guards}
+                candyMachine={candyMachine}
+                candyGuard={candyGuard!}
+                umi={umi}
+                ownedTokens={ownedTokens}
+                setGuardList={setGuards}
+                mintsCreated={mintsCreated}
+                setMintsCreated={setMintsCreated}
+                onOpen={onShowNftOpen}
+                setCheckEligibility={setCheckEligibility}
+                />
+              )}
+            </Stack>
+              </div>
+              )}</div>
               </Box>
             </Center>
             <Stack divider={<StackDivider />} spacing='8'>
@@ -335,10 +369,15 @@ export default function Home() {
                   <Skeleton height="30px" my="10px" />
                 </div>
               ) : (
-                <ButtonList
+                <div style={{marginTop: '35px', padding: '30px'}}>
+                  <Divider/>
+                    <Text fontSize='200%'>
+                      Mint Schedule
+                    </Text>
+                  <ButtonList
                   guardList={guards}
                   candyMachine={candyMachine}
-                  candyGuard={candyGuard}
+                  candyGuard={candyGuard!}
                   umi={umi}
                   ownedTokens={ownedTokens}
                   setGuardList={setGuards}
@@ -346,7 +385,8 @@ export default function Home() {
                   setMintsCreated={setMintsCreated}
                   onOpen={onShowNftOpen}
                   setCheckEligibility={setCheckEligibility}
-                />
+                  />
+                </div>
               )}
             </Stack>
           </CardBody>

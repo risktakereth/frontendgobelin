@@ -310,6 +310,30 @@ useEffect(() => {
           .center {
             max-width: 99vw;
           }
+
+
+          .mint-button {
+            background-color: red;
+            padding: 10px 20px;
+            font-size: 1.3em;
+            color: white;
+            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url("/wood2.png");
+            background-size: 125%;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease; /* Ajout d'une transition pour un effet fluide */
+          }
+
+          .mint-button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+            filter: brightness(1.2); /* Effet d'éclaircissement */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+          }
           
           h4:hover {
             color: white;
@@ -321,27 +345,29 @@ useEffect(() => {
           
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
   
-        <div id="nft-display" style={{ marginTop: '0em', padding: '0em 1em' }}>
-          <h2 style={{ textAlign: 'left', fontSize: '200%', marginBottom: '10px', color:'#f9f9f9', fontWeight: '750', textShadow: '0px 0px 10px #ff00bc' }}>Join the Gobelin Rave !</h2>
+        <div id="nft-display" style={{ marginTop: '0em', padding: '0em 1.5em' }}>
+          <h2 style={{ textAlign: 'left', justifyContent: 'left', fontSize: '200%', marginBottom: '10px', color:'#f9f9f9', fontWeight: '750', textShadow: '0px 0px 10px #ff00bc' }}>
+            Join the Gobelin Rave!
+          </h2>
+          
           {loading ? (
             <p>Chargement des NFTs...</p>
           ) : (
-            <div id="nft-ligne" style={{
-              display: 'grid',
-              gap: '16px',
-              justifyContent: 'center',
-              maxWidth: '1900px',
-              margin: '0 auto' }}>
-              {mintsCreated?.length ? (
-                mintsCreated.map((nft, index) => {
-                  // État pour contrôler l'affichage des attributs
+            mintsCreated?.length ? (
+              <div id="nft-ligne" style={{
+                display: 'grid',
+                gap: '16px',
+                justifyContent: 'center',
+                maxWidth: '1900px',
+                margin: '0 auto'
+              }}>
+                {mintsCreated.map((nft, index) => {
                   const [showAttributes, setShowAttributes] = useState(false);
-  
-                  // Fonction pour basculer l'affichage des attributs
+
                   const toggleAttributes = () => {
                     setShowAttributes(prevState => !prevState);
                   };
-  
+
                   return (
                     <div
                       key={index}
@@ -356,111 +382,126 @@ useEffect(() => {
                       }}
                       onMouseOver={(e) => (e.currentTarget.style.boxShadow = '0px 0px 13px rgba(252, 0, 207, 1)')}
                       onMouseOut={(e) => (e.currentTarget.style.boxShadow = 'rgb(0 0 0 / 55%) 3px 3px 5px')}
-                      >
-
+                    >
                       <img
                         onClick={toggleAttributes}
                         src={nft.offChainMetadata?.image}
                         alt={nft.offChainMetadata?.name}
-                        style={{ width: '512px', cursor: 'pointer', height: 'auto', objectFit: 'contain', borderRadius: '6px 6px 0px 0px', transition: 'filter 0.3s ease', }}
+                        style={{
+                          width: '512px',
+                          cursor: 'pointer',
+                          height: 'auto',
+                          objectFit: 'contain',
+                          borderRadius: '6px 6px 0px 0px',
+                          transition: 'filter 0.3s ease',
+                        }}
                         onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
                         onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
                       />
-
-                      <div style={{ padding: '0px 10px'}}>  
-                      <div style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        textTransform: 'uppercase',
-                        whiteSpace: 'nowrap',
-                        marginTop: '7px',
-                        display: 'flex', // Pour aligner l'icône et le texte
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}>{nft.offChainMetadata?.name}
-                      <a
-                        href={`https://eclipsescan.xyz/token/${nft.mint}?cluster=devnet`}
-                        style={{
+                      
+                      <div style={{ padding: '0px 10px' }}>  
+                        <div style={{
                           color: 'white',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
                           whiteSpace: 'nowrap',
+                          marginTop: '7px',
                           display: 'flex',
-                          transition: 'color 0.3s ease',
-                          }}
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onMouseOver={(e) => (e.currentTarget.style.color = '#63B3ED')}
-                        onMouseOut={(e) => (e.currentTarget.style.color = 'white')}
-                        >
-                          <span className="material-icons" style={{ fontSize:'100%' }}>
-                            open_in_new
-                          </span>
-                      </a></div>
-
-
-
-
-
-                      
-
-                      {/* Affichage du classement */}
-                      <div className="ranking">
-                        <div>
-                         {Object.entries(rankingData).map(([name, rank]) => (
-                         name === nft.offChainMetadata?.name && ( // Vérifie si le nom correspond
-                            <div style={{textAlign: 'left'}}>
-                              Rank: {rank}/1555
-                            </div>
-                          )
-                          ))}
-                        </div>
-                      </div>
-
-
-
-
-
-
-
-                      <h4
-                        onClick={toggleAttributes}
-                        style={{
-                          fontWeight: 'bold',
-                          marginBottom: '5px',
-                          fontSize: '16px',
-                          cursor: 'pointer',
-                          display: 'flex', // Pour aligner l'icône et le texte
                           justifyContent: 'space-between',
-                          alignItems: 'center', // Centre l'icône avec le texte
-                          //padding: '3px 10px'
-                        }}
-                      >
-                        Attributes :
-                        <span className="material-icons" style={{ marginRight: '5px' }}>keyboard_arrow_down</span>
-                      </h4>
-                      </div>
+                          alignItems: 'center',
+                        }}>
+                          {nft.offChainMetadata?.name}
+                          <a
+                            href={`https://eclipsescan.xyz/token/${nft.mint}?cluster=devnet`}
+                            style={{
+                              color: 'white',
+                              fontWeight: 'bold',
+                              textTransform: 'uppercase',
+                              whiteSpace: 'nowrap',
+                              display: 'flex',
+                              transition: 'color 0.3s ease',
+                            }}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onMouseOver={(e) => (e.currentTarget.style.color = '#63B3ED')}
+                            onMouseOut={(e) => (e.currentTarget.style.color = 'white')}
+                          >
+                            <span className="material-icons" style={{ fontSize:'100%' }}>
+                              open_in_new
+                            </span>
+                          </a>
+                        </div>
 
-                          
-  
-                      {showAttributes && ( // Affiche les attributs uniquement si `showAttributes` est vrai
-                        <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
-                          {nft.offChainMetadata?.attributes?.map((attribute, attrIndex) => (
-                            <li key={attrIndex} style={{ fontSize: '14px', marginBottom: '4px' }}>
-                              <strong style={{ color: '#63B3ED' }}>{attribute.trait_type}:</strong> <span style={{ color: '#E2E8F0' }}>{attribute.value}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                        {/* Affichage du classement */}
+                        <div className="ranking">
+                          <div>
+                            {Object.entries(rankingData).map(([name, rank]) => (
+                              name === nft.offChainMetadata?.name && (
+                                <div style={{textAlign: 'left'}}>
+                                  Rank: {rank}/1555
+                                </div>
+                              )
+                            ))}
+                          </div>
+                        </div>
+
+                        <h4
+                          onClick={toggleAttributes}
+                          style={{
+                            fontWeight: 'bold',
+                            marginBottom: '5px',
+                            fontSize: '16px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                          }}
+                        >
+                          Attributes :
+                          <span className="material-icons" style={{ marginRight: '5px' }}>keyboard_arrow_down</span>
+                        </h4>
+                        
+                        {showAttributes && (
+                          <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+                            {nft.offChainMetadata?.attributes?.map((attribute, attrIndex) => (
+                              <li key={attrIndex} style={{ fontSize: '14px', marginBottom: '4px' }}>
+                                <strong style={{ color: '#63B3ED' }}>{attribute.trait_type}:</strong> <span style={{ color: '#E2E8F0' }}>{attribute.value}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     </div>
                   );
-                })
-              ) : (
-                <div style={{marginBottom: '400px'}}>Tu n'as pas encore de NFTs.</div>
-              )}
-            </div>
+                })}
+              </div>
+            ) : (
+              <div style={{
+                marginBottom: '400px',
+                marginTop: '15px',
+                color: 'white',
+                fontSize: '150%',
+                fontWeight: '600',
+                textAlign: 'left'
+              }}>
+                <div style={{fontStyle: 'italic',}}>
+                  You don't have any potion yet
+                </div>
+                <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: '20px'
+                    }}>
+                      <a href="/mint" className="mint-button">
+                        Free Mint
+                      </a>
+                    </div>
+                </div>
+            )
           )}
         </div>
+
       </>
     );
   };

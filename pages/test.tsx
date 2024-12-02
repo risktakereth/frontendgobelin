@@ -183,10 +183,10 @@ export default function BlackScreenPage() {
     }, 0);
     setTimeout(() => {
       setShowBulle2(true);
-    }, 2000);
+    }, 100000);
     setTimeout(() => {
       setShowBulle1(false);
-    }, 1850);
+    }, 100000);
     setTimeout(() => {
       setShowNext(true);
     }, 4000);
@@ -263,7 +263,7 @@ export default function BlackScreenPage() {
       setFadeOut2(true); // Démarre l'animation de fondu de l'écran rouge
       setTimeout(() => {
         setVisible2(false); // Cache complètement l'écran rouge après le fondu
-      }, 2000); // Durée de l'animation de fondu pour l'écran rouge
+      }, 1500); // Durée de l'animation de fondu pour l'écran rouge
     }, 300); // Délai initial avant que l'écran rouge commence à disparaître
 
 
@@ -425,7 +425,7 @@ export default function BlackScreenPage() {
             {showImage && (
               
               <img
-                src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZ9GMp4W1XUKNyCCeieZ69h1FcnxfMPdpryVfvVaVL5Vb"
+                src="/forest3.png"
                 alt="Surprise Image"
                 className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'}`}
                 style={{ position: "fixed", top: "-5vw", left: "0px", width: "100%"}}
@@ -435,11 +435,11 @@ export default function BlackScreenPage() {
             {showImage && (
               
               <img
-                src="/panneau3.png"
+                src="/panneau_new.png"
                 alt="Surprise Image"
                 className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'} highlightEffect ${!showGoblin ? 'blinkEffect' : ''}`}
                 onClick={handleClick}
-                style={{ position: "fixed", top: "15vw", left: "35vw", width: "13.3%", cursor: "pointer"}}
+                style={{ position: "fixed", top: "10.7vw", left: "34.299vw", width: "17.9%", cursor: "pointer"}}
               />
             )}
 
@@ -459,22 +459,108 @@ export default function BlackScreenPage() {
             )}
             {showGoblin && (
               <img
-                src="https://png.pngtree.com/png-clipart/20211116/original/pngtree-frightened-goblin-cartoon-png-image_6929568.png" // Remplacez par le chemin de votre image de gobelin
+                src="merchant.png" // Remplacez par le chemin de votre image de gobelin
                 alt="Goblin Image"
                 className={styles.goblinImage}
                 className="fadeInGoblin"
-                style={{ position: "fixed", top: "20vw", left: "50vw", width: "40%" }}
+                style={{ position: "fixed", bottom: "0vw", left: "40%", width: "40%" }}
               />
             )}
             {showBulle1 && (
-              <img
-                src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png" // Remplacez par le chemin de votre image de gobelin
-                alt="Goblin Image"
-                className={styles.goblinImage}
-                className="fadeInGoblin"
-                style={{ position: "fixed", top: "10vw", left: "30vw", width: "25%" }}
-              />
-            )}
+  <div
+    style={{
+      position: "fixed",
+      top: "10vw",
+      left: "30vw",
+      width: "25%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      animation: "fadeInGoblin 1s ease-in-out",
+    }}
+  >
+    <img
+      src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png"
+      alt="Bulle1"
+      style={{ width: "100%" }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        color: "#000",
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        overflow: "hidden",
+        width: "80%", // Contrainte de largeur
+        maxWidth: "80%",
+        padding: "10%",
+        lineHeight: "1.5", // Espacement entre les lignes
+      }}
+    >
+      {/* Première ligne */}
+      <span
+        style={{
+          display: "block",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          animation: "typewriterLine1 2s steps(20) 1 normal both",
+        }}
+      >
+        So, you've received an invitation
+      </span>
+      {/* Deuxième ligne */}
+      <span
+        style={{
+          display: "block",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          animation: "typewriterLine2 2s steps(20) 1 normal both",
+          animationDelay: "2s", // Délai pour commencer après la première ligne
+        }}
+      >
+        to GoblinZ Rave?
+      </span>
+    </div>
+  </div>
+)}
+
+<style>
+{`
+@keyframes fadeInGoblin {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes typewriterLine1 {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%; /* Ajustée selon la largeur du texte */
+  }
+}
+
+@keyframes typewriterLine2 {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%; /* Ajustée selon la largeur du texte */
+  }
+}
+`}
+</style>
+
+
+
+
 
             {/* Afficher le bouton Next*/}
             {showBulle2 && (
@@ -487,13 +573,7 @@ export default function BlackScreenPage() {
               />
             )}
             {showNext && (
-              <img
-                src="https://png.pngtree.com/png-clipart/20211116/original/pngtree-frightened-goblin-cartoon-png-image_6929568.png" // Remplacez par le chemin de votre image de gobelin
-                alt="Goblin Image"
-                className={styles.goblinImage}
-                className="fadeInGoblin"
-                style={{ position: "fixed", top: "20vw", left: "60vw", width: "40%" }}
-              />
+              <button className="button" onClick={handleSkipClick} style={{fontSize:"150%", left:'85%'}}>Next</button>
             )}
             
 

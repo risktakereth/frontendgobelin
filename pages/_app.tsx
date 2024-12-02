@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 {/* Barre de navigation avec menu et bouton wallet */}
                 <Box 
                   as="nav" 
-                  padding="0.3rem 1rem" 
+                  padding="0rem 1rem" 
                   bg="transparent" 
                   display="flex" 
                   alignItems="center" 
@@ -59,13 +59,19 @@ export default function App({ Component, pageProps }: AppProps) {
                 >
                   <Box>
   <ChakraLink color="white">
-    <Image 
-      src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZRjRJJro8ESkr8GA5rwQ6zFR8VzZZcxau8U1LTHTeMH3/collection.png" // Remplacez par l'URL de votre image
+    <Image
+      padding="-0.2rem -0.2rem"
+      src="/Goblinz_logo.png" // Remplacez par l'URL de votre image
       alt="Home" 
-      width="4vw" // Ajustez la taille selon vos préférences
+      width="9vw" // Ajustez la taille selon vos préférences
       height="auto"
       objectFit="cover"
       marginRight="80px"
+      transition="background-color 0.5s ease, filter 0.5s ease"
+      style={{filter: "brightness(1.2) drop-shadow(0 0 20px rgba(0, 0, 0, 1))"}}
+      _hover={{
+        filter: "brightness(1.4) drop-shadow(0 0 20px rgba(0, 0, 0, 1)) !important",
+      }}
     />
   </ChakraLink>
 </Box>
@@ -96,7 +102,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
                     }}
                     >
-                      Test
+                      Mint
                     </ChakraLink>
                     <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
@@ -105,13 +111,13 @@ export default function App({ Component, pageProps }: AppProps) {
                       boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
                     }}
                     >
-                      Gallery
+                      My Potions
                     </ChakraLink>
                   </Box>
                   <Box
                     as={WalletMultiButton}
                     bg="transparent"
-                    backgroundImage="url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmaETkVfYdYo8v1djEstHtA1GNzjsWZhYha5okYRMA8yxv')" // Remplacez par votre URL
+                    backgroundImage="url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmaETkVfYdYo8v1djEstHtA1GNzjsWZhYha5okYRMA8yxv')"  // Remplacez par votre URL
                     backgroundSize="cover"
                     backgroundPosition="center"
                     padding="0.5rem 1rem"
@@ -142,18 +148,30 @@ export default function App({ Component, pageProps }: AppProps) {
                   >
                     {/* Logo à gauche */}
                     <Image
-                      src="https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmZRjRJJro8ESkr8GA5rwQ6zFR8VzZZcxau8U1LTHTeMH3/collection.png" // Remplace par l'URL de ton logo
+                      src="/Goblinz_logo.png" // Remplace par l'URL de ton logo
                       alt="Logo du projet"
-                      boxSize="50px"
+                      maxWidth="10%"
                     />
 
                     {/* Icônes Twitter et Discord à droite */}
                     <Flex gap={4}>
-                      <Link href="https://x.com/risktaker_eth" isExternal>
-                        <Icon as={FaTwitter} boxSize={6} _hover={{ color: "blue.400" }} />
+                      <Link href="https://x.com/GoblinzRave" isExternal>
+                        <Icon as={FaTwitter} boxSize={6} _hover={{ color: "blue.400" }} verticalAlign="middle" transition="0.2s"/>
                       </Link>
                       <Link href="https://discord.gg/8wMyc76t" isExternal>
-                        <Icon as={FaDiscord} boxSize={6} _hover={{ color: "purple.500" }} />
+                        <Icon as={FaDiscord} boxSize={6} _hover={{ color: "purple.500" }} verticalAlign="middle" transition="0.2s"/>
+                      </Link>
+                      <Link href="https://guild.xyz/GoblinzRave" isExternal>
+                        <Image
+                          src="/guild.png"
+                          alt="Guild Icon"
+                          boxSize={6}
+                          transition="0.2s"
+                          _hover={{
+                            filter:
+                              "brightness(0) saturate(100%) invert(64%) sepia(82%) saturate(1500%) hue-rotate(87deg) brightness(85%) contrast(90%)"
+                          }}
+                        />
                       </Link>
                     </Flex>
                   </Flex>
