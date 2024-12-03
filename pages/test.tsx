@@ -9,7 +9,7 @@ import {
   import { useUmi } from "../utils/useUmi";
   import { fetchCandyMachine, safeFetchCandyGuard, CandyGuard, CandyMachine, AccountVersion } from "@metaplex-foundation/mpl-candy-machine"
   import { guardChecker } from "../utils/checkAllowed";
-  import { Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
+  import { ChakraProvider, Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
   import { ButtonList } from "../components/mintButton";
   import { GuardReturn } from "../utils/checkerHelper";
   import { ShowNft } from "../components/showNft";
@@ -136,8 +136,10 @@ export default function BlackScreenPage() {
   const [showImage, setShowImage] = useState(false); // État pour afficher l'image
   const [showGoblin, setShowGoblin] = useState(false);
   const [showNext, setShowNext] = useState(false);
-  const [showBulle2, setShowBulle2] = useState(false);
   const [showBulle1, setShowBulle1] = useState(false);
+  const [showMessage1, setShowMessage1] = useState(false);
+  const [showMessage2, setShowMessage2] = useState(false);
+  const [showMessage3, setShowMessage3] = useState(false);
   const [fadeOutImage, setFadeOutImage] = useState(false); // État pour faire disparaître l'image
   const umi = useUmi();
     const solanaTime = useSolanaTime();
@@ -176,17 +178,38 @@ export default function BlackScreenPage() {
     setVisible(false); // Cache l'écran principal si souhaité
   };
 
+  // Changer le texte de la bulle au clic
+  const handleMessage1Click = () => {
+    setShowMessage1(false); // Démarre la disparition de l'image
+    setShowMessage2(true); // Cache l'écran principal si souhaité
+  };
+
+  // Changer le texte de la bulle au clic
+  const handleMessage2Click = () => {
+    setShowMessage2(false); // Démarre la disparition de l'image
+    setShowMessage3(true); // Cache l'écran principal si souhaité
+  };
+
   const handleClick = () => {
     setShowGoblin(true); // Affiche l'image du gobelin lors du clic
     setTimeout(() => {
       setShowBulle1(true);
     }, 0);
     setTimeout(() => {
-      setShowBulle2(true);
-    }, 100000);
+      setShowMessage1(true);
+    }, 0);
     setTimeout(() => {
-      setShowBulle1(false);
-    }, 100000);
+      setShowMessage1(false);
+    }, 2800);
+    setTimeout(() => {
+      setShowMessage2(true);
+    }, 2800);
+    setTimeout(() => {
+      setShowMessage2(false);
+    }, 6000);
+    setTimeout(() => {
+      setShowMessage3(true);
+    }, 6000);
     setTimeout(() => {
       setShowNext(true);
     }, 4000);
@@ -394,6 +417,18 @@ export default function BlackScreenPage() {
 }
 
 
+@keyframes float {
+  0% {
+    transform: translateY(0); /* Position initiale */
+  }
+  50% {
+    transform: translateY(-7px); /* Monte légèrement */
+  }
+  100% {
+    transform: translateY(0); /* Redescend */
+  }
+}
+
 
 
      `}
@@ -405,369 +440,457 @@ export default function BlackScreenPage() {
 
       
 
-    <div className={styles.container}>
+          <div className={styles.container}>
 
-        {visible2 && (
-          <div className={`${styles.redScreen} ${fadeOut2 ? styles.fadeOut2 : ''}`}>
-          </div>
-        )}
-
-
-              
-{visible && (
-          <div className={`${styles.blackScreen} ${fadeOut ? styles.fadeOut : ''}`}>
-            <div className={`${styles.textContainer} ${fadeOut ? styles.fadeOut : ''}`}>
-              <button className="button" onClick={handleSkipClick} style={{fontSize:"150%"}}>Skip</button>
-            </div>
-            
-
-            {/* Affiche l'image sur le fond noir à t=2.5s */}
-            {showImage && (
-              
-              <img
-                src="/forest3.png"
-                alt="Surprise Image"
-                className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'}`}
-                style={{ position: "fixed", top: "-5vw", left: "0px", width: "100%"}}
-              />
-            )}
-            {/* Affiche l'image sur le fond noir à t=2.5s */}
-            {showImage && (
-              
-              <img
-                src="/panneau_new.png"
-                alt="Surprise Image"
-                className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'} highlightEffect ${!showGoblin ? 'blinkEffect' : ''}`}
-                onClick={handleClick}
-                style={{ position: "fixed", top: "10.7vw", left: "34.299vw", width: "17.9%", cursor: "pointer"}}
-              />
-            )}
-
-  {/*images qui apparaissent après le clic*/}
-            {showGoblin && (
-              <div
-                  className={styles.goblinImage}
-                  style={{position: "fixed", /* Utilisez fixed pour couvrir tout l'écran */
-                    top: "0",
-                    left: "0",
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgb(0, 0, 0)",
-                    filter: "opacity(50%)",}}
-              >
-              </div>
-            )}
-            {showGoblin && (
-              <img
-                src="merchant.png" // Remplacez par le chemin de votre image de gobelin
-                alt="Goblin Image"
-                className={styles.goblinImage}
-                className="fadeInGoblin"
-                style={{ position: "fixed", bottom: "0vw", left: "40%", width: "40%" }}
-              />
-            )}
-            {showBulle1 && (
-  <div
-    style={{
-      position: "fixed",
-      top: "10vw",
-      left: "30vw",
-      width: "25%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      animation: "fadeInGoblin 1s ease-in-out",
-    }}
-  >
-    <img
-      src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png"
-      alt="Bulle1"
-      style={{ width: "100%" }}
-    />
-    <div
-      style={{
-        position: "absolute",
-        color: "#000",
-        fontSize: "1.5rem",
-        fontWeight: "bold",
-        textAlign: "center",
-        overflow: "hidden",
-        width: "80%", // Contrainte de largeur
-        maxWidth: "80%",
-        padding: "10%",
-        lineHeight: "1.5", // Espacement entre les lignes
-      }}
-    >
-      {/* Première ligne */}
-      <span
-        style={{
-          display: "block",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          animation: "typewriterLine1 2s steps(20) 1 normal both",
-        }}
-      >
-        So, you've received an invitation
-      </span>
-      {/* Deuxième ligne */}
-      <span
-        style={{
-          display: "block",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          animation: "typewriterLine2 2s steps(20) 1 normal both",
-          animationDelay: "2s", // Délai pour commencer après la première ligne
-        }}
-      >
-        to GoblinZ Rave?
-      </span>
-    </div>
+{visible2 && (
+  <div className={`${styles.redScreen} ${fadeOut2 ? styles.fadeOut2 : ''}`}>
   </div>
 )}
 
-<style>
-{`
-@keyframes fadeInGoblin {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes typewriterLine1 {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%; /* Ajustée selon la largeur du texte */
-  }
-}
-
-@keyframes typewriterLine2 {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%; /* Ajustée selon la largeur du texte */
-  }
-}
-`}
-</style>
-
-
-
-
-
-            {/* Afficher le bouton Next*/}
-            {showBulle2 && (
-              <img
-                src="https://static.vecteezy.com/system/resources/previews/022/129/782/non_2x/speech-bubble-thought-bubble-comic-bubble-transparent-free-free-png.png" // Remplacez par le chemin de votre image de gobelin
-                alt="Goblin Image"
-                className={styles.goblinImage}
-                className="fadeInGoblin"
-                style={{ position: "fixed", top: "19vw", left: "35vw", width: "25%" }}
-              />
-            )}
-            {showNext && (
-              <button className="button" onClick={handleSkipClick} style={{fontSize:"150%", left:'85%'}}>Next</button>
-            )}
-            
-
-            
-          </div>
-        )}
-        
-
-
-
-
-
 
       
-      <div id="centercolonne">
-
-  
-          {loading ? (<></>) : (
-                  <Flex justifyContent="flex-end" marginLeft="auto">
-                    <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
-                      <VStack >
-                        <Text fontSize={"sm"}>Available NFTs:</Text>
-                        <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
-                      </VStack>
-                    </Box>
-                  </Flex>
-                )}
-  
-  
-  
-  
-  
-  
-          <Card margin='25px 0px 0px 10px'
-          backgroundSize='cover'
-          backgroundRepeat='no-repeat'
-          boxShadow='0px 0px 3px black'
-          border='1px solid black'
-          color='white'
-          //filter= 'brightness(1.1)'
-          backgroundImage='url(https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmPWNP1nsrxTH342juNwLqLGqvTxZFjWNG5zJ8ggobDAXU)'
-          >
-            <CardHeader>
-              <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection='column' fontSize='150%'>
-                <Box marginTop='5px'>
-                  {/*<Heading size='md'>{headerText}</Heading>*/}
-                  <h2 style={{
-                    marginBottom: '0em',
-                    color: 'white',
-                    textShadow: `
-                      0 0 5px pink,
-                      0 0 10px pink,
-                      0 0 20px magenta,
-                      0 0 30px magenta
-                    `,
-                    filter: 'brightness(1.05)',
-                    fontSize: '140%',
-                    fontWeight: 'bold',
-                    textTransform: 'uppercase', // Mettre le texte en majuscules
-                    border: '5px solid white', // Bordure blanche
-                    padding: '10px',
-                    borderRadius: '8px',
-                    display: 'inline-block',
-                    backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
-                    position: 'relative',
-                    //transform: 'skew(-5deg)',
-                    transform: 'rotate(-1deg)',
-                    boxShadow: `
-                    0 0 5px pink,
-                    0 0 8px pink,
-                    0 0 10px magenta,
-                    0 0 12px magenta
-                    `
-                  }}>
-                    Welcome to the Gobelin Rave!
-                    <span style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  right: '0',
-                  bottom: '0',
-                  backgroundColor: 'transparent',
-                  boxShadow: `
-                    inset 0 0 5px pink,
-                    inset 0 0 8px pink,
-                    inset 0 0 10px magenta,
-                    inset 0 0 12px magenta
-                  `,
-                  zIndex: +1 // Met l'ombre derrière le texte
-                  }} />
-                  </h2>
-                </Box>              
-              </Flex>
-  
-              
-            </CardHeader>
-  
-            <CardBody>
-              <Center>
-                <Box
-                  rounded={'lg'}
-                  mt={-12}
-                  pos={'relative'}
-                  marginTop={'-10px'}>
-                  <Image
-                    rounded={'lg'}
-                    height={230}
-                    objectFit={'cover'}
-                    alt={"project Image"}
-                    src={image}
-                    cursor={'pointer'}
-                    boxShadow={'black 0px 0px 5px, brown 0px 0px 10px, brown 0px 0px 20px'}
-                    onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
-                    onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
-                  />
-                </Box>
-              </Center>
-              <Stack divider={<StackDivider />} spacing='8'>
-                {loading ? (
-                  <div>
-                    <Divider my="10px" />
-                    <Skeleton height="30px" my="10px" />
-                    <Skeleton height="30px" my="10px" />
-                    <Skeleton height="30px" my="10px" />
-                  </div>
-                ) : (
-                  <ButtonList
-                    guardList={guards}
-                    candyMachine={candyMachine}
-                    candyGuard={candyGuard}
-                    umi={umi}
-                    ownedTokens={ownedTokens}
-                    setGuardList={setGuards}
-                    mintsCreated={mintsCreated}
-                    setMintsCreated={setMintsCreated}
-                    onOpen={onShowNftOpen}
-                    setCheckEligibility={setCheckEligibility}
-                  />
-                )}
-              </Stack>
-            </CardBody>
-          </Card >
-          {umi.identity.publicKey === candyMachine?.authority ? (
-            <>
-              <Center>
-                <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
-              </Center>
-              <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
-                <ModalOverlay />
-                <ModalContent maxW="600px">
-                  <ModalHeader>Initializer</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    < InitializeModal umi={umi} candyMachine={candyMachine} candyGuard={candyGuard} />
-                  </ModalBody>
-                </ModalContent>
-              </Modal>
-  
-              
-  
-            </>)
-            :
-            (<></>)
-          }
-  
-          <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Your minted NFT:</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <ShowNft nfts={mintsCreated} />
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-          </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{visible && (
+  <div className={`${styles.blackScreen} ${fadeOut ? styles.fadeOut : ''}`}>
+    <div className={`${styles.textContainer} ${fadeOut ? styles.fadeOut : ''}`}>
+      <button className="button" onClick={handleSkipClick} style={{fontSize:"150%"}}>Skip</button>
     </div>
+    
+
+    {/* Affiche l'image sur le fond noir à t=2.5s */}
+    {showImage && (
+      
+      <img
+        src="/forest4.png"
+        alt="Surprise Image"
+        className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'}`}
+        style={{ position: "fixed", top: "-5vw", left: "0px", width: "100%"}}
+      />
+    )}
+    {/* Affiche l'image sur le fond noir à t=2.5s */}
+    {showImage && (
+      
+      <img
+        src="/panneau_new.png"
+        alt="Surprise Image"
+        className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'} highlightEffect ${!showGoblin ? 'blinkEffect' : ''}`}
+        onClick={handleClick}
+        style={{ position: "fixed", top: "13.15vw", left: "35.55vw", width: "15.1%", cursor: "pointer"}}
+      />
+    )}
+
+{/*images qui apparaissent après le clic*/}
+    {showGoblin && (
+      <div
+          className={styles.goblinImage}
+          style={{position: "fixed", /* Utilisez fixed pour couvrir tout l'écran */
+            top: "0",
+            left: "0",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgb(0, 0, 0)",
+            filter: "opacity(50%)",}}
+      >
+      </div>
+    )}
+    {showGoblin && (
+      <img
+      src="merchant.png" // Remplacez par le chemin de votre image
+      alt="Goblin Image"
+      className="floatingGoblin"
+      style={{
+        position: "fixed",
+        bottom: "-2vw",
+        left: "0%",
+        width: "80%",
+        animation: "float 12s ease-in-out infinite", /* Flotte doucement */
+        animationDelay: "0s", /* Délai avant de commencer l'animation */
+      }}
+    />
+    )}
+    {showBulle1 && (
+<div>
+
+<div
+style={{
+position: "fixed",
+top: "8vw",
+left: "50%",
+width: "33%",
+display: "flex",
+justifyContent: "center",
+alignItems: "center",
+animation: "fadeInGoblin 1s ease-in-out",
+}}
+>
+<img
+src="bulle.png"
+alt="Bulle1"
+style={{ width: "100%" }}
+/>
+</div>
+</div>
+)}
+
+
+
+{showMessage1 && (
+        <div>
+        <ChakraProvider>
+        <Text
+        fontFamily="mono"
+        onClick={handleMessage1Click}
+        style={{
+          position: 'fixed',
+          top: '12vw',
+          left: '58%',
+          maxWidth: '22%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',                  
+          cursor: 'pointer',
+      }} fontSize="2xl"  _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+          {Array.from("So, you've got an invitation to GoblinZ Rave ?")
+            .map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  animation: `typing 0.1s steps(1) ${index * 0.02}s forwards`,
+                  animationFillMode: 'forwards', // Assure que l'état final persiste
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  opacity: '0',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char} {/* Garde les espaces */}
+              </span>
+            ))}
+        </Text>
+        <style>
+          {`
+            @keyframes typing {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          `}
+        </style>
+      </ChakraProvider>
+      </div>
+    )}
+
+{showMessage2 && (
+        <div>
+        <ChakraProvider>
+        <Text
+        fontFamily="mono"
+        onClick={handleMessage2Click}
+        style={{
+          position: 'fixed',
+          top: '12vw',
+          left: '58%',
+          maxWidth: '22%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',
+          cursor: 'pointer',
+      }} fontSize="2xl"  _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+          {Array.from("Goblin fest are wild and intense, only my special elixir will get you through the night!")
+            .map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  animation: `typing 0.1s steps(1) ${index * 0.02}s forwards`,
+                  animationFillMode: 'forwards', // Assure que l'état final persiste
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  opacity: '0',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char} {/* Garde les espaces */}
+              </span>
+            ))}
+        </Text>
+        <style>
+          {`
+            @keyframes typing {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          `}
+        </style>
+      </ChakraProvider>
+      </div>
+    )}
+
+{showMessage3 && (
+        <div>
+        <ChakraProvider>
+        <Text
+        fontFamily="mono"
+        onClick={handleSkipClick}
+        style={{
+          position: 'fixed',
+          top: '12vw',
+          left: '58%',
+          maxWidth: '22%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',
+          cursor: 'pointer',
+      }} fontSize="2xl" _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+          {Array.from("Step closer and see for yourself...")
+            .map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  animation: `typing 0.1s steps(1) ${index * 0.02}s forwards`,
+                  animationFillMode: 'forwards', // Assure que l'état final persiste
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  opacity: '0',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char} {/* Garde les espaces */}
+              </span>
+            ))}
+        </Text>
+        <style>
+          {`
+            @keyframes typing {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          `}
+        </style>
+      </ChakraProvider>
+      </div>
+    )}
+
+    {showNext && (
+      <button className="button" onClick={handleSkipClick} style={{fontSize:"150%", left:'85%'}}>Next</button>
+    )}
+    
+
+    
+  </div>
+)}
+
+
+
+
+
+
+
+
+<div id="centercolonne">
+
+
+  {loading ? (<></>) : (
+          <Flex justifyContent="flex-end" marginLeft="auto">
+            <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
+              <VStack >
+                <Text fontSize={"sm"}>Available NFTs:</Text>
+                <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
+              </VStack>
+            </Box>
+          </Flex>
+        )}
+
+
+
+
+
+
+  <Card margin='25px 0px 0px 10px'
+  backgroundSize='cover'
+  backgroundRepeat='no-repeat'
+  boxShadow='0px 0px 3px black'
+  border='1px solid black'
+  color='white'
+  //filter= 'brightness(1.1)'
+  backgroundImage='url(https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmPWNP1nsrxTH342juNwLqLGqvTxZFjWNG5zJ8ggobDAXU)'
+  >
+    <CardHeader>
+      <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection='column' fontSize='150%'>
+        <Box marginTop='5px'>
+          {/*<Heading size='md'>{headerText}</Heading>*/}
+          <h2 style={{
+            marginBottom: '0em',
+            color: 'white',
+            textShadow: `
+              0 0 5px pink,
+              0 0 10px pink,
+              0 0 20px magenta,
+              0 0 30px magenta
+            `,
+            filter: 'brightness(1.05)',
+            fontSize: '140%',
+            fontWeight: 'bold',
+            textTransform: 'uppercase', // Mettre le texte en majuscules
+            border: '5px solid white', // Bordure blanche
+            padding: '10px',
+            borderRadius: '8px',
+            display: 'inline-block',
+            backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
+            position: 'relative',
+            //transform: 'skew(-5deg)',
+            transform: 'rotate(-1deg)',
+            boxShadow: `
+            0 0 5px pink,
+            0 0 8px pink,
+            0 0 10px magenta,
+            0 0 12px magenta
+            `
+          }}>
+            Welcome to the Gobelin Rave!
+            <span style={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          right: '0',
+          bottom: '0',
+          backgroundColor: 'transparent',
+          boxShadow: `
+            inset 0 0 5px pink,
+            inset 0 0 8px pink,
+            inset 0 0 10px magenta,
+            inset 0 0 12px magenta
+          `,
+          zIndex: +1 // Met l'ombre derrière le texte
+          }} />
+          </h2>
+        </Box>              
+      </Flex>
+
+      
+    </CardHeader>
+
+    <CardBody>
+      <Center>
+        <Box
+          rounded={'lg'}
+          mt={-12}
+          pos={'relative'}
+          marginTop={'-10px'}>
+          <Image
+            rounded={'lg'}
+            height={230}
+            objectFit={'cover'}
+            alt={"project Image"}
+            src={image}
+            cursor={'pointer'}
+            boxShadow={'black 0px 0px 5px, brown 0px 0px 10px, brown 0px 0px 20px'}
+            onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
+            onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
+          />
+        </Box>
+      </Center>
+      <Stack divider={<StackDivider />} spacing='8'>
+        {loading ? (
+          <div>
+            <Divider my="10px" />
+            <Skeleton height="30px" my="10px" />
+            <Skeleton height="30px" my="10px" />
+            <Skeleton height="30px" my="10px" />
+          </div>
+        ) : (
+          <ButtonList
+            guardList={guards}
+            candyMachine={candyMachine}
+            candyGuard={candyGuard}
+            umi={umi}
+            ownedTokens={ownedTokens}
+            setGuardList={setGuards}
+            mintsCreated={mintsCreated}
+            setMintsCreated={setMintsCreated}
+            onOpen={onShowNftOpen}
+            setCheckEligibility={setCheckEligibility}
+          />
+        )}
+      </Stack>
+    </CardBody>
+  </Card >
+  {umi.identity.publicKey === candyMachine?.authority ? (
+    <>
+      <Center>
+        <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
+      </Center>
+      <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
+        <ModalOverlay />
+        <ModalContent maxW="600px">
+          <ModalHeader>Initializer</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            < InitializeModal umi={umi} candyMachine={candyMachine} candyGuard={candyGuard} />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      
+
+    </>)
+    :
+    (<></>)
+  }
+
+  <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader>Your minted NFT:</ModalHeader>
+      <ModalCloseButton />
+      <ModalBody>
+        <ShowNft nfts={mintsCreated} />
+      </ModalBody>
+    </ModalContent>
+  </Modal>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     </>
   );
 }
