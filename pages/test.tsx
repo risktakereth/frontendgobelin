@@ -200,16 +200,16 @@ export default function BlackScreenPage() {
     }, 0);
     setTimeout(() => {
       setShowMessage1(false);
-    }, 2800);
+    }, 9000);
     setTimeout(() => {
       setShowMessage2(true);
-    }, 2800);
+    }, 9000);
     setTimeout(() => {
       setShowMessage2(false);
-    }, 6000);
+    }, 18000);
     setTimeout(() => {
       setShowMessage3(true);
-    }, 6000);
+    }, 18000);
     setTimeout(() => {
       setShowNext(true);
     }, 4000);
@@ -551,7 +551,97 @@ style={{ width: "100%" }}
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("So, you've got an invitation to GoblinZ Rave ?")
+          {Array.from("So, you've been invited toGoblinZ Rave ?")
+            .map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  animation: `typing 0.1s steps(1) ${index * 0.02}s forwards`,
+                  animationFillMode: 'forwards', // Assure que l'état final persiste
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  opacity: '0',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char} {/* Garde les espaces */}
+              </span>
+            ))}
+
+              
+        </Text>
+        <style>
+          {`
+            @keyframes typing {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 1;
+              }
+            }
+          `}
+        </style>
+      </ChakraProvider>
+
+      <ChakraProvider>
+      <Text
+        fontFamily="mono"
+        onClick={handleMessage1Click}
+        style={{
+          position: 'fixed',
+          top: '31vw',
+          left: '78%',
+          maxWidth: '22%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',                  
+          cursor: 'pointer',
+      }} fontSize="2xl"  _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+              <span
+                style={{
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                1/3
+              </span>
+            
+
+              
+        </Text>
+      </ChakraProvider>
+      </div>
+    )}
+
+{showMessage2 && (
+        <div>
+        <ChakraProvider>
+        <Text
+        fontFamily="mono"
+        onClick={handleMessage2Click}
+        style={{
+          position: 'fixed',
+          top: '12vw',
+          left: '58%',
+          maxWidth: '22.5%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',
+          cursor: 'pointer',
+      }} fontSize="2xl"  _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+          {Array.from("Goblin fest are wild and   intense, only my special   elixir will get you throughthe night!")
             .map((char, index) => (
               <span
                 key={index}
@@ -584,59 +674,38 @@ style={{ width: "100%" }}
           `}
         </style>
       </ChakraProvider>
-      </div>
-    )}
-
-{showMessage2 && (
-        <div>
-        <ChakraProvider>
-        <Text
+      <ChakraProvider>
+      <Text
         fontFamily="mono"
         onClick={handleMessage2Click}
         style={{
           position: 'fixed',
-          top: '12vw',
-          left: '58%',
+          top: '31vw',
+          left: '78%',
           maxWidth: '22%',
           wordBreak: 'normal',
-          lineHeight: 'clamp(1, 1.2, 1.5)',
+          lineHeight: 'clamp(1, 1.2, 1.5)',                  
           cursor: 'pointer',
       }} fontSize="2xl"  _hover={{
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("Goblin fest are wild and intense, only my special elixir will get you through the night!")
-            .map((char, index) => (
               <span
-                key={index}
                 style={{
-                  animation: `typing 0.1s steps(1) ${index * 0.02}s forwards`,
-                  animationFillMode: 'forwards', // Assure que l'état final persiste
                   whiteSpace: 'nowrap',
                   zIndex: '9999',
                   position: 'relative',
                   display: 'inline-block',
-                  opacity: '0',
                   wordBreak: 'normal',
                   fontSize: '1.5vw',
                 }}
               >
-                {char === ' ' ? '\u00A0' : char} {/* Garde les espaces */}
+                2/3
               </span>
-            ))}
+            
+
+              
         </Text>
-        <style>
-          {`
-            @keyframes typing {
-              from {
-                opacity: 1;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-          `}
-        </style>
       </ChakraProvider>
       </div>
     )}
@@ -659,7 +728,7 @@ style={{ width: "100%" }}
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("Step closer and see for yourself...")
+          {Array.from("Step closer and see for   yourself...")
             .map((char, index) => (
               <span
                 key={index}
@@ -692,11 +761,44 @@ style={{ width: "100%" }}
           `}
         </style>
       </ChakraProvider>
+      <ChakraProvider>
+      <Text
+        fontFamily="mono"
+        onClick={handleSkipClick}
+        style={{
+          position: 'fixed',
+          top: '31vw',
+          left: '78%',
+          maxWidth: '22%',
+          wordBreak: 'normal',
+          lineHeight: 'clamp(1, 1.2, 1.5)',                  
+          cursor: 'pointer',
+      }} fontSize="2xl"  _hover={{
+        fontWeight: '600',
+        color: '#022106'
+      }}>
+              <span
+                style={{
+                  whiteSpace: 'nowrap',
+                  zIndex: '9999',
+                  position: 'relative',
+                  display: 'inline-block',
+                  wordBreak: 'normal',
+                  fontSize: '1.5vw',
+                }}
+              >
+                3/3
+              </span>
+            
+
+              
+        </Text>
+      </ChakraProvider>
       </div>
     )}
 
     {showNext && (
-      <button className="button" onClick={handleSkipClick} style={{fontSize:"150%", left:'85%'}}>Next</button>
+      <button className="button" onClick={handleSkipClick} style={{fontSize:"150%", left:'85%'}}>SKIP</button>
     )}
     
 

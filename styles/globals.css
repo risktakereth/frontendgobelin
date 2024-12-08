@@ -18,6 +18,13 @@
     --hover-background-rgb: 243, 244, 246;
 }
 
+@font-face {
+  font-family: 'YouBlockhead';
+  src: url('/public/You Blockhead.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --accent-rgb: 3, 255, 189;

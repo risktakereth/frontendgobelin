@@ -76,7 +76,7 @@ export default function App({ Component, pageProps }: AppProps) {
   </ChakraLink>
 </Box>
                   <Box marginRight="0px" fontSize="120%">
-                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
                       backgroundColor: "rgb(0,0,0,0.5)",
                       filter: "brightness(1.2)", // Effet d'éclaircissement
@@ -85,7 +85,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     >
                       Home
                     </ChakraLink>
-                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
                       backgroundColor: "rgb(0,0,0,0.5)",
                       filter: "brightness(1.2)", // Effet d'éclaircissement
@@ -95,16 +95,16 @@ export default function App({ Component, pageProps }: AppProps) {
                       Mint
                     </ChakraLink>
 
-                    <ChakraLink as={NextLink} href="/test" color="white" marginRight="40px" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    <ChakraLink as={NextLink} href="/test" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
                       backgroundColor: "rgb(0,0,0,0.5)",
                       filter: "brightness(1.2)", // Effet d'éclaircissement
                       boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
                     }}
                     >
-                      Mint
+                      Elixir
                     </ChakraLink>
-                    <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 6px 6px 6px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                    <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
                     _hover={{
                       backgroundColor: "rgb(0,0,0,0.5)",
                       filter: "brightness(1.2)", // Effet d'éclaircissement
