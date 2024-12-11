@@ -16,19 +16,22 @@ export default function Home() {
   const PageContent = () => {
     type TimelineEvent = {
       id: number;
-      date: string;
+      date: string | string[];
       description: string;
       position: "above" | "below";
     };
   
     const timelineData: TimelineEvent[] = [
-      { id: 1, date: "2020", description: "Fait marquant 1", position: "above" },
-      { id: 2, date: "2021", description: "Fait marquant 2", position: "below" },
-      { id: 3, date: "2022", description: "Fait marquant 3", position: "above" },
-      { id: 4, date: "2023", description: "Fait marquant 4", position: "below" },
+      { id: 1, date: ["Twitter Launch", "Organic Growth"], description: "The first GoblinZ joined the Before Party. These OGz fans set the vibe for what’s to come!", position: "above" },
+      { id: 2, date: ["Discord and Guild launch", "Elixir minting"], description: "GoblinZ fever takes over as the community grows and the goblins brew their magical elixirs.", position: "below" },
+      { id: 3, date: ["Mint Week!"], description: "This is THE event - the rave of raves! The real madness begins.", position: "above" },
+      { id: 4, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
     ];
   
-    const idActuel = 3; // ID actuel, défini en dur
+    //const idActuel = 2; // ID actuel, défini en dur
+
+    // État pour suivre l'ID actuel
+    const [idActuel, setIdActuel] = useState<number>(2);
 
     return (
       <>
@@ -68,12 +71,26 @@ export default function Home() {
             }
 
             body {
-              //font-family: 'YouBlockhead', sans-serif;
+              //font-family: 'Freeman-Regular', sans-serif;
             }
 
             @font-face {
-              font-family: 'YouBlockhead';
+              font-family: 'Clash';
               src: url('/You Blockhead.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+            @font-face {
+              font-family: 'Loved';
+              src: url('/LovedbytheKing-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+            
+            @font-face {
+              font-family: 'Freeman';
+              src: url('/Freeman-Regular.ttf') format('truetype');
               font-weight: normal;
               font-style: normal;
             }
@@ -93,7 +110,7 @@ export default function Home() {
                 <ChakraLink
                     as={NextLink}
                     style={{
-                      fontFamily: 'YouBlockhead', fontSize: '16px',
+                      fontFamily: 'Clash', fontSize: '16px',
                     }}
                     href="/test"
                     color="white"
@@ -110,7 +127,7 @@ export default function Home() {
                 <ChakraLink
                     as={NextLink}
                     style={{
-                      fontFamily: 'YouBlockhead', fontSize: '16px',
+                      fontFamily: 'Clash', fontSize: '16px',
                     }}
                     href="/test"
                     color="white"
@@ -127,7 +144,7 @@ export default function Home() {
                 <ChakraLink
                     as={NextLink}
                     style={{
-                      fontFamily: 'YouBlockhead', fontSize: '16px',
+                      fontFamily: 'Clash', fontSize: '16px',
                     }}
                     href="/test"
                     color="white"
@@ -144,7 +161,7 @@ export default function Home() {
                 <ChakraLink
                     as={NextLink}
                     style={{
-                      fontFamily: 'YouBlockhead', fontSize: '16px',
+                      fontFamily: 'Clash', fontSize: '16px',
                     }}
                     href="/test"
                     color="white"
@@ -302,8 +319,9 @@ export default function Home() {
 
           <div
           style={{
-            fontFamily: 'YouBlockhead',
-            fontSize: '16px',
+            fontFamily: 'Clash',
+            textShadow: '4px 4px 0px black',
+            fontSize: '21px',
             color: 'white',
             position: 'relative', // Positionner l'image par rapport à son parent
             top: '-30px',
@@ -312,7 +330,7 @@ export default function Home() {
             Welcome to
             <div
             style={{
-            fontSize: '40px',
+            fontSize: '52px',
             marginBottom: '20px',
            }}>
             GOBLINZ RAVE
@@ -337,7 +355,8 @@ export default function Home() {
                     marginRight: '5px', // Espacement entre le point et le texte
                   }}
                 ></div>
-                <span style={{ fontSize: '10px', color: 'white' }}>Live</span>
+                <span style={{ fontSize: '13px', color: 'white', 
+                    textShadow: '0px 0px 0px black', }}>Live</span>
               </div>
 
 
@@ -347,9 +366,10 @@ export default function Home() {
               <div
                   style={{
                     zIndex: 100,
-                    padding: '20px',
+                    padding: '20px 20px 18px 20px',
                     position: 'absolute',
                     backgroundColor: 'red',
+                    textShadow: '0px 0px 0px black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -365,7 +385,7 @@ export default function Home() {
                 <div
                   style={{
                     zIndex: 5,
-                    padding: '20px',
+                    padding: '20px 20px 18px 20px',
                     color: 'black',
                     marginRight: '20px',
                     position: 'absolute',
@@ -445,6 +465,118 @@ export default function Home() {
 
 
 
+<div style={{
+  display: 'flex', 
+  alignItems: 'center',
+  justifyContent: 'space-evenly',
+  backgroundColor: '#42a6ff', 
+  padding: '20px',
+  height: '100vh',
+}}>
+  
+  
+{/* Texte à droite */}
+<div style={{
+  color: 'white', 
+  fontFamily: 'Clash',
+  maxWidth: '70vh',
+}}>
+  {/* Titre */}
+  <h1 style={{
+    fontSize: '36px', 
+    textShadow: '3px 3px 0px black', 
+    marginBottom: '20px',
+  }}>
+    WHO ARE THE GOBLINZ?
+  </h1>
+
+  {/* Paragraphe */}
+  <div style={{fontFamily: 'Freeman', fontSize: '21px',}}>
+      <p style={{ marginBottom: '10px' }}>
+        The Goblinz are neon-fueled chaos incarnate.
+      </p>
+      <p style={{ marginBottom: '10px' }}>
+        We don’t sleep — we rave, we scheme, and we conquer the Eclipse night.
+      </p>
+      <p style={{}}>
+        Let’s glow, let’s goblin, let’s rave!
+      </p>
+  </div>
+  {/* Petit "Live" avec un point vert */}
+  <div
+                style={{
+                  marginTop: '35px', // Espacement entre le bouton et le texte
+                  display: 'flex',
+                  alignItems: 'center',
+                  position: 'relative',
+                  left: '67%',
+                }}
+              >
+                <div
+                  style={{
+                    width: '7px',
+                    height: '7px',
+                    backgroundColor: 'green',
+                    borderRadius: '50%', // Faire un cercle
+                    marginRight: '5px', // Espacement entre le point et le texte
+                  }}
+                ></div>
+                <span style={{ fontSize: '11px', color: 'white', 
+                    textShadow: '0px 0px 0px black', }}>Live</span>
+              </div>
+  {/* Boutton Elixir */}
+  <a href="/test" target="_blank" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+              <div
+                  style={{
+                    zIndex: 100,
+                    padding: '20px 20px 18px 20px',
+                    position: 'absolute',
+                    backgroundColor: 'red',
+                    textShadow: '0px 0px 0px black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(-2deg) translate(0px, 0px)', // Inclinaison de l'icône
+                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(3px, 4px)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0px, 0px)'} // Rétablir la position originale
+                >
+                  MINT FREE ELIXIR
+                </div>
+                <div
+                  style={{
+                    zIndex: 5,
+                    padding: '20px 20px 18px 20px',
+                    color: 'black',
+                    marginRight: '20px',
+                    position: 'absolute',
+                    backgroundColor: 'black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(-2deg) translate(12px, 4px)',
+                  }}>MINT FREE ELIXIR
+                </div>
+              </a>
+</div>
+
+
+  {/* Image à gauche */}
+  <img 
+    src="fete.webp" 
+    alt="Fête" 
+    style={{
+      height: '80vh',
+      width: 'auto',
+      marginRight: '20px' // Espace entre l'image et le texte
+    }} 
+  />
+</div>
+
+
 
 
 
@@ -452,12 +584,21 @@ export default function Home() {
 
         
 
-        <div style={{backgroundColor: 'grey', paddingTop: '75px'}}>
+        <div style={{background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '75px'}}>
         {/* Frise Chronologique */}
         
         <div style={{ margin: "2rem 0", textAlign: "center" }}>
-          <h2 style={{ color: "white", marginBottom: "12rem" }}>GoblinZ Roadmap</h2>
-          <div style={{ position: "relative", width: "80%", margin: "auto", height: "300px" }}>
+          <h2 style={{
+            color: "white",
+            fontSize: '42px',
+            marginBottom: "12rem",
+            textShadow: '3px 3px 0px black',
+            fontFamily: 'Clash',
+            }}>
+              GOBLINZ ROADMAP
+          </h2>
+
+          <div style={{ position: "relative", width: "auto", margin: "0px 250px 0px 250px", height: "300px",}}>
             {/* Points avec bordure au fond */}
             {timelineData.map((event, index) => (
               <div
@@ -510,14 +651,16 @@ export default function Home() {
                   transform: "translateX(-50%)",
                   zIndex: "100", // Ronds sans bordure au-dessus de la barre
                   textAlign: "center",
+                  cursor: "pointer", // Indiquer que c'est cliquable
                 }}
+                onClick={() => setIdActuel(event.id)} // Mettre à jour l'état au clic
               >
                 <div
                   style={{
                     width: "26px",
                     height: "26px",
                     borderRadius: "50%",
-                    backgroundColor: index <= timelineData.findIndex(event => event.id === idActuel) ? "#007BFF" : "#ccc", // Couleur des ronds
+                    backgroundColor: index <= timelineData.findIndex(e => e.id === idActuel) ? "#007BFF" : "#ccc", // Couleur des ronds
                     border: "0px solid #fff", // Pas de bordure
                     margin: "auto",
                     top: "-6px", // Déplacer le point au-dessus de la ligne
@@ -531,33 +674,59 @@ export default function Home() {
 
             
 
-            {/* Description et dates */}
-            {timelineData.map((event, index) => (
-              <div
-                key={event.id}
-                style={{
-                  position: "absolute",
-                  left: `${(index / (timelineData.length - 1)) * 100}%`, // Positionnement des points
-                  transform: "translateX(-50%)",
-                  textAlign: "center",
-                  zIndex: "2", // Texte des descriptions au-dessus de tout
-                }}
-              >
-                <div
-                  style={{
-                    marginTop: "8px",
-                    fontSize: "1.4rem",
-                    color: "white",
-                    position: "absolute",
-                    display: "block", // Afficher les descriptions
-                    top: event.position === "above" ? "-120px" : "30px",
-                  }}
-                >
-                  <span>{event.date}</span><br/>
-                  <span>{event.description}</span>
-                </div>
-              </div>
-            ))}
+{/* Description et dates */}
+{timelineData.map((event, index) => (
+  event.id <= idActuel && ( // Afficher les éléments dont l'id est inférieur ou égal à idActuel
+    <div
+      key={event.id}
+      style={{
+        position: "absolute",
+        left: `${(index / (timelineData.length - 1)) * 100}%`, // Positionnement des points
+        transform: "translateX(-50%)",
+        textAlign: "center",
+        fontFamily: 'Freeman',
+        zIndex: "2", // Texte des descriptions au-dessus de tout
+      }}
+    >
+      <div
+        style={{
+          marginTop: "8px",
+          fontSize: "1.4rem",
+          color: "white",
+          position: "absolute",
+          display: "block", // Afficher les descriptions
+          width: "60vh",
+          left: "-30vh",
+          top: event.position === "above" ? "-170px" : "30px",
+        }}
+      >
+        {/* Rendu des lignes de date */}
+        <span>
+  {Array.isArray(event.date) ? (
+    event.date.map((line, i) => (
+      <React.Fragment key={i}>
+        🍻 {line}
+        <br />
+      </React.Fragment>
+    ))
+  ) : (
+    <>
+      🍻 {event.date}
+      <br />
+    </>
+  )}
+</span>
+
+        {/* Description */}
+        <span style={{ fontFamily: 'Loved', fontStyle: 'italic', fontWeight: '400' }}>
+          {event.description}
+        </span>
+      </div>
+    </div>
+  )
+))}
+
+
           </div>
         </div>
 
@@ -566,13 +735,32 @@ export default function Home() {
 
         </div>
 
-        <div style={{backgroundColor: 'yellow'}}>
-          <p>AAAAAAAAAAAAAAAAAA</p>
-          <p>AAAAAAAAAAAAAAAAAA</p>
-          <p>AAAAAAAAAAAAAAAAAA</p>
-          <p>AAAAAAAAAAAAAAAAAA</p>
-          <p>AAAAAAAAAAAAAAAAAA</p>
+        <div
+          style={{
+            backgroundImage: "url('fond_bar.png')", // Définit l'image en fond
+            backgroundSize: "cover", // L'image couvre tout l'espace
+            backgroundRepeat: "no-repeat", // Pas de répétition
+            backgroundPosition: "center", // L'image est centrée
+            color: "yellow", // Si tu veux garder une couleur aussi
+            height: "100vh", // Hauteur sur toute la fenêtre
+            display: "flex", // Active Flexbox
+            justifyContent: "center", // Centre horizontalement
+            alignItems: "center", // Centre verticalement
+            padding: '40px 95vh 40px 30vh',
+          }}
+        >
+          <div style={{ textAlign: "center", fontFamily: 'Freeman', }}>
+            <span style={{fontFamily: 'Clash', fontSize: '190%'}}><div>GOBLINZ<br/>WEEKLY PARTY?</div>WHAT'S IT?</span><br />
+
+
+            AAAAAAAAAAAAAAA<br />
+            AAAAAAAAAAAAAAA<br />
+            AAAAAAAAAAAAAAA<br />
+            AAAAAAAAAAAAAAA<br />
+            AAAAAAAAAAAAAAA<br />
+          </div>
         </div>
+
 
 
 
