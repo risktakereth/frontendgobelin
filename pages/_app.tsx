@@ -33,8 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta property="og:type" content="website" />
         <meta property="og:title" content={headerText} />
-        <meta property="og:description" content="RRRRRRRRRRRRRRRRAAAAAAAAAAAVE" />
-        <meta name="description" content="RRRRRRRRRRRRRRRRAAAAAAAAAAAVE" />
+        <meta property="og:description" content="Join the Rave! GoblinzRave is a NFT collection only avalaible on Eclipse Mainnet" />
+        <meta name="description" content="Join the Rave! GoblinzRave is a NFT collection only avalaible on Eclipse Mainnet" />
         <meta property="og:image" content={image} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{headerText}</title>

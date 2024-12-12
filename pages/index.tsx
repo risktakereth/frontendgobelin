@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useMemo, useState } from "react";
 import { useUmi } from "../utils/useUmi";
 import styles from "../styles/Home.module.css";
 import { guardChecker } from "../utils/checkAllowed";
@@ -22,16 +22,84 @@ export default function Home() {
     };
   
     const timelineData: TimelineEvent[] = [
-      { id: 1, date: ["Twitter Launch", "Organic Growth"], description: "The first GoblinZ joined the Before Party. These OGz fans set the vibe for what’s to come!", position: "above" },
-      { id: 2, date: ["Discord and Guild launch", "Elixir minting"], description: "GoblinZ fever takes over as the community grows and the goblins brew their magical elixirs.", position: "below" },
-      { id: 3, date: ["Mint Week!"], description: "This is THE event - the rave of raves! The real madness begins.", position: "above" },
-      { id: 4, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
+      { id: 0, date: ["Twitter Launch", "Organic Growth"], description: "The first GoblinZ joined the Before Party. These OGz fans set the vibe for what’s to come!", position: "above" },
+      { id: 1, date: ["Discord and Guild launch", "Elixir minting"], description: "GoblinZ fever takes over as the community grows and the goblins brew their magical elixirs.", position: "below" },
+      { id: 2, date: ["Mint Week!"], description: "This is THE event - the rave of raves! The real madness begins.", position: "above" },
+      { id: 3, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
     ];
-  
-    //const idActuel = 2; // ID actuel, défini en dur
 
-    // État pour suivre l'ID actuel
-    const [idActuel, setIdActuel] = useState<number>(2);
+    const [idActuel, setIdActuel] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  // Variables pour contrôler la force du scroll
+  const scrollDelta = useRef(0); // Accumule les mouvements de scroll
+  const scrollThreshold = 50; // Seuil pour considérer un scroll comme valide
+
+  const handleScroll = (e: WheelEvent) => {
+    if (!isVisible) {
+      return; // Si la frise n'est pas visible, on n'interfère pas.
+    }
+
+    e.preventDefault();
+
+    // Accumuler les valeurs de deltaY
+    scrollDelta.current += e.deltaY;
+
+    if (scrollDelta.current > scrollThreshold && idActuel < timelineData.length - 1) {
+      // Scroll vers le bas
+      setIdActuel((prev) => prev + 1);
+      scrollDelta.current = 0; // Réinitialiser après un changement
+    } else if (scrollDelta.current < -scrollThreshold && idActuel > 0) {
+      // Scroll vers le haut
+      setIdActuel((prev) => prev - 1);
+      scrollDelta.current = 0; // Réinitialiser après un changement
+    }
+
+    // Conditions spéciales pour le premier et le dernier point
+    if (idActuel === 0 && e.deltaY < 0) {
+      scrollDelta.current = 0; // Autoriser le scroll normal vers le haut
+      return;
+    }
+
+    if (idActuel === timelineData.length - 1 && e.deltaY > 0) {
+      scrollDelta.current = 0; // Autoriser le scroll normal vers le bas
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.8}
+    );
+
+    if (timelineRef.current) {
+      observer.observe(timelineRef.current);
+    }
+
+    return () => {
+      if (timelineRef.current) {
+        observer.unobserve(timelineRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      // Ajouter l'événement uniquement si la frise est visible.
+      window.addEventListener("wheel", handleScroll, { passive: false });
+    } else {
+      window.removeEventListener("wheel", handleScroll);
+    }
+
+    return () => {
+      window.removeEventListener("wheel", handleScroll);
+    };
+  }, [isVisible, idActuel]);
+
 
     return (
       <>
@@ -180,7 +248,7 @@ export default function Home() {
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
               />
               {/* Icône Twitter */}
-              <a href="https://x.com/GoblinzRave" target="_blank" rel="noopener noreferrer">
+              <a href="https://x.com/GoblinzRave" rel="noopener noreferrer">
               <div
                   style={{
                     zIndex: 100,
@@ -217,7 +285,7 @@ export default function Home() {
                 </div>
               </a>
               {/* Icône Discord */}
-              <a href="https://discord.com/invite/8wMyc76t" target="_blank" rel="noopener noreferrer">
+              <a href="https://discord.com/invite/8wMyc76t" rel="noopener noreferrer">
               <div
                   style={{
                     zIndex: 100,
@@ -254,7 +322,7 @@ export default function Home() {
                 </div>
               </a>
               {/* Icône Guild */}
-              <a href="https://guild.xyz/GoblinzRave" target="_blank" rel="noopener noreferrer">
+              <a href="https://guild.xyz/GoblinzRave" rel="noopener noreferrer">
               <div
                   style={{
                     zIndex: 100,
@@ -362,7 +430,7 @@ export default function Home() {
 
 
             {/* Boutton Elixir */}
-            <a href="/test" target="_blank" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+            <a href="/test" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
@@ -525,7 +593,7 @@ export default function Home() {
                     textShadow: '0px 0px 0px black', }}>Live</span>
               </div>
   {/* Boutton Elixir */}
-  <a href="/test" target="_blank" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+  <a href="/test" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
@@ -584,157 +652,145 @@ export default function Home() {
 
         
 
-        <div style={{background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '75px'}}>
-        {/* Frise Chronologique */}
-        
-        <div style={{ margin: "2rem 0", textAlign: "center" }}>
-          <h2 style={{
-            color: "white",
-            fontSize: '42px',
-            marginBottom: "12rem",
-            textShadow: '3px 3px 0px black',
-            fontFamily: 'Clash',
-            }}>
-              GOBLINZ ROADMAP
-          </h2>
-
-          <div style={{ position: "relative", width: "auto", margin: "0px 250px 0px 250px", height: "300px",}}>
-            {/* Points avec bordure au fond */}
-            {timelineData.map((event, index) => (
-              <div
-                key={event.id}
-                style={{
-                  position: "absolute",
-                  left: `${(index / (timelineData.length - 1)) * 100}%`, // Positionnement des points
-                  transform: "translateX(-50%)",
-                  zIndex: "10", // Points avec bordure au fond
-                  textAlign: "center",
-                }}
-              >
-                <div
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    backgroundColor: "#ccc", // Couleur des points
-                    border: "6px solid #fff", // Bordure blanche des points
-                    margin: "auto",
-                    top: "-9px", // Déplacer le point au-dessus de la ligne
-                    position: "relative", // Assurer le bon alignement vertical
-                  }}
-                />
-              </div>
-            ))}
-
-            {/* Ligne principale avec bordure */}
-            <div
-              style={{
-                zIndex: "10",  // La barre au-dessus des ronds avec bordure
-                top: "-3.5px",
-                position: "absolute",
-                left: 0,
-                right: 0,
-                height: "20px",
-                backgroundColor: "#ccc", // Couleur de fond de la barre
-                border: "3px solid #fff", // Bordure blanche autour de la barre
-                background: `linear-gradient(to right, #007BFF ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
-              }}
-            />
-
-            {/* Ronds sans bordure au-dessus de la barre */}
-            {timelineData.map((event, index) => (
-              <div
-                key={event.id}
-                style={{
-                  position: "absolute",
-                  left: `${(index / (timelineData.length - 1)) * 100}%`, // Positionnement des points
-                  transform: "translateX(-50%)",
-                  zIndex: "100", // Ronds sans bordure au-dessus de la barre
-                  textAlign: "center",
-                  cursor: "pointer", // Indiquer que c'est cliquable
-                }}
-                onClick={() => setIdActuel(event.id)} // Mettre à jour l'état au clic
-              >
-                <div
-                  style={{
-                    width: "26px",
-                    height: "26px",
-                    borderRadius: "50%",
-                    backgroundColor: index <= timelineData.findIndex(e => e.id === idActuel) ? "#007BFF" : "#ccc", // Couleur des ronds
-                    border: "0px solid #fff", // Pas de bordure
-                    margin: "auto",
-                    top: "-6px", // Déplacer le point au-dessus de la ligne
-                    position: "relative", // Assurer le bon alignement vertical
-                  }}
-                />
-              </div>
-            ))}
-
-
-
-            
-
-{/* Description et dates */}
-{timelineData.map((event, index) => (
-  event.id <= idActuel && ( // Afficher les éléments dont l'id est inférieur ou égal à idActuel
-    <div
-      key={event.id}
-      style={{
-        position: "absolute",
-        left: `${(index / (timelineData.length - 1)) * 100}%`, // Positionnement des points
-        transform: "translateX(-50%)",
-        textAlign: "center",
-        fontFamily: 'Freeman',
-        zIndex: "2", // Texte des descriptions au-dessus de tout
-      }}
-    >
-      <div
-        style={{
-          marginTop: "8px",
-          fontSize: "1.4rem",
+<div ref={timelineRef} style={{ background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '75px' }}>
+      <div style={{ margin: "2rem 0", textAlign: "center" }}>
+        <h2 style={{
           color: "white",
-          position: "absolute",
-          display: "block", // Afficher les descriptions
-          width: "60vh",
-          left: "-30vh",
-          top: event.position === "above" ? "-170px" : "30px",
-        }}
-      >
-        {/* Rendu des lignes de date */}
-        <span>
-  {Array.isArray(event.date) ? (
-    event.date.map((line, i) => (
-      <React.Fragment key={i}>
-        🍻 {line}
-        <br />
-      </React.Fragment>
-    ))
-  ) : (
-    <>
-      🍻 {event.date}
-      <br />
-    </>
-  )}
-</span>
+          fontSize: '42px',
+          marginBottom: "12rem",
+          textShadow: '3px 3px 0px black',
+          fontFamily: 'Clash',
+        }}>
+          GOBLINZ ROADMAP
+        </h2>
 
-        {/* Description */}
-        <span style={{ fontFamily: 'Loved', fontStyle: 'italic', fontWeight: '400' }}>
-          {event.description}
-        </span>
+        <div
+          style={{ position: "relative", width: "auto", margin: "0px 250px 0px 250px", height: "300px" }}
+        >
+          {timelineData.map((event, index) => (
+            <div
+              key={event.id}
+              style={{
+                position: "absolute",
+                left: `${(index / (timelineData.length - 1)) * 100}%`,
+                transform: "translateX(-50%)",
+                zIndex: "10",
+                textAlign: "center",
+              }}
+            >
+              <div
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  backgroundColor: "#ccc",
+                  border: "6px solid #fff",
+                  margin: "auto",
+                  top: "-9px",
+                  position: "relative",
+                }}
+              />
+            </div>
+          ))}
+
+          <div
+            style={{
+              zIndex: "10",
+              top: "-3.5px",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              height: "20px",
+              backgroundColor: "#ccc",
+              border: "3px solid #fff",
+              background: `linear-gradient(to right, #007BFF ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
+            }}
+          />
+
+          {timelineData.map((event, index) => (
+            <div
+              key={event.id}
+              style={{
+                position: "absolute",
+                left: `${(index / (timelineData.length - 1)) * 100}%`,
+                transform: "translateX(-50%)",
+                zIndex: "100",
+                textAlign: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => setIdActuel(event.id)}
+            >
+              <div
+                style={{
+                  width: "26px",
+                  height: "26px",
+                  borderRadius: "50%",
+                  backgroundColor: index <= timelineData.findIndex(e => e.id === idActuel) ? "#007BFF" : "#ccc",
+                  border: "0px solid #fff",
+                  margin: "auto",
+                  top: "-6px",
+                  position: "relative",
+                }}
+              />
+            </div>
+          ))}
+
+          {timelineData.map((event, index) => (
+            event.id <= idActuel && (
+              <div
+                key={event.id}
+                style={{
+                  position: "absolute",
+                  left: `${(index / (timelineData.length - 1)) * 100}%`,
+                  transform: "translateX(-50%)",
+                  textAlign: "center",
+                  fontFamily: 'Freeman',
+                  zIndex: "2",
+                }}
+              >
+                <div
+                  style={{
+                    marginTop: "8px",
+                    fontSize: "1.4rem",
+                    color: "white",
+                    position: "absolute",
+                    display: "block",
+                    width: "60vh",
+                    left: "-30vh",
+                    top: event.position === "above" ? "-170px" : "30px",
+                  }}
+                >
+                  <span>
+                    {Array.isArray(event.date) ? (
+                      event.date.map((line, i) => (
+                        <React.Fragment key={i}>
+                          🍻 {line}
+                          <br />
+                        </React.Fragment>
+                      ))
+                    ) : (
+                      <>
+                        🍻 {event.date}
+                        <br />
+                      </>
+                    )}
+                  </span>
+                  <span style={{ fontFamily: 'Loved', fontStyle: 'italic', fontWeight: '400' }}>
+                    {event.description}
+                  </span>
+                </div>
+              </div>
+            )
+          ))}
+        </div>
       </div>
     </div>
-  )
-))}
-
-
-          </div>
-        </div>
 
 
 
 
-        </div>
 
+        {/* IMAGE BAR */}
         <div
           style={{
             backgroundImage: "url('fond_bar.png')", // Définit l'image en fond
@@ -750,17 +806,50 @@ export default function Home() {
           }}
         >
           <div style={{ textAlign: "center", fontFamily: 'Freeman', }}>
-            <span style={{fontFamily: 'Clash', fontSize: '190%'}}><div>GOBLINZ<br/>WEEKLY PARTY?</div>WHAT'S IT?</span><br />
+          <span style={{fontFamily: 'Clash', fontSize: '190%'}}><div style={{color:'white'}}>YOU SAID</div><div>WEEKLY PARTY? 🎉</div></span><br/>
+          <span style={{fontFamily: 'Freeman', fontSize: '170%'}}><div style={{color:'white'}}>You may not be ready for it,</div><div>but you're gonna LOVE it.</div></span><br/>
+
+          <a href="/#" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+              <div
+                  style={{
+                    zIndex: 100,
+                    padding: '20px 20px 18px 20px',
+                    position: 'absolute',
+                    backgroundColor: 'red',
+                    textShadow: '0px 0px 0px black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(-2deg) translate(0px, 0px)', // Inclinaison de l'icône
+                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(3px, 4px)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0px, 0px)'} // Rétablir la position originale
+                >
+                  COMING SOON
+                </div>
+                <div
+                  style={{
+                    zIndex: 5,
+                    padding: '20px 20px 18px 20px',
+                    color: 'black',
+                    marginRight: '20px',
+                    position: 'absolute',
+                    backgroundColor: 'black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(-2deg) translate(12px, 4px)',
+                  }}>COMING SOON
+                </div>
+              </a>
 
 
-            AAAAAAAAAAAAAAA<br />
-            AAAAAAAAAAAAAAA<br />
-            AAAAAAAAAAAAAAA<br />
-            AAAAAAAAAAAAAAA<br />
-            AAAAAAAAAAAAAAA<br />
-          </div>
+
         </div>
-
+        </div>
 
 
 
