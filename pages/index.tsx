@@ -28,78 +28,10 @@ export default function Home() {
       { id: 3, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
     ];
 
-    const [idActuel, setIdActuel] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const timelineRef = useRef<HTMLDivElement>(null);
+    //const idActuel = 3
+    const [idActuel, setIdActuel] = useState(3);
 
-  // Variables pour contrôler la force du scroll
-  const scrollDelta = useRef(0); // Accumule les mouvements de scroll
-  const scrollThreshold = 50; // Seuil pour considérer un scroll comme valide
-
-  const handleScroll = (e: WheelEvent) => {
-    if (!isVisible) {
-      return; // Si la frise n'est pas visible, on n'interfère pas.
-    }
-
-    e.preventDefault();
-
-    // Accumuler les valeurs de deltaY
-    scrollDelta.current += e.deltaY;
-
-    if (scrollDelta.current > scrollThreshold && idActuel < timelineData.length - 1) {
-      // Scroll vers le bas
-      setIdActuel((prev) => prev + 1);
-      scrollDelta.current = 0; // Réinitialiser après un changement
-    } else if (scrollDelta.current < -scrollThreshold && idActuel > 0) {
-      // Scroll vers le haut
-      setIdActuel((prev) => prev - 1);
-      scrollDelta.current = 0; // Réinitialiser après un changement
-    }
-
-    // Conditions spéciales pour le premier et le dernier point
-    if (idActuel === 0 && e.deltaY < 0) {
-      scrollDelta.current = 0; // Autoriser le scroll normal vers le haut
-      return;
-    }
-
-    if (idActuel === timelineData.length - 1 && e.deltaY > 0) {
-      scrollDelta.current = 0; // Autoriser le scroll normal vers le bas
-      return;
-    }
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { threshold: 0.8}
-    );
-
-    if (timelineRef.current) {
-      observer.observe(timelineRef.current);
-    }
-
-    return () => {
-      if (timelineRef.current) {
-        observer.unobserve(timelineRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isVisible) {
-      // Ajouter l'événement uniquement si la frise est visible.
-      window.addEventListener("wheel", handleScroll, { passive: false });
-    } else {
-      window.removeEventListener("wheel", handleScroll);
-    }
-
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, [isVisible, idActuel]);
-
+  
 
     return (
       <>
@@ -130,12 +62,14 @@ export default function Home() {
               padding: 1.5rem 0rem 3rem 0rem !important;
             }
 
-            .css-z3ruc2 {
+            .css-z3ruc2,
+            .css-1r0rxag,
+            .css-4x59lz {
             display: none !important;
             }
 
             .Home_center__O_TIN {
-            padding: 0px;
+            padding: 0dvh;
             }
 
             body {
@@ -168,196 +102,199 @@ export default function Home() {
 
         <div id="centercolonne" style={{display: 'flex', flexDirection: 'column', textAlign: 'center',}}>
 
-        <div style={{ background: 'radial-gradient(circle at 50% 50%, blue, darkblue)', height: '100vh', position: 'relative',}}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', background: 'radial-gradient(circle at 50% 50%, blue, darkblue)', height: '100vh', position: 'relative',}}>
 
           {/*Menu on top*/}
           {/* Contenu du menu avec 3 éléments */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: '10px 10px 10px 10px', marginTop: '15px' }}>
+          <div style={{ display: 'flex', flexDirection: 'row', fontSize: '3dvh' , alignItems: 'center', justifyContent: 'center', padding: '2dvh', marginTop: '3dvh' }}>
 
-
-                <ChakraLink
-                    as={NextLink}
-                    style={{
-                      fontFamily: 'Clash', fontSize: '16px',
-                    }}
-                    href="/test"
-                    color="white"
-                    marginRight="40px"
-                    padding="6px 12px 6px 12px"
-                    borderRadius='4px'
-                    transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      color: "black",
-                    }}
+              <div>
+                  <ChakraLink
+                      as={NextLink}
+                      style={{
+                        fontFamily: 'Clash',
+                      }}
+                      href="/mint"
+                      color="white"
+                      marginRight="6.61dvh"
+                      padding="1dvh 2dvh"
+                      borderRadius='0.66dvh'
+                      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                      _hover={{
+                        color: "black",
+                      }}
+                      >
+                        Mint Free Elixir
+                  </ChakraLink>
+                  <ChakraLink
+                      as={NextLink}
+                      style={{
+                        fontFamily: 'Clash',
+                      }}
+                      href="/#Roadmap"
+                      color="white"
+                      marginRight="6.61dvh"
+                      padding="1dvh 2dvh"
+                      borderRadius='0.66dvh'
+                      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                      _hover={{
+                        color: "black",
+                      }}
+                      >
+                        Roadmap
+                  </ChakraLink>
+                  <ChakraLink
+                      as={NextLink}
+                      style={{
+                        fontFamily: 'Clash',
+                      }}
+                      href="/test"
+                      color="white"
+                      marginRight="6.61dvh"
+                      padding="1dvh 2dvh"
+                      borderRadius='0.66dvh'
+                      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                      _hover={{
+                        color: "black",
+                      }}
+                      >
+                        Goblinomicz
+                  </ChakraLink>
+                  <ChakraLink
+                      as={NextLink}
+                      style={{
+                        fontFamily: 'Clash',
+                      }}
+                      href="/#FAQ"
+                      color="white"
+                      marginRight="6.61dvh"
+                      padding="1dvh 2dvh"
+                      borderRadius='0.66dvh'
+                      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+                      _hover={{
+                        color: "black",
+                      }}
+                      >
+                        FAQ
+                  </ChakraLink>
+              </div>
+              <div style={{width: '25dvh',}}>
+                  <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+                  />
+                  {/* Icône Twitter */}
+                  <a href="https://x.com/GoblinzRave" rel="noopener noreferrer">
+                  <div
+                      style={{
+                        zIndex: 100,
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: '#42a6ff',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(-1.32dvh, -3.63dvh)', // Inclinaison de l'icône
+                        transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-0.66dvh, -2.98dvh)'} // Décalage vers la droite et le bas
+                      onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-1.32dvh, -3.63dvh)'} // Rétablir la position originale
                     >
-                      Mint Free Elixir
-                </ChakraLink>
-                <ChakraLink
-                    as={NextLink}
-                    style={{
-                      fontFamily: 'Clash', fontSize: '16px',
-                    }}
-                    href="/test"
-                    color="white"
-                    marginRight="40px"
-                    padding="6px 12px 6px 12px"
-                    borderRadius='4px'
-                    transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      color: "black",
-                    }}
+                      <i className="fab fa-twitter" style={{ color: 'white', fontSize: '3.31dvh' }}></i>
+                    </div>
+                    <div
+                      style={{
+                        zIndex: 5,
+                        marginRight: '3.31dvh',
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: 'black',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(-0.66dvh, -2.98dvh)',
+                      }}>
+                    </div>
+                  </a>
+                  {/* Icône Discord */}
+                  <a href="https://discord.com/invite/8wMyc76t" rel="noopener noreferrer">
+                  <div
+                      style={{
+                        zIndex: 100,
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: '#42a6ff',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(8deg) translate(7.93dvh, -4.62dvh)', // Inclinaison de l'icône
+                        transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(8.60dvh, -3.97dvh)'} // Décalage vers la droite et le bas
+                      onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(7.93dvh, -4.62dvh)'} // Rétablir la position originale
                     >
-                      Roadmap
-                </ChakraLink>
-                <ChakraLink
-                    as={NextLink}
-                    style={{
-                      fontFamily: 'Clash', fontSize: '16px',
-                    }}
-                    href="/test"
-                    color="white"
-                    marginRight="40px"
-                    padding="6px 12px 6px 12px"
-                    borderRadius='4px'
-                    transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      color: "black",
-                    }}
+                      <i className="fab fa-discord" style={{ color: 'white', fontSize: '3.31dvh' }}></i>
+                    </div>
+                    <div
+                      style={{
+                        zIndex: 5,
+                        marginRight: '3.31dvh',
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: 'black',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(8deg) translate(8.6dvh, -3.97dvh)',
+                      }}>
+                    </div>
+                  </a>
+                  {/* Icône Guild */}
+                  <a href="https://guild.xyz/GoblinzRave" rel="noopener noreferrer">
+                  <div
+                      style={{
+                        zIndex: 100,
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: '#42a6ff',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(18.5dvh, -0.66dvh)', // Inclinaison de l'icône
+                        transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(19.17dvh, 0dvh)'} // Décalage vers la droite et le bas
+                      onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(18.5dvh, -0.66dvh)'} // Rétablir la position originale
                     >
-                      Goblinomicz
-                </ChakraLink>
-                <ChakraLink
-                    as={NextLink}
-                    style={{
-                      fontFamily: 'Clash', fontSize: '16px',
-                    }}
-                    href="/test"
-                    color="white"
-                    marginRight="80px"
-                    padding="6px 12px 6px 12px"
-                    borderRadius='4px'
-                    transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      color: "black",
-                    }}
-                    >
-                      FAQ
-                </ChakraLink>
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-              />
-              {/* Icône Twitter */}
-              <a href="https://x.com/GoblinzRave" rel="noopener noreferrer">
-              <div
-                  style={{
-                    zIndex: 100,
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: '#42a6ff',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-8deg) translate(-8px, -22px)', // Inclinaison de l'icône
-                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-4px, -18px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-8px, -22px)'} // Rétablir la position originale
-                >
-                  <i className="fab fa-twitter" style={{ color: 'white', fontSize: '20px' }}></i>
-                </div>
-                <div
-                  style={{
-                    zIndex: 5,
-                    marginRight: '20px',
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: 'black',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-8deg) translate(-4px, -18px)',
-                  }}>
-                </div>
-              </a>
-              {/* Icône Discord */}
-              <a href="https://discord.com/invite/8wMyc76t" rel="noopener noreferrer">
-              <div
-                  style={{
-                    zIndex: 100,
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: '#42a6ff',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(8deg) translate(48px, -28px)', // Inclinaison de l'icône
-                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(52px, -24px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(48px, -28px)'} // Rétablir la position originale
-                >
-                  <i className="fab fa-discord" style={{ color: 'white', fontSize: '20px' }}></i>
-                </div>
-                <div
-                  style={{
-                    zIndex: 5,
-                    marginRight: '20px',
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: 'black',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(8deg) translate(52px, -24px)',
-                  }}>
-                </div>
-              </a>
-              {/* Icône Guild */}
-              <a href="https://guild.xyz/GoblinzRave" rel="noopener noreferrer">
-              <div
-                  style={{
-                    zIndex: 100,
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: '#42a6ff',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-8deg) translate(112px, -4px)', // Inclinaison de l'icône
-                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(116px, 0px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(112px, -4px)'} // Rétablir la position originale
-                >
-                  <img src="/guild.png" alt="Guild" style={{ width: '20px', height: '20px' }} />
-                </div>
-                <div
-                  style={{
-                    zIndex: 5,
-                    marginRight: '20px',
-                    position: 'absolute',
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: 'black',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-8deg) translate(116px, 0px)',
-                  }}>
-                </div>
-              </a>
+                      <img src="/guild.png" alt="Guild" style={{ width: '3.31dvh', height: '3.31dvh' }} />
+                    </div>
+                    <div
+                      style={{
+                        zIndex: 5,
+                        marginRight: '3.31dvh',
+                        position: 'absolute',
+                        width: '5.62dvh',
+                        height: '5.62dvh',
+                        backgroundColor: 'black',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(19.17dvh, 0dvh)',
+                      }}>
+                    </div>
+                  </a>
+              </div>
 
               
 
@@ -370,7 +307,7 @@ export default function Home() {
 
 
 
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', padding: '10px 10px 10px 10px', marginTop: '15px' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', padding: '1.65dvh 5dvh', marginTop: '2.48dvh' }}>
           <Image
             src="/gobelin.png"
             width="38%"
@@ -388,18 +325,17 @@ export default function Home() {
           <div
           style={{
             fontFamily: 'Clash',
-            textShadow: '4px 4px 0px black',
-            fontSize: '21px',
+            textShadow: '0.66dvh 0.66dvh 0dvh black',
+            fontSize: '3.47dvh',
             color: 'white',
             position: 'relative', // Positionner l'image par rapport à son parent
-            top: '-30px',
-            left: '-65px',
+            top: '-4.96dvh',
            }}>
             Welcome to
             <div
             style={{
-            fontSize: '52px',
-            marginBottom: '20px',
+            fontSize: '8.6dvh',
+            marginBottom: '3.31dvh',
            }}>
             GOBLINZ RAVE
             </div>
@@ -407,7 +343,7 @@ export default function Home() {
             {/* Petit "Live" avec un point vert */}
             <div
                 style={{
-                  marginTop: '5px', // Espacement entre le bouton et le texte
+                  marginTop: '0.83dvh', // Espacement entre le bouton et le texte
                   display: 'flex',
                   alignItems: 'center',
                   position: 'relative',
@@ -416,53 +352,53 @@ export default function Home() {
               >
                 <div
                   style={{
-                    width: '8px',
-                    height: '8px',
+                    width: '1.32dvh',
+                    height: '1.32dvh',
                     backgroundColor: 'green',
                     borderRadius: '50%', // Faire un cercle
-                    marginRight: '5px', // Espacement entre le point et le texte
+                    marginRight: '0.83dvh', // Espacement entre le point et le texte
                   }}
                 ></div>
-                <span style={{ fontSize: '13px', color: 'white', 
-                    textShadow: '0px 0px 0px black', }}>Live</span>
+                <span style={{ fontSize: '2.15dvh', color: 'white', 
+                    textShadow: '0dvh 0dvh 0dvh black', }}>Live</span>
               </div>
 
 
 
             {/* Boutton Elixir */}
-            <a href="/test" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+            <a href="/test" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
-                    padding: '20px 20px 18px 20px',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'red',
-                    textShadow: '0px 0px 0px black',
+                    textShadow: '0dvh 0dvh 0dvh black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(0px, 0px)', // Inclinaison de l'icône
+                    borderRadius: '.83dvh',
+                    transform: 'rotate(-2deg) translate(0dvh, 0dvh)', // Inclinaison de l'icône
                     transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(3px, 4px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0px, 0px)'} // Rétablir la position originale
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0.5dvh, 0.66dvh)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0dvh, 0dvh)'} // Rétablir la position originale
                 >
                   MINT FREE ELIXIR
                 </div>
                 <div
                   style={{
                     zIndex: 5,
-                    padding: '20px 20px 18px 20px',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     color: 'black',
-                    marginRight: '20px',
+                    marginRight: '3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(12px, 4px)',
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(1.99dvh, 0.66dvh)',
                   }}>MINT FREE ELIXIR
                 </div>
               </a>
@@ -483,17 +419,18 @@ export default function Home() {
               width: '100%',
               overflow: 'hidden',
               backgroundColor: '#42a6ff',
-              borderTop: "1px solid black",
-              borderBottom: "1px solid black",
+              borderTop: "0.17dvh solid black",
+              borderBottom: "0.17dvh solid black",
+              transform: 'rotate(-0.7deg) translate(0dvh, 1.65dvh)',
             }}
           >
             <div
               style={{
                 display: 'flex',
                 animation: 'scroll 20s linear infinite',
-                fontSize: '24px',
+                fontSize: '4dvh',
                 color: 'white',
-                padding: '10px 0',
+                padding: '1.2dvh 0',
               }}
             >
               {/* Cette div contient le texte qui défile */}
@@ -538,7 +475,7 @@ export default function Home() {
   alignItems: 'center',
   justifyContent: 'space-evenly',
   backgroundColor: '#42a6ff', 
-  padding: '20px',
+  padding: '3.31dvh',
   height: '100vh',
 }}>
   
@@ -551,19 +488,19 @@ export default function Home() {
 }}>
   {/* Titre */}
   <h1 style={{
-    fontSize: '36px', 
-    textShadow: '3px 3px 0px black', 
-    marginBottom: '20px',
+    fontSize: '5.95dvh', 
+    textShadow: '0.5dvh 0.5dvh 0dvh black', 
+    marginBottom: '3.31dvh',
   }}>
     WHO ARE THE GOBLINZ?
   </h1>
 
   {/* Paragraphe */}
-  <div style={{fontFamily: 'Freeman', fontSize: '21px',}}>
-      <p style={{ marginBottom: '10px' }}>
+  <div style={{fontFamily: 'Freeman', fontSize: '3.47dvh',}}>
+      <p style={{ marginBottom: '1.65dvh' }}>
         The Goblinz are neon-fueled chaos incarnate.
       </p>
-      <p style={{ marginBottom: '10px' }}>
+      <p style={{ marginBottom: '1.65dvh' }}>
         We don’t sleep — we rave, we scheme, and we conquer the Eclipse night.
       </p>
       <p style={{}}>
@@ -573,7 +510,7 @@ export default function Home() {
   {/* Petit "Live" avec un point vert */}
   <div
                 style={{
-                  marginTop: '35px', // Espacement entre le bouton et le texte
+                  marginTop: '5.79dvh', // Espacement entre le bouton et le texte
                   display: 'flex',
                   alignItems: 'center',
                   position: 'relative',
@@ -582,50 +519,52 @@ export default function Home() {
               >
                 <div
                   style={{
-                    width: '7px',
-                    height: '7px',
+                    width: '1.16dvh',
+                    height: '1.16dvh',
                     backgroundColor: 'green',
                     borderRadius: '50%', // Faire un cercle
-                    marginRight: '5px', // Espacement entre le point et le texte
+                    marginRight: '0.83dvh', // Espacement entre le point et le texte
                   }}
                 ></div>
-                <span style={{ fontSize: '11px', color: 'white', 
-                    textShadow: '0px 0px 0px black', }}>Live</span>
+                <span style={{ fontSize: '1.82dvh', color: 'white', 
+                    textShadow: '0dvh 0dvh 0dvh black', }}>Live</span>
               </div>
   {/* Boutton Elixir */}
-  <a href="/test" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+  <a href="/test" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
-                    padding: '20px 20px 18px 20px',
+                    fontSize: '2.6dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'red',
-                    textShadow: '0px 0px 0px black',
+                    textShadow: '0dvh 0dvh 0dvh black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(0px, 0px)', // Inclinaison de l'icône
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(0dvh, 0dvh)', // Inclinaison de l'icône
                     transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(3px, 4px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0px, 0px)'} // Rétablir la position originale
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0.5dvh, 0.66dvh)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0dvh, 0dvh)'} // Rétablir la position originale
                 >
                   MINT FREE ELIXIR
                 </div>
                 <div
                   style={{
-                    zIndex: 5,
-                    padding: '20px 20px 18px 20px',
+                    zIndex: 5,                    
+                    fontSize: '2.6dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     color: 'black',
-                    marginRight: '20px',
+                    marginRight: '3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(12px, 4px)',
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(1.99dvh, 0.66dvh)',
                   }}>MINT FREE ELIXIR
                 </div>
               </a>
@@ -639,7 +578,7 @@ export default function Home() {
     style={{
       height: '80vh',
       width: 'auto',
-      marginRight: '20px' // Espace entre l'image et le texte
+      marginRight: '3.31dvh' // Espace entre l'image et le texte
     }} 
   />
 </div>
@@ -650,22 +589,37 @@ export default function Home() {
 
 
 
-        
 
-<div ref={timelineRef} style={{ background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '75px' }}>
-      <div style={{ margin: "2rem 0", textAlign: "center" }}>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+{/* ROADMAP */}
+<div id="Roadmap" style={{ height: '105vh', background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '12.40dvh' }}>
+      <div style={{ margin: "2dvh 0", textAlign: "center" }}>
         <h2 style={{
           color: "white",
-          fontSize: '42px',
-          marginBottom: "12rem",
-          textShadow: '3px 3px 0px black',
+          fontSize: '6.94dvh',
+          marginBottom: "34dvh",
+          textShadow: '0.5dvh 0.5dvh 0dvh black',
           fontFamily: 'Clash',
         }}>
           GOBLINZ ROADMAP
         </h2>
 
         <div
-          style={{ position: "relative", width: "auto", margin: "0px 250px 0px 250px", height: "300px" }}
+          style={{ position: "relative", width: "auto", margin: "0dvh 41.32dvh 0dvh 41.32dvh", height: "49.59dvh" }}
         >
           {timelineData.map((event, index) => (
             <div
@@ -680,13 +634,13 @@ export default function Home() {
             >
               <div
                 style={{
-                  width: "32px",
-                  height: "32px",
+                  width: "5.29dvh",
+                  height: "5.29dvh",
                   borderRadius: "50%",
                   backgroundColor: "#ccc",
-                  border: "6px solid #fff",
+                  border: "1dvh solid #fff",
                   margin: "auto",
-                  top: "-9px",
+                  top: "-1.5dvh",
                   position: "relative",
                 }}
               />
@@ -696,13 +650,13 @@ export default function Home() {
           <div
             style={{
               zIndex: "10",
-              top: "-3.5px",
+              top: "-0.58dvh",
               position: "absolute",
               left: 0,
               right: 0,
-              height: "20px",
+              height: "3.31dvh",
               backgroundColor: "#ccc",
-              border: "3px solid #fff",
+              border: "0.5dvh solid #fff",
               background: `linear-gradient(to right, #007BFF ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
             }}
           />
@@ -722,13 +676,13 @@ export default function Home() {
             >
               <div
                 style={{
-                  width: "26px",
-                  height: "26px",
+                  width: "4.3dvh",
+                  height: "4.3dvh",
                   borderRadius: "50%",
                   backgroundColor: index <= timelineData.findIndex(e => e.id === idActuel) ? "#007BFF" : "#ccc",
-                  border: "0px solid #fff",
+                  border: "0dvh solid #fff",
                   margin: "auto",
-                  top: "-6px",
+                  top: "-1dvh",
                   position: "relative",
                 }}
               />
@@ -750,14 +704,14 @@ export default function Home() {
               >
                 <div
                   style={{
-                    marginTop: "8px",
-                    fontSize: "1.4rem",
+                    marginTop: "1.32dvh",
+                    fontSize: "3.7dvh",
                     color: "white",
                     position: "absolute",
                     display: "block",
                     width: "60vh",
                     left: "-30vh",
-                    top: event.position === "above" ? "-170px" : "30px",
+                    top: event.position === "above" ? "-28.1dvh" : "5dvh",
                   }}
                 >
                   <span>
@@ -790,6 +744,17 @@ export default function Home() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
         {/* IMAGE BAR */}
         <div
           style={{
@@ -802,54 +767,529 @@ export default function Home() {
             display: "flex", // Active Flexbox
             justifyContent: "center", // Centre horizontalement
             alignItems: "center", // Centre verticalement
-            padding: '40px 95vh 40px 30vh',
+            padding: '6.61dvh 95dvh 6.61dvh 30dvh',
           }}
         >
           <div style={{ textAlign: "center", fontFamily: 'Freeman', }}>
-          <span style={{fontFamily: 'Clash', fontSize: '190%'}}><div style={{color:'white'}}>YOU SAID</div><div>WEEKLY PARTY? 🎉</div></span><br/>
-          <span style={{fontFamily: 'Freeman', fontSize: '170%'}}><div style={{color:'white'}}>You may not be ready for it,</div><div>but you're gonna LOVE it.</div></span><br/>
+          <span style={{fontFamily: 'Clash', fontSize: '5.1dvh'}}><div style={{color:'white'}}>YOU SAID</div><div>WEEKLY PARTY? 🎉</div></span><br/>
+          <span style={{fontFamily: 'Freeman', fontSize: '4.2dvh'}}><div style={{color:'white'}}>You may not be ready for it,</div><div>but you're gonna LOVE it.</div></span><br/>
 
-          <a href="/#" rel="noopener noreferrer" style={{marginTop: '5px', display: 'flex', justifyContent: 'center'}}>
+          <a href="/#" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
-                    padding: '20px 20px 18px 20px',
+                    fontSize: '4dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'red',
-                    textShadow: '0px 0px 0px black',
+                    textShadow: '0dvh 0dvh 0dvh black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(0px, 0px)', // Inclinaison de l'icône
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(0dvh, 0dvh)', // Inclinaison de l'icône
                     transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(3px, 4px)'} // Décalage vers la droite et le bas
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0px, 0px)'} // Rétablir la position originale
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0.5dvh, 0.66dvh)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0dvh, 0dvh)'} // Rétablir la position originale
                 >
                   COMING SOON
                 </div>
                 <div
                   style={{
-                    zIndex: 5,
-                    padding: '20px 20px 18px 20px',
+                    zIndex: 5,                    
+                    fontSize: '4dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
                     color: 'black',
-                    marginRight: '20px',
+                    marginRight: '3.31dvh',
                     position: 'absolute',
                     backgroundColor: 'black',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: '5px',
-                    transform: 'rotate(-2deg) translate(12px, 4px)',
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(1.99dvh, 0.66dvh)',
                   }}>COMING SOON
                 </div>
               </a>
 
 
+        </div>
+        </div>
 
+
+
+
+
+
+
+
+{/* FAQ */}
+<div
+  id="FAQ"
+  style={{
+    padding: '2rem',
+    background: 'radial-gradient(circle at 50% 50%,rgb(55, 20, 255),rgb(7, 3, 245))',
+    borderRadius: '10px',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Clash',
+    color: "white",
+  }}
+>
+  <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
+    FAQ
+  </h2>
+  <div
+    style={{
+      maxWidth: '800px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
+    }}
+  >
+
+    {/* Question 1 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
+    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+  </p>
+</details>
+
+    
+    {/* Question 2 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
+    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+  </p>
+</details>
+
+
+    {/* Question 3 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
+    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+  </p>
+</details>
+
+
+    {/* Question 4 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
+    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+  </p>
+</details>
+
+    {/* Question 5 */}
+      <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
+    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+  </p>
+</details>
+
+
+
+
+
+
+  </div>
+
+
+
+
+  <div style={{padding: '4dvh'}}></div>
+
+
+
+
+
+  {/* ================= BANDE CIRCULANTE =============== */}
+<div
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              width: '120%',
+              overflow: 'hidden',
+              backgroundColor: '#42a6ff',
+              borderTop: "0.17dvh solid black",
+              borderBottom: "0.17dvh solid black",
+              transform: 'rotate(-1.7deg) translate(-5dvh, -17dvh)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                animation: 'scroll 20s linear infinite',
+                fontSize: '3.97dvh',
+                color: 'white',
+                padding: '1.65dvh 0',
+              }}
+            >
+              {/* Cette div contient le texte qui défile */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(100)} {/* On répète plusieurs fois le texte */}
+              </div>
+
+              {/* Dupliquez le même texte immédiatement après pour un défilement fluide */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(30)}
+              </div>
+            </div>
+          </div>
+</div>
+
+        
+
+
+
+
+
+        <div
+        style={{
+          backgroundImage: "url('join.png')", // Définit l'image en fond
+            backgroundSize: "cover", // L'image couvre tout l'espace
+            backgroundRepeat: "no-repeat", // Pas de répétition
+            backgroundPosition: "center", // L'image est centrée
+            padding: '8.26dvh',
+            fontSize: '3dvh',
+        }}>
+          AAA
         </div>
-        </div>
+
+        
+
+        
+
+
+
+
+
+
 
 
 

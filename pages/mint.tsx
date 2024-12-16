@@ -13,6 +13,7 @@ import { guardChecker } from "../utils/checkAllowed";
 import { Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
 import { ButtonList } from "../components/mintButton";
 import { ButtonSection } from "../components/mintsection";
+import { ElixirSection } from "../components/mintElixir";
 import { GuardReturn } from "../utils/checkerHelper";
 import { ShowNft } from "../components/showNft";
 import { InitializeModal } from "../components/initializeModal";
@@ -204,94 +205,269 @@ export default function Home() {
         <style jsx global>
           {`
       body {
-          background: #2d3748;
+          background: radial-gradient(circle at 50% 50%, grey, black);
           padding: 0;
-          height: 100vh; /* Pour permettre le scroll */
-          background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK');
-          background-attachment: relative;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
        }
+
+
+      @font-face {
+              font-family: 'Clash';
+              src: url('/You Blockhead.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+      @font-face {
+              font-family: 'Loved';
+              src: url('/LovedbytheKing-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+            
+      @font-face {
+              font-family: 'Freeman';
+              src: url('/Freeman-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+      
+      .chakra-numberinput {
+            display: none;
+      }
+
+      .chakra-stack {
+            justify-content: center;
+      }
+
+      .css-1b379r3{
+            display: none;
+      }
           
       #centercolonne {
-          max-width: 900px;
+          max-width: 1100px;
+          display: flex;
+          align-itmes: center;
           margin: 0 auto;
+          text-align: center;
+          justify-content: center;
+          flex-direction: column;
        }
    `}
         </style>
 
 
-
-
         <div id="centercolonne">         
+
+
+        <div>
+  <div
+    style={{
+      backgroundColor: 'transparent',
+      height: '100vh',
+      boxSizing: 'border-box', // Inclut padding/margin dans la hauteur
+      paddingBottom: '30px',
+    }}
+  >
+    <h2
+      style={{
+        fontFamily: 'Clash',
+        textShadow: '4px 4px 0px black',
+        fontSize: '35px',
+        color: 'white',
+        textAlign: 'center',
+        padding: '20px 0px',
+        margin: '10px 0px 0px 0px',
+      }}
+    >
+      BRING YOUR ELIXIR TO THE RAVE!
+    </h2>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        height: 'calc(100% - 60px)', // Ajuste pour tenir compte de la hauteur du h2
+      }}
+    >
+      {/* Left Section with MINT button */}
+      <div
+        style={{
+          backgroundColor: 'transparent',
+          flex: 1,
+          margin: '0 10px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // S'assure que la hauteur reste contrôlée
+          overflow: 'hidden', // Empêche tout débordement interne
+        }}
+      >
+        <div style={{ width: '90%', margin: '0px 0px 20px 0px', 
+          border: '2px solid grey',
+          borderRadius: '20px',
+          backgroundColor: 'rgb(0,0,0,0.1)',
+          padding: '40px 60px',}}>
+<h2
+              style={{
+                fontFamily: 'Clash',
+                textShadow: '4px 4px 0px black',
+                fontSize: '21px',
+                color: 'white',
+                textAlign: 'center',
+               }}>
+                FREE ELIXIR
+              </h2>
+              <span style={{fontFamily: 'Freeman', color: 'white',}}>Price: Free</span>
+
+              <Stack divider={<StackDivider />} spacing='8'>
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <ElixirSection
+                guardList={guards}
+                candyMachine={candyMachine}
+                candyGuard={candyGuard!}
+                umi={umi}
+                ownedTokens={ownedTokens}
+                setGuardList={setGuards}
+                mintsCreated={mintsCreated}
+                setMintsCreated={setMintsCreated}
+                onOpen={onShowNftOpen}
+                setCheckEligibility={setCheckEligibility}
+                />
+              )}
+            </Stack>
+
+
+
+            {/* BARRE DE PROGRESSION*/}
+            <div style={{ display: 'flex', marginTop: '12px', paddingBottom: '5px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+            <div
+  style={{
+    color: '#d2d2d2',
+    fontWeight: '300',
+    fontFamily: 'Freeman',
+    letterSpacing: '0.8px',
+  }}
+>
+  <span style={{ color: '#000fff', fontSize: '130%'}}>Total Minted: </span>
+  <span style={{ color: 'white', fontSize: '130%' }}>{Number(candyMachine?.itemsRedeemed)}</span>
+  <span style={{ color: '#000fff', fontSize: '130%' }}>
+    /{Number(candyMachine?.data.itemsAvailable)}
+  </span>
+</div>            </div>
+            <div style={{ width: '100%', backgroundColor: '#e0e0e0', borderRadius: '8px', overflow: 'hidden' }}>
+              <div
+                style={{
+                    width: `${candyMachine && candyMachine.itemsRedeemed && candyMachine.data?.itemsAvailable?(Number(candyMachine.itemsRedeemed) / Number(candyMachine.data.itemsAvailable)) * 100: 0}%`,                      
+                    height: '15px',
+                    backgroundColor: 'blue',
+                    transition: 'width 0.5s ease-in-out',
+                    borderRadius: '0px 10px 10px 0px',
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+              <a
+                href="/"
+                style={{
+                  textAlign: 'left',
+                  color: 'white',
+                  fontWeight: '300',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  const target = e.target as HTMLElement;  // Cast de e.target en HTMLElement
+                  target.style.textDecoration = 'underline';  // Applique l'underline
+                }}
+                onMouseLeave={(e) => {
+                  const target = e.target as HTMLElement;  // Cast de e.target en HTMLElement
+                  target.style.textDecoration = 'none';  // Retire l'underline
+                }}
+              >
+                Why should I mint free Elixir?
+              </a>
+            </div>
+
+
+
+
+
+              </div>
+      </div>
+
+      {/* Image Section */}
+      <div
+        style={{
+          backgroundColor: 'transparent',
+          flex: 1,
+          margin: '0 10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // Assure la hauteur reste contrôlée
+        }}
+      >
+        <div
+        style={{
+          border: '2px solid grey',
+          borderRadius: '20px',
+          backgroundColor: 'rgb(0,0,0,0.1)',
+          display: 'flex',
+          justifyContent: 'center',
+          //alignItems: 'center',
+          flex: 1, // Permet au conteneur de s'ajuster dynamiquement dans un contexte flex
+          aspectRatio: 1, // Assure que la largeur et la hauteur restent égales
+          maxWidth: '75%', // Limite à 60% de la largeur du parent
+        }}>
+        <div
+        style={{
+          width: '85%', // Largeur du conteneur
+          aspectRatio: '1', // Garder le ratio original de l'image
+          borderRadius: '20px', // Applique le rayon de bord sur le conteneur
+          overflow: 'hidden', // Cache tout dépassement de l'image en dehors du conteneur
+          display: 'flex', // Aligne l'image de manière appropriée
+          justifyContent: 'center', // Centrer horizontalement
+          alignItems: 'center', // Centrer verticalement
+        }}
+      >
+        <img
+          src="gobelin.png"
+          alt="Gobelin"
+          style={{
+            width: '100%', // L'image occupe 100% de la largeur du conteneur
+            height: 'auto', // Assure que l'image conserve son ratio d'origine
+            borderRadius: '20px',
+          }}
+        />
+      </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 
 
         <Card margin='25px 0px 0px 10px'
-        backgroundSize='cover'
-        backgroundRepeat='no-repeat'
-        boxShadow='0px 0px 3px black'
-        border='1px solid black'
-        color='white'
-        //filter= 'brightness(1.1)'
-        backgroundImage='url(https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmPWNP1nsrxTH342juNwLqLGqvTxZFjWNG5zJ8ggobDAXU)'
+        bg='transparent'
+        boxShadow='none'
+        display='none'
         >
-          <CardHeader>
-            <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection='column' fontSize='150%'>
-              <Box marginTop='5px'>
-                {/*<Heading size='md'>{headerText}</Heading>*/}
-                <h2 style={{
-                  marginBottom: '0em',
-                  color: 'white',
-                  textShadow: `
-                    0 0 5px pink,
-                    0 0 10px pink,
-                    0 0 20px magenta,
-                    0 0 30px magenta
-                  `,
-                  filter: 'brightness(1.05)',
-                  fontSize: '140%',
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase', // Mettre le texte en majuscules
-                  border: '5px solid white', // Bordure blanche
-                  padding: '10px 20px',
-                  borderRadius: '8px',
-                  display: 'inline-block',
-                  backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
-                  position: 'relative',
-                  //transform: 'skew(-5deg)',
-                  transform: 'rotate(-1deg)',
-                  boxShadow: `
-                  0 0 5px pink,
-                  0 0 8px pink,
-                  0 0 10px magenta,
-                  0 0 12px magenta
-                  `
-                }}>
-                  Welcome to the Gobelin Rave!
-                  <span style={{
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                right: '0',
-                bottom: '0',
-                backgroundColor: 'transparent',
-                boxShadow: `
-                  inset 0 0 5px pink,
-                  inset 0 0 8px pink,
-                  inset 0 0 10px magenta,
-                  inset 0 0 12px magenta
-                `,
-                zIndex: +1 // Met l'ombre derrière le texte
-                }} />
-                </h2>
-              </Box>              
-            </Flex>
-
-            
-          </CardHeader>
 
           <CardBody>
             <Center>
@@ -315,6 +491,16 @@ export default function Home() {
                 {loading ? (<></>) : (
 
 <div style={{ marginLeft: '50px', width: '40vw'}}>
+<h2
+              style={{
+                fontFamily: 'Clash',
+                textShadow: '4px 4px 0px black',
+                fontSize: '21px',
+                color: 'white',
+                textAlign: 'center',
+               }}>
+                MINT YOUR ELIXIR
+              </h2>
       <div style={{ display: 'flex', paddingBottom: '5px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
         <div style={{ color: 'white', fontWeight: '600'}}>{100*Number(candyMachine?.itemsRedeemed)/Number(candyMachine?.data.itemsAvailable)}% minted</div>
         <div style={{ color: '#d2d2d2', fontWeight: '300'}}>{Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</div>

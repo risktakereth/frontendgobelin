@@ -1,11 +1,11 @@
 // Purpose: Contains texts that will be used in the UI when rendering the buttons
 // label has to be the exact same as in your candy machine config
 export const mintText = [
-  { label: "VIG", mintText: "Tier 0 - Very Important Gobelin", buttonLabel: "Mint", header: "Free Mint", value: "10" },
-  { label: "OG", mintText: "Tier 1 - Original Gobelin", buttonLabel: "Mint", header: "0.007 ETH", value: "9"  },
-  { label: "WL", mintText: "Tier 2 - Whitelist", buttonLabel: "Mint", header: "0.01 ETH", value: "8"  },
-  { label: "Public", mintText: "Public Mint", buttonLabel: "Mint", header: "0.02 ETH", value: "7"  },
-  { label: "default", mintText: "default mintText", buttonLabel: "Mint", header: "Default"}
+  { label: "VIG", mintText: "Tier 0 - Very Important Gobelin", buttonLabel: "MINT", header: "Free Mint", value: "10" },
+  { label: "OG", mintText: "Tier 1 - Original Gobelin", buttonLabel: "MINT", header: "0.007 ETH", value: "9"  },
+  { label: "WL", mintText: "Tier 2 - Whitelist", buttonLabel: "MINT", header: "0.01 ETH", value: "8"  },
+  { label: "Public", mintText: "Public Mint", buttonLabel: "MINT", header: "0.02 ETH", value: "7"  },
+  { label: "default", mintText: "default mintText", buttonLabel: "MINT", header: "Default"}
 ];
 
 //header image in the ui. replace with your own

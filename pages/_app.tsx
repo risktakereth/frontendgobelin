@@ -40,6 +40,30 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>{headerText}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <style jsx global>
+          {`
+            @font-face {
+              font-family: 'Clash';
+              src: url('/You Blockhead.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+            @font-face {
+              font-family: 'Loved';
+              src: url('/LovedbytheKing-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+            
+            @font-face {
+              font-family: 'Freeman';
+              src: url('/Freeman-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+          `}
+        </style>
       <ChakraProvider>
         <WalletProvider wallets={wallets}>
           <UmiProvider endpoint={endpoint}>
@@ -47,89 +71,168 @@ export default function App({ Component, pageProps }: AppProps) {
               <SolanaTimeProvider>
                 {/* Barre de navigation avec menu et bouton wallet */}
                 <Box 
-                  as="nav" 
-                  padding="0rem 1rem" 
-                  bg="transparent" 
-                  display="flex" 
-                  alignItems="center" 
-                  justifyContent="space-between" 
-                  transition="background-color 0.6s ease"
-                  borderBottom= "transparent 0.1px solid"
-                  _hover={{ bg: "rgba(0, 0, 0, 0.3)", borderBottom: "white 0.1px solid", color: "black" }} 
-                >
-                  <Box>
-  <ChakraLink color="white">
-    <Image
-      padding="-0.2rem -0.2rem"
-      src="/Goblinz_logo.png" // Remplacez par l'URL de votre image
-      alt="Home" 
-      width="9vw" // Ajustez la taille selon vos préférences
-      height="auto"
-      objectFit="cover"
-      marginRight="80px"
-      transition="background-color 0.5s ease, filter 0.5s ease"
-      style={{filter: "brightness(1.2) drop-shadow(0 0 20px rgba(0, 0, 0, 1))"}}
-      _hover={{
-        filter: "brightness(1.4) drop-shadow(0 0 20px rgba(0, 0, 0, 1)) !important",
-      }}
+  as="nav" 
+  padding="1rem 1rem 0rem 1rem" 
+  bg="transparent" 
+  display="flex" 
+  alignItems="center" 
+  justifyContent="space-between"
+>
+  {/* Logo à gauche */}
+  <Box>
+    <Image 
+      src="/Goblinz_logo.png" 
+      alt="Logo" 
+      height="40px" // Ajustez la taille selon vos besoins
+      width="auto" 
     />
-  </ChakraLink>
-</Box>
-                  <Box marginRight="0px" fontSize="120%">
-                    <ChakraLink as={NextLink} href="/" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      backgroundColor: "rgb(0,0,0,0.5)",
-                      filter: "brightness(1.2)", // Effet d'éclaircissement
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
-                    }}
-                    >
-                      Home
-                    </ChakraLink>
-                    <ChakraLink as={NextLink} href="/mint" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      backgroundColor: "rgb(0,0,0,0.5)",
-                      filter: "brightness(1.2)", // Effet d'éclaircissement
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
-                    }}
-                    >
-                      Mint
-                    </ChakraLink>
+  </Box>
 
-                    <ChakraLink as={NextLink} href="/test" color="white" marginRight="40px" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      backgroundColor: "rgb(0,0,0,0.5)",
-                      filter: "brightness(1.2)", // Effet d'éclaircissement
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
-                    }}
-                    >
-                      Elixir
-                    </ChakraLink>
-                    <ChakraLink as={NextLink} href="/gallery" color="white" padding="4px 12px 6px 12px" borderRadius='4px' transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
-                    _hover={{
-                      backgroundColor: "rgb(0,0,0,0.5)",
-                      filter: "brightness(1.2)", // Effet d'éclaircissement
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.5)",
-                    }}
-                    >
-                      My Potions
-                    </ChakraLink>
-                  </Box>
-                  <Box
-                    as={WalletMultiButton}
-                    bg="transparent"
-                    backgroundImage="url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmaETkVfYdYo8v1djEstHtA1GNzjsWZhYha5okYRMA8yxv')"  // Remplacez par votre URL
-                    backgroundSize="cover"
-                    backgroundPosition="center"
-                    padding="0.5rem 1rem"
-                    borderRadius="8px"
-                    boxShadow= "0px 4px 15px rgba(0, 0, 0, 0.3)"
-                    transition="background-image 0.5s ease, filter 0.5s ease" // Transition douce
-                    _hover={{
-                      filter: "brightness(1.2)", // Effet d'éclaircissement
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 1)",
-                    }}
-                  />
-                </Box>
+  {/* Menu centré */}
+  <Box 
+    display="flex" 
+    justifyContent="center" 
+    alignItems="center" 
+    margin="0 auto" // Centrage horizontal
+    fontSize="120%"
+  >
+    <ChakraLink
+      as={NextLink}
+      style={{
+        fontFamily: 'Clash', fontSize: '16px',
+      }}
+      href="/"
+      color="white"
+      marginRight="40px"
+      padding="6px 12px 6px 12px"
+      borderRadius='4px'
+      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+      _hover={{
+        color: "black",
+      }}
+    >
+      Home
+    </ChakraLink>
+    <ChakraLink
+      as={NextLink}
+      style={{
+        fontFamily: 'Clash', fontSize: '16px',
+      }}
+      href="/mint"
+      color="white"
+      marginRight="40px"
+      padding="6px 12px 6px 12px"
+      borderRadius='4px'
+      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+      _hover={{
+        color: "black",
+      }}
+    >
+      Mint Free Elixir
+    </ChakraLink>
+    <ChakraLink
+      as={NextLink}
+      style={{
+        fontFamily: 'Clash', fontSize: '16px',
+      }}
+      href="/gallery"
+      color="white"
+      marginRight="40px"
+      padding="6px 12px 6px 12px"
+      borderRadius='4px'
+      transition="background-color 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease"
+      _hover={{
+        color: "black",
+      }}
+    >
+      My Elixir
+    </ChakraLink>
+  </Box>
+
+  
+
+  {/* Bouton Wallet à droite */}
+  <Box
+    as={WalletMultiButton}
+    bg="transparent"
+    padding="0.5rem 1rem"
+    borderRadius="8px"
+  />
+
+  {/* Icône Discord */}
+  <a href="https://discord.com/invite/8wMyc76t" rel="noopener noreferrer">
+              <div
+                  style={{
+                    zIndex: 100,
+                    position: 'absolute',
+                    width: '34px',
+                    height: '34px',
+                    backgroundColor: '#42a6ff',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(8deg) translate(48px, -28px)', // Inclinaison de l'icône
+                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(52px, -24px)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(8deg) translate(48px, -28px)'} // Rétablir la position originale
+                >
+                  <i className="fab fa-discord" style={{ color: 'white', fontSize: '20px' }}></i>
+                </div>
+                <div
+                  style={{
+                    zIndex: 5,
+                    marginRight: '20px',
+                    position: 'absolute',
+                    width: '34px',
+                    height: '34px',
+                    backgroundColor: 'black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '5px',
+                    transform: 'rotate(8deg) translate(52px, -24px)',
+                  }}>
+                </div>
+              </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Box>
+
+
                 <Component {...pageProps} />
                 <Box
                   as="footer"
