@@ -818,6 +818,88 @@ export default function Home() {
         </div>
 
 
+{/* Rôles Discord */}
+<div
+  style={{
+    height: "120dvh",
+    backgroundColor: "black",
+    fontFamily: "Clash",
+    color: "white",
+    padding: "80px 0px 0px 0px",
+    position: "relative", // Required for positioning the light ray
+  }}
+>
+  {/* Pink Light Ray */}
+  <div
+    style={{
+      position: "absolute",
+      top: "0", // Position de départ du triangle
+      left: "0",
+      width: "100%",
+      height: "100%",
+      background: "rgba(255, 255, 255, 0.5)", // Couleur rose avec transparence
+      clipPath: "polygon(100% 0%, 40% 80%, 60% 80%)", // Triangle pointant vers le centre
+      zIndex: 0,
+      boxShadow: "0 0 50px 20px rgba(255, 255, 255, 0.7)",
+    }}
+  ></div>
+  <div
+    style={{
+      position: "absolute",
+      top: "0", // Position de départ du triangle
+      left: "0",
+      width: "100%",
+      height: "100%",
+      background: "rgba(255, 255, 255, 0.5)", // Couleur rose avec transparence
+      clipPath: "polygon(0% 0%, 40% 80%, 60% 80%)", // Triangle pointant vers le centre
+      zIndex: 0,
+      filter: "blur(15px)",
+      boxShadow: "0 0 50px 20px rgba(255, 182, 193, 0.7)",
+    }}
+  ></div>
+  {/* Ellipse Lumineuse */}
+  <div
+    style={{
+      position: "absolute",
+      top: "80%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "300px", // Largeur de l'ellipse
+      height: "100px", // Hauteur de l'ellipse
+      background: "rgba(255, 255, 255, 1)", // Blanc lumineux avec transparence
+      borderRadius: "50%", // Transforme en ellipse
+      boxShadow: "0 0 30px 20px rgba(255, 255, 255, 0.7)", // Effet lumineux rose autour
+    }}
+  ></div>
+
+
+  
+
+
+  {/* Title */}
+  <h2
+    style={{
+      textAlign: "center",
+      marginBottom: "1.5rem",
+      fontSize: "9dvh",
+      textShadow: "0.66dvh 0.66dvh 0dvh black",
+      position: "relative",
+      zIndex: 1, // Ensures the title is above the light ray
+    }}
+  >
+    ROLES
+  </h2>
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -828,7 +910,7 @@ export default function Home() {
 <div
   id="FAQ"
   style={{
-    padding: '2rem',
+    padding: '8dvh 2dvh 6dvh 2dvh',
     background: 'radial-gradient(circle at 50% 50%,rgb(55, 20, 255),rgb(7, 3, 245))',
     borderRadius: '10px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -841,7 +923,7 @@ export default function Home() {
   </h2>
   <div
     style={{
-      maxWidth: '800px',
+      maxWidth: '165dvh',
       margin: '0 auto',
       display: 'flex',
       flexDirection: 'column',
@@ -880,7 +962,7 @@ export default function Home() {
 >
   <summary
     style={{
-      fontSize: '1.2rem',
+      fontSize: '3.7dvh',
       fontWeight: 'bold',
       cursor: 'pointer',
       listStyle: 'none',
@@ -914,8 +996,84 @@ export default function Home() {
       transition: 'max-height 0.5s ease', // Animation de 0.5s
     }}
   >
-    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
-    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+    Every four years, GoblinZ from across the Kingdom unite in one place to throw the wildest
+    rave of the century - getting hilariously high and outrageously drunk!<br/><br/>
+    This year, you've been lucky enough to receive an official invitation,
+    granting you access to join the chaos alongside 1,555 other GoblinZ.
+    Get ready to party like never before!
+  </p>
+</details>
+
+
+    
+    {/* Question 5 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>Can I buy GoblinZ NFTs for now ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src='+.svg' alt="toggle" />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+   Short answer: No, you can’t.<br/>
+   The best thing you can do is join us on Discord to get whitelisted.<br/>
+   We pay attention to your efforts - we want YOU! 🫵
   </p>
 </details>
 
@@ -951,7 +1109,7 @@ export default function Home() {
 >
   <summary
     style={{
-      fontSize: '1.2rem',
+      fontSize: '3.7dvh',
       fontWeight: 'bold',
       cursor: 'pointer',
       listStyle: 'none',
@@ -966,7 +1124,7 @@ export default function Home() {
         width: '100%',
       }}
     >
-      <div>What is GoblinZ Rave ?</div>
+      <div>Why did you chose to build on Eclipse?</div>
       <div style={{ marginLeft: '0px' }}>
         <img src='+.svg' alt="toggle" />
       </div>
@@ -985,8 +1143,7 @@ export default function Home() {
       transition: 'max-height 0.5s ease', // Animation de 0.5s
     }}
   >
-    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
-    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+    It's Solana on Ethereum bro
   </p>
 </details>
 
@@ -1022,7 +1179,7 @@ export default function Home() {
 >
   <summary
     style={{
-      fontSize: '1.2rem',
+      fontSize: '3.7dvh',
       fontWeight: 'bold',
       cursor: 'pointer',
       listStyle: 'none',
@@ -1037,7 +1194,7 @@ export default function Home() {
         width: '100%',
       }}
     >
-      <div>What is GoblinZ Rave ?</div>
+      <div>What is the vision of GoblinZ Rave ?</div>
       <div style={{ marginLeft: '0px' }}>
         <img src='+.svg' alt="toggle" />
       </div>
@@ -1056,8 +1213,9 @@ export default function Home() {
       transition: 'max-height 0.5s ease', // Animation de 0.5s
     }}
   >
-    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
-    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+    We’re not here for the usual "let's do a community" talk - forget that<br/>
+    We’re here to party like there’s no tomorrow and stack our bags with the filthiest memecoins out there.<br/>
+    The Weekly Party is going to be insane - stay tuned, more info dropping soon! 🎉
   </p>
 </details>
 
@@ -1093,7 +1251,7 @@ export default function Home() {
 >
   <summary
     style={{
-      fontSize: '1.2rem',
+      fontSize: '3.7dvh',
       fontWeight: 'bold',
       cursor: 'pointer',
       listStyle: 'none',
@@ -1108,7 +1266,7 @@ export default function Home() {
         width: '100%',
       }}
     >
-      <div>What is GoblinZ Rave ?</div>
+      <div>What is the Weekly Party?</div>
       <div style={{ marginLeft: '0px' }}>
         <img src='+.svg' alt="toggle" />
       </div>
@@ -1127,80 +1285,13 @@ export default function Home() {
       transition: 'max-height 0.5s ease', // Animation de 0.5s
     }}
   >
-    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
-    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
+    Looks like you’re dying to know more 👀<br/><br/>
+    Short answer: Weekly Parties are epic community events we host every week, filled with ETH and beer 🍺<br/>
+    They’re 100% FREE - just bring your creativity and LET’S RAVE!<br/>
+    The more you participate, the more you earn... 🤑🎉
   </p>
 </details>
 
-    {/* Question 5 */}
-      <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>What is GoblinZ Rave ?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-    Goblinz est une plateforme innovante pour découvrir des contenus interactifs,
-    collaboratifs et amusants. Idéale pour les passionnés de créativité et de tech !
-  </p>
-</details>
 
 
 

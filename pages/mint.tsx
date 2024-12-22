@@ -244,7 +244,7 @@ export default function Home() {
       }
           
       #centercolonne {
-          max-width: 1100px;
+          max-width: 1300px;
           display: flex;
           align-itmes: center;
           margin: 0 auto;
