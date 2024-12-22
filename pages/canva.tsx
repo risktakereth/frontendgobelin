@@ -48,6 +48,7 @@ const Canva: React.FC = () => {
           style={{
             display: 'grid',
             gridTemplateColumns: `repeat(${pixels[0].length}, 20px)`,
+            gap: '2px',
             justifyContent: 'center',
             margin: '20px auto',
           }}
@@ -61,6 +62,7 @@ const Canva: React.FC = () => {
                   width: '20px',
                   height: '20px',
                   backgroundColor: color,
+                  border: '1px solid #ccc',
                   cursor: 'pointer',
                 }}
               />
