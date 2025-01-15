@@ -403,6 +403,9 @@ export default function Home() {
                 </div>
               </a>
 
+
+            <Image src="Bubble_01.png" style={{position: "absolute", width:"14%", left: "75dvh", top: "25dvh"}}></Image>
+
               
 
 
@@ -485,12 +488,15 @@ export default function Home() {
   color: 'white', 
   fontFamily: 'Clash',
   maxWidth: '70vh',
+  margin: '0dvh 3dvh 3.31dvh 15dvh',
 }}>
+  <Image src="Bubble_01.png" style={{position: "absolute", width:"3%", left: "6dvh", top: "110dvh", transform: 'rotate(65deg)'}}></Image>
+  <Image src="Biere_01.png" style={{position: "absolute", width:"9%", left: "4dvh", top: "124dvh", transform: 'rotate(-5deg)'}}></Image>
+  <Image src="Bubble_02.png" style={{position: "absolute", width:"2%", left: "100dvh", top: "185dvh", transform: 'rotate(65deg)'}}></Image>
   {/* Titre */}
   <h1 style={{
     fontSize: '5.95dvh', 
-    textShadow: '0.5dvh 0.5dvh 0dvh black', 
-    marginBottom: '3.31dvh',
+    textShadow: '0.5dvh 0.5dvh 0dvh black',
   }}>
     WHO ARE THE GOBLINZ?
   </h1>
@@ -617,6 +623,8 @@ export default function Home() {
         }}>
           GOBLINZ ROADMAP
         </h2>
+        <Image src="potion_01.png" style={{position: "absolute", width:"10%", right: "20dvh", top: "225dvh", transform: 'rotate(-5deg)'}}></Image>
+        <Image src="Bubble_01.png" style={{position: "absolute", width:"2%", right: "31dvh", top: "215dvh", transform: 'rotate(-40deg)'}}></Image>
 
         <div
           style={{ position: "relative", width: "auto", margin: "0dvh 41.32dvh 0dvh 41.32dvh", height: "49.59dvh" }}
@@ -893,8 +901,77 @@ export default function Home() {
 
 
 
+{/* Why Eclipse */}
 
+<div style={{ 
+  height: "80dvh", 
+  background: "linear-gradient(to bottom, black, rgb(7, 3, 245))", 
+  display: "flex",
+  alignItems: "center" ,
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+}}>
+    <Image 
+      src="Biere_02.png" 
+      style={{ 
+        position: "relative", 
+        width: "25%", 
+        left: "0dvh", 
+        top: "0dvh", 
+        transform: "rotate(8deg)" 
+      }} 
+    />
+    <div>
+      AAAA
+    </div>
+</div>
 
+{/* ================= BANDE CIRCULANTE =============== */}
+<div style={{backgroundColor: 'rgb(7, 3, 245)',}}>
+<div
+            style={{
+              position: 'relative',
+              bottom: '0',
+              width: '120%',
+              overflow: 'hidden',
+              backgroundColor: '#42a6ff',
+              borderTop: "0.17dvh solid black",
+              borderBottom: "0.17dvh solid black",
+              transform: 'rotate(1.2deg) translate(0dvh, 2dvh)',
+              fontFamily: 'Clash',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                animation: 'scroll 20s linear infinite',
+                fontSize: '3.97dvh',
+                color: 'white',
+                padding: '1.65dvh 0',
+              }}
+            >
+              {/* Cette div contient le texte qui défile */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(100)} {/* On répète plusieurs fois le texte */}
+              </div>
+
+              {/* Dupliquez le même texte immédiatement après pour un défilement fluide */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(30)}
+              </div>
+            </div>
+          </div>
+          </div>
 
 
 
@@ -912,12 +989,13 @@ export default function Home() {
   style={{
     padding: '8dvh 2dvh 6dvh 2dvh',
     background: 'radial-gradient(circle at 50% 50%,rgb(55, 20, 255),rgb(7, 3, 245))',
-    borderRadius: '10px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     fontFamily: 'Clash',
     color: "white",
   }}
 >
+<Image src="potion_02.png" style={{position: "absolute", width:"7%", left: "5dvh", top: "670dvh", transform: 'rotate(5deg)'}}></Image>
+<Image src="Bubble_01.png" style={{position: "absolute", width:"2%", left: "10dvh", top: "660dvh", transform: 'rotate(-40deg)'}}></Image>
   <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
     FAQ
   </h2>
@@ -1312,14 +1390,15 @@ export default function Home() {
   {/* ================= BANDE CIRCULANTE =============== */}
 <div
             style={{
-              position: 'absolute',
+              position: 'relative',
+              zIndex: 10,
               bottom: '0',
               width: '120%',
               overflow: 'hidden',
               backgroundColor: '#42a6ff',
               borderTop: "0.17dvh solid black",
               borderBottom: "0.17dvh solid black",
-              transform: 'rotate(-1.7deg) translate(-5dvh, -17dvh)',
+              transform: 'rotate(-1.7deg) translate(-5dvh, 9dvh)',
             }}
           >
             <div
@@ -1360,17 +1439,95 @@ export default function Home() {
 
 
 
-        <div
-        style={{
-          backgroundImage: "url('join.png')", // Définit l'image en fond
-            backgroundSize: "cover", // L'image couvre tout l'espace
-            backgroundRepeat: "no-repeat", // Pas de répétition
-            backgroundPosition: "center", // L'image est centrée
-            padding: '8.26dvh',
-            fontSize: '3dvh',
-        }}>
-          AAA
-        </div>
+<div
+  style={{
+    position: "relative", // Nécessaire pour le positionnement absolu du pseudo-élément
+    padding: "8.26dvh",
+    fontSize: "3dvh",
+    height: "88dvh",
+    overflow: "hidden", // Empêche le débordement du pseudo-élément
+  }}
+>
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100dvh",
+      backgroundImage: "url('join.png')",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      filter: "brightness(50%)", // Applique le filtre à l'image de fond
+      zIndex: 0, // Derrière le contenu
+      color: "white",
+    }}
+  ></div>
+  <h2 style={{ margin: '5dvh 0dvh 7dvh 0dvh', color: "white", position: "relative", zIndex: 1, fontFamily: 'Clash', textAlign: 'center', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
+    JOIN THE RAVE
+  </h2>
+  <div
+  style={{
+    margin: '0dvh 0dvh 15dvh 0dvh',
+    color: "white",
+    position: "relative",
+    zIndex: 1,
+    fontFamily: 'Clash',
+    textAlign: 'center',
+    fontSize: '4dvh',
+    textShadow: '0.66dvh 0.66dvh 0dvh black',
+    }}>
+AAAAAAAAAAAAa BBBBBBBBBBBBBBBBBBBBBBBb Description go
+  </div>
+  <div
+  style={{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  }}>
+
+    {/* Icône Twitter */}
+    <a href="https://x.com/GoblinzRave" rel="noopener noreferrer">
+                  <div
+                      style={{
+                        zIndex: 100,
+                        position: 'absolute',
+                        width: '12dvh',
+                        height: '12dvh',
+                        backgroundColor: '#42a6ff',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(-1.32dvh, -3.63dvh)', // Inclinaison de l'icône
+                        transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-0.4dvh, -2.6dvh)'} // Décalage vers la droite et le bas
+                      onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-8deg) translate(-1.32dvh, -3.63dvh)'} // Rétablir la position originale
+                    >
+                      <i className="fab fa-twitter" style={{ color: 'white', fontSize: '6.5dvh' }}></i>
+                    </div>
+                    <div
+                      style={{
+                        zIndex: 5,
+                        marginRight: '3.31dvh',
+                        position: 'absolute',
+                        width: '12dvh',
+                        height: '12dvh',
+                        backgroundColor: 'black',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '0.83dvh',
+                        transform: 'rotate(-8deg) translate(-0.4dvh, -2.6dvh)',
+                      }}>
+                    </div>
+                  </a>
+
+  </div>
+</div>
+
 
         
 
