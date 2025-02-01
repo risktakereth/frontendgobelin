@@ -9,6 +9,7 @@ import { InitializeModal } from "../components/initializeModal";
 import { image, headerText } from "../settings";
 import { ChakraProvider, Text, Box, Link as ChakraLink, Image, Flex, Link, Icon } from '@chakra-ui/react'; // Importez ChakraLink ici
 import NextLink from 'next/link'; // Importez NextLink ici
+//import StickyScrollEffect from './sticky.tsx';
 
 
 export default function Home() {
@@ -31,7 +32,57 @@ export default function Home() {
     //const idActuel = 3
     const [idActuel, setIdActuel] = useState(3);
 
+    const [scrollPosition, setScrollPosition] = useState(0);
+    
+     // Déclaration des variables
+     const divRef = useRef<HTMLDivElement | null>(null);
+     const divRef2 = useRef<HTMLDivElement | null>(null);
+    const [offsetTop, setOffsetTop] = useState(0);
+    const [offsetBottom, setOffsetBottom] = useState(0);
+    const [offsetMiddle, setOffsetMiddle] = useState(0);
+    const [tacPosition, setTacPosition] = useState(0);
+
+// Logique pour récupérer la hauteur et gérer le scroll
+useEffect(() => {
   
+  console.log("ZZZZZZZZZZZZZZ", window);
+  const updatePosition = () => {
+    if (divRef.current) {
+      setOffsetTop(divRef.current.getBoundingClientRect().top + window.scrollY);
+      setOffsetBottom(divRef.current.getBoundingClientRect().bottom + window.scrollY); //+ ou -?
+    }
+    if (divRef2.current) {
+      setOffsetMiddle(divRef2.current.getBoundingClientRect().top + window.scrollY);
+    }
+  };
+  
+
+  updatePosition(); // Initial update
+
+  const updateTacPosition  = () => {
+    updatePosition(); // Initial update
+    if (!divRef2.current) return;
+    if (offsetBottom !== offsetTop) {
+      const width = divRef2.current.getBoundingClientRect().width;
+      // Appliquer la formule pour calculer tacPosition
+      const calculatedPosition = 0.3*width - width * (offsetMiddle - offsetTop) / (offsetBottom - offsetTop);
+      setTacPosition(calculatedPosition);
+    }
+  };
+
+  // Mettre à jour la position toutes les 0.1 secondes
+  const intervalId = setInterval(() => {
+    updatePosition(); // Mettre à jour les positions de l'élément
+    updateTacPosition(); // Calculer la nouvelle position
+  }, 10); // 100 ms = 0.1 sec
+
+  return () => {
+    clearInterval(intervalId); // Nettoyage de l'intervalle lorsque le composant est démonté
+  };
+
+}, [offsetTop, offsetBottom, offsetMiddle]); // Ajout des dépendances pour recalculer lors du changement de position
+
+const horizontalOffset = tacPosition;
 
     return (
       <>
@@ -479,7 +530,7 @@ export default function Home() {
   justifyContent: 'space-evenly',
   backgroundColor: '#42a6ff', 
   padding: '3.31dvh',
-  height: '100vh',
+  height: '114.9dvh',
 }}>
   
   
@@ -592,19 +643,150 @@ export default function Home() {
 
 
 
+{/* STICKY */}
+{/* Ajoutez ici votre composant StickyScrollEffect<StickyScrollEffect /> */}
+
+<div style={{ height: '300vh', backgroundColor: 'pink', position: 'relative' }}  ref={divRef} className="div-element">
+      <div
+        style={{
+          position: 'sticky',
+          top: '0dvh',
+          left: 0,
+          width: '100%',
+          backgroundColor: 'pink',
+          justifyContent: 'left',
+          fontSize: '18px',
+          fontWeight: 'bold',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          padding: '5dvh 0dvh 20dvh 0dvh',
+          color: 'white',          
+        }} ref={divRef2}
+      >
+              <div style={{
+                position: 'sticky',
+                fontFamily: 'Clash', 
+                textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                fontSize: '300%',
+                paddingBottom: '10dvh',
+              }}>
+                GOBLINZ ROADMAP
+              </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '600%',
+                      width: '600%',
+                      padding: '30dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                        
+                    <div style={{display: 'flex', flexDirection: 'column'}}>
+                      <div style={{display: 'flex', flexDirection: 'row'}}>
+                      <div>#1</div>
+                      <div>🍻 Twitter Launch /b
+                      🍻 Organic Growth</div>
+                      </div>
+                      <div></div>
+                    </div>
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '30%',
+                      width: '30%',
+                      padding: '50px',
+                      margin: '30px',
+                      backgroundImage: "url('fleche.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '600%',
+                      width: '600%',
+                      padding: '30dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                        
+                    Je suis sticky !
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '30%',
+                      width: '30%',
+                      padding: '50px',
+                      margin: '30px',
+                      backgroundImage: "url('fleche.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '600%',
+                      width: '600%',
+                      padding: '30dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                        
+                    Je suis sticky !
+                    </div>
+                    
+                    <div style={{
+                      fontSize: '70%',
+                      height: '30%',
+                      width: '30%',
+                      padding: '50px',
+                      margin: '30px',
+                      backgroundImage: "url('fleche.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '600%',
+                      width: '600%',
+                      padding: '30dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                        
+                    Je suis sticky !
+                    </div>
+              </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
+      </div>
+    </div>
 
 
 
@@ -1151,7 +1333,7 @@ export default function Home() {
   >
    Short answer: No, you can’t.<br/>
    The best thing you can do is join us on Discord to get whitelisted.<br/>
-   We pay attention to your efforts - we want YOU! 🫵
+   We pay attention to your efforts 💪
   </p>
 </details>
 
