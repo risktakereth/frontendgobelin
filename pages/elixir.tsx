@@ -981,7 +981,6 @@ style={{ width: "100%" }}
       <button onClick={() => setPopupOpen(true)}
         style={{
           padding: "8px",
-          backgroundColor: "#3b82f6",
           color: "white",
           borderRadius: "4px",
           border: "none",
