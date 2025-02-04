@@ -618,6 +618,7 @@ import {
     /////////////////////////
     // Garder seulement le guard ayant le même label que maxEligibleGuard
     // Filtrer selon maxEligibleGuard si disponible
+    const [showDetails, setShowDetails] = useState(false);
 if (maxEligibleGuard) {
     filteredGuardlist = filteredGuardlist.filter(
       (guard) => guard.label === maxEligibleGuard.label
@@ -681,6 +682,9 @@ if (maxEligibleGuard) {
   }
   
     // Guard "default" can only be used to mint in case no other guard exists
+
+
+
     if (filteredGuardlist.length > 1) {
       filteredGuardlist = guardList.filter((elem) => elem.label != "default");
     }
@@ -715,8 +719,6 @@ if (maxEligibleGuard) {
       };
       buttonGuardList.push(buttonElement);
     }
-
-    const [showDetails, setShowDetails] = useState(false);
   
     const listItems = buttonGuardList.map((buttonGuard, index) => (
       <Box key={index} margin={"20px 0px 5px 0px"} bg={"blue"} padding={"20px"} borderRadius={"10px"}>

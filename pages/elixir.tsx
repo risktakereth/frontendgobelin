@@ -16,6 +16,9 @@ import {
   import { InitializeModal } from "../components/initializeModal";
   import { image, headerText } from "../settings";
   import { useSolanaTime } from "@/utils/SolanaTimeContext";
+  
+import { ButtonSection } from "../components/mintsection";
+import { ElixirSection } from "../components/mintElixir";
 import styles from "../styles/elixir.module.css"; // Assurez-vous de créer ce fichier CSS.
 
 
@@ -167,6 +170,7 @@ export default function BlackScreenPage() {
       }, 200); // Durée de disparition pour le deuxième écran noir
             }, 500); // Doit correspondre à la durée de l'animation de disparition
       };
+
   
   
       // Fonction pour gérer le clic sur "Skip" pour faire disparaître l'image
@@ -189,6 +193,9 @@ export default function BlackScreenPage() {
     setShowMessage2(false); // Démarre la disparition de l'image
     setShowMessage3(true); // Cache l'écran principal si souhaité
   };
+
+  
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const handleClick = () => {
     setShowGoblin(true); // Affiche l'image du gobelin lors du clic
@@ -322,22 +329,16 @@ export default function BlackScreenPage() {
 
       
 
-    return () => clearTimeout(timer); // Nettoyage du timer
+    //return () => clearTimeout(timer); // Nettoyage du timer
   }, [umi, checkEligibility, firstRun]);
 
   return (<>
     <style jsx global>
             {`
         body {
-            background: #2d3748  !important;
-            padding: 0  !important;
-            height: 100vh  !important; /* Pour permettre le scroll */
-            background-image: linear-gradient(rgba(99, 64, 0, 0.2), rgba(255, 255, 0, 0.2)), url('https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmQTQaNzfAYfRcG5X1wpRLa7mi1GDF138zdp8jPXe8BWnK') !important;
-            background-attachment: fixed  !important;
-            background-size: cover  !important;
-            background-position: center  !important;
-            background-repeat: no-repeat  !important;
-         }
+          background: radial-gradient(circle at 50% 50%, grey, black) !important;
+          padding: 0;
+       }
 
          .button {
             position: fixed;
@@ -357,11 +358,6 @@ export default function BlackScreenPage() {
             transform: scale(1.05);
             color: white;
           }
-
-        #centercolonne {
-            max-width: 700px;
-            margin: 0px auto 120px auto;
-         }
 
 
         @keyframes blinkAnimation {
@@ -429,6 +425,49 @@ export default function BlackScreenPage() {
   }
 }
 
+@font-face {
+              font-family: 'Clash';
+              src: url('/You Blockhead.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+
+      @font-face {
+              font-family: 'Loved';
+              src: url('/LovedbytheKing-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+            
+      @font-face {
+              font-family: 'Freeman';
+              src: url('/Freeman-Regular.ttf') format('truetype');
+              font-weight: normal;
+              font-style: normal;
+            }
+      
+      .chakra-numberinput {
+            display: none;
+      }
+
+      .chakra-stack {
+            justify-content: center;
+      }
+
+      .css-1b379r3{
+            display: none;
+      }
+          
+      #centercolonne {
+          max-width: 1300px;
+          display: flex;
+          align-itmes: center;
+          margin: 0 auto;
+          text-align: center;
+          justify-content: center;
+          flex-direction: column;
+       }
+
 
 
      `}
@@ -436,7 +475,6 @@ export default function BlackScreenPage() {
 
 
 
-      
 
       
 
@@ -474,7 +512,7 @@ export default function BlackScreenPage() {
         alt="Surprise Image"
         className={`${fadeOutImage ? 'hiddenImage' : 'fadeIn'} highlightEffect ${!showGoblin ? 'blinkEffect' : ''}`}
         onClick={handleClick}
-        style={{ position: "fixed", top: "13.15vw", left: "35.55vw", width: "15.1%", cursor: "pointer"}}
+        style={{ position: "fixed", top: "12.98vw", left: "35.11vw", width: "15.1%", cursor: "pointer"}}
       />
     )}
 
@@ -537,12 +575,12 @@ style={{ width: "100%" }}
         <div>
         <ChakraProvider>
         <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleMessage1Click}
         style={{
           position: 'fixed',
           top: '12vw',
-          left: '58%',
+          left: '58.5%',
           maxWidth: '22%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',                  
@@ -551,7 +589,7 @@ style={{ width: "100%" }}
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("So, you've been invited toGoblinZ Rave ?")
+          {Array.from("So, you've been invited to GoblinZ   Rave ?")
             .map((char, index) => (
               <span
                 key={index}
@@ -589,31 +627,32 @@ style={{ width: "100%" }}
 
       <ChakraProvider>
       <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleMessage1Click}
         style={{
           position: 'fixed',
-          top: '31vw',
-          left: '78%',
+          top: '69.5dvh',
+          left: '72.2%',
           maxWidth: '22%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',                  
           cursor: 'pointer',
       }} fontSize="2xl"  _hover={{
-        fontWeight: '600',
+        fontWeight: '800',
         color: '#022106'
       }}>
               <span
                 style={{
+                  fontFamily: 'Clash',
                   whiteSpace: 'nowrap',
                   zIndex: '9999',
                   position: 'relative',
                   display: 'inline-block',
                   wordBreak: 'normal',
-                  fontSize: '1.5vw',
+                  fontSize: '1.35vw',
                 }}
               >
-                1/3
+                Continue
               </span>
             
 
@@ -627,12 +666,12 @@ style={{ width: "100%" }}
         <div>
         <ChakraProvider>
         <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleMessage2Click}
         style={{
           position: 'fixed',
           top: '12vw',
-          left: '58%',
+          left: '58.5%',
           maxWidth: '22.5%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',
@@ -641,7 +680,7 @@ style={{ width: "100%" }}
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("Goblin fest are wild and   intense, only my special   elixir will get you throughthe night!")
+          {Array.from("Goblin fests are wild and intense,     only my special elixir will get you       through the night!")
             .map((char, index) => (
               <span
                 key={index}
@@ -676,31 +715,32 @@ style={{ width: "100%" }}
       </ChakraProvider>
       <ChakraProvider>
       <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleMessage2Click}
         style={{
           position: 'fixed',
-          top: '31vw',
-          left: '78%',
+          top: '69.5dvh',
+          left: '72.2%',
           maxWidth: '22%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',                  
           cursor: 'pointer',
       }} fontSize="2xl"  _hover={{
-        fontWeight: '600',
+        fontWeight: '800',
         color: '#022106'
       }}>
               <span
                 style={{
+                  fontFamily: 'Clash',
                   whiteSpace: 'nowrap',
                   zIndex: '9999',
                   position: 'relative',
                   display: 'inline-block',
                   wordBreak: 'normal',
-                  fontSize: '1.5vw',
+                  fontSize: '1.35vw',
                 }}
               >
-                2/3
+                Continue
               </span>
             
 
@@ -714,12 +754,12 @@ style={{ width: "100%" }}
         <div>
         <ChakraProvider>
         <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleSkipClick}
         style={{
           position: 'fixed',
           top: '12vw',
-          left: '58%',
+          left: '58.5%',
           maxWidth: '22%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',
@@ -728,7 +768,7 @@ style={{ width: "100%" }}
         fontWeight: '600',
         color: '#022106'
       }}>
-          {Array.from("Step closer and see for   yourself...")
+          {Array.from("Step closer and see for yourself...")
             .map((char, index) => (
               <span
                 key={index}
@@ -763,31 +803,32 @@ style={{ width: "100%" }}
       </ChakraProvider>
       <ChakraProvider>
       <Text
-        fontFamily="mono"
+        fontFamily="Freeman"
         onClick={handleSkipClick}
         style={{
           position: 'fixed',
-          top: '31vw',
-          left: '78%',
+          top: '69.5dvh',
+          left: '72.2%',
           maxWidth: '22%',
           wordBreak: 'normal',
           lineHeight: 'clamp(1, 1.2, 1.5)',                  
           cursor: 'pointer',
       }} fontSize="2xl"  _hover={{
-        fontWeight: '600',
+        fontWeight: '800',
         color: '#022106'
       }}>
               <span
                 style={{
+                  fontFamily: 'Clash',
                   whiteSpace: 'nowrap',
                   zIndex: '9999',
                   position: 'relative',
                   display: 'inline-block',
                   wordBreak: 'normal',
-                  fontSize: '1.5vw',
+                  fontSize: '1.35vw',
                 }}
               >
-                3/3
+                Continue
               </span>
             
 
@@ -813,168 +854,432 @@ style={{ width: "100%" }}
 
 
 
-<div id="centercolonne">
-
-
-  {loading ? (<></>) : (
-          <Flex justifyContent="flex-end" marginLeft="auto">
-            <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
-              <VStack >
-                <Text fontSize={"sm"}>Available NFTs:</Text>
-                <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
-              </VStack>
-            </Box>
-          </Flex>
-        )}
+<div id="centercolonne">     
 
 
 
 
-
-
-  <Card margin='25px 0px 0px 10px'
-  backgroundSize='cover'
-  backgroundRepeat='no-repeat'
-  boxShadow='0px 0px 3px black'
-  border='1px solid black'
-  color='white'
-  //filter= 'brightness(1.1)'
-  backgroundImage='url(https://olive-broad-giraffe-200.mypinata.cloud/ipfs/QmPWNP1nsrxTH342juNwLqLGqvTxZFjWNG5zJ8ggobDAXU)'
+        <div>
+  <div
+    style={{
+      backgroundColor: 'transparent',
+      height: '100vh',
+      boxSizing: 'border-box', // Inclut padding/margin dans la hauteur
+      paddingBottom: '30px',
+    }}
   >
-    <CardHeader>
-      <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection='column' fontSize='150%'>
-        <Box marginTop='5px'>
-          {/*<Heading size='md'>{headerText}</Heading>*/}
-          <h2 style={{
-            marginBottom: '0em',
-            color: 'white',
-            textShadow: `
-              0 0 5px pink,
-              0 0 10px pink,
-              0 0 20px magenta,
-              0 0 30px magenta
-            `,
-            filter: 'brightness(1.05)',
-            fontSize: '140%',
-            fontWeight: 'bold',
-            textTransform: 'uppercase', // Mettre le texte en majuscules
-            border: '5px solid white', // Bordure blanche
-            padding: '10px',
-            borderRadius: '8px',
-            display: 'inline-block',
-            backgroundColor: 'transparent', // Fond clair pour faire ressortir l'ombre
-            position: 'relative',
-            //transform: 'skew(-5deg)',
-            transform: 'rotate(-1deg)',
-            boxShadow: `
-            0 0 5px pink,
-            0 0 8px pink,
-            0 0 10px magenta,
-            0 0 12px magenta
-            `
-          }}>
-            Welcome to the Gobelin Rave!
-            <span style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          right: '0',
-          bottom: '0',
+    <h2
+      style={{
+        fontFamily: 'Clash',
+        textShadow: '4px 4px 0px black',
+        fontSize: '35px',
+        color: 'white',
+        textAlign: 'center',
+        padding: '20px 0px',
+        margin: '35px 0px 0px 0px',
+      }}
+    >
+      BRING YOUR ELIXIR TO THE RAVE!
+    </h2>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        height: 'calc(100% - 60px)', // Ajuste pour tenir compte de la hauteur du h2
+      }}
+    >
+      {/* Left Section with MINT button */}
+      <div
+        style={{
           backgroundColor: 'transparent',
-          boxShadow: `
-            inset 0 0 5px pink,
-            inset 0 0 8px pink,
-            inset 0 0 10px magenta,
-            inset 0 0 12px magenta
-          `,
-          zIndex: +1 // Met l'ombre derrière le texte
-          }} />
-          </h2>
-        </Box>              
-      </Flex>
+          flex: 1,
+          margin: '0 10px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // S'assure que la hauteur reste contrôlée
+          overflow: 'hidden', // Empêche tout débordement interne
+        }}
+      >
+        <div style={{ width: '90%', margin: '0px 0px 20px 0px', 
+          border: '2px solid grey',
+          borderRadius: '20px',
+          backgroundColor: 'rgb(0,0,0,0.1)',
+          padding: '40px 60px',}}>
+<h2
+              style={{
+                fontFamily: 'Clash',
+                textShadow: '4px 4px 0px black',
+                fontSize: '21px',
+                color: 'white',
+                textAlign: 'center',
+               }}>
+                FREE ELIXIR
+              </h2>
+              <span style={{fontFamily: 'Freeman', color: 'white',}}>Price: Free</span>
 
-      
-    </CardHeader>
+              <Stack divider={<StackDivider />} spacing='8'>
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <ElixirSection
+                guardList={guards}
+                candyMachine={candyMachine}
+                candyGuard={candyGuard!}
+                umi={umi}
+                ownedTokens={ownedTokens}
+                setGuardList={setGuards}
+                mintsCreated={mintsCreated}
+                setMintsCreated={setMintsCreated}
+                onOpen={onShowNftOpen}
+                setCheckEligibility={setCheckEligibility}
+                />
+              )}
+            </Stack>
 
-    <CardBody>
-      <Center>
-        <Box
-          rounded={'lg'}
-          mt={-12}
-          pos={'relative'}
-          marginTop={'-10px'}>
-          <Image
-            rounded={'lg'}
-            height={230}
-            objectFit={'cover'}
-            alt={"project Image"}
-            src={image}
-            cursor={'pointer'}
-            boxShadow={'black 0px 0px 5px, brown 0px 0px 10px, brown 0px 0px 20px'}
-            onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
-            onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
-          />
-        </Box>
-      </Center>
-      <Stack divider={<StackDivider />} spacing='8'>
-        {loading ? (
-          <div>
-            <Divider my="10px" />
-            <Skeleton height="30px" my="10px" />
-            <Skeleton height="30px" my="10px" />
-            <Skeleton height="30px" my="10px" />
+
+
+            {/* BARRE DE PROGRESSION*/}
+            <div style={{ display: 'flex', marginTop: '12px', paddingBottom: '5px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+            <div
+  style={{
+    color: '#d2d2d2',
+    fontWeight: '300',
+    fontFamily: 'Freeman',
+    letterSpacing: '0.8px',
+  }}
+>
+  <span style={{ color: '#000fff', fontSize: '130%'}}>Total Minted: </span>
+  <span style={{ color: 'white', fontSize: '130%' }}>{Number(candyMachine?.itemsRedeemed)}</span>
+  <span style={{ color: '#000fff', fontSize: '130%' }}>
+    /{Number(candyMachine?.data.itemsAvailable)}
+  </span>
+</div>            </div>
+            <div style={{ width: '100%', backgroundColor: '#e0e0e0', borderRadius: '8px', overflow: 'hidden' }}>
+              <div
+                style={{
+                    width: `${candyMachine && candyMachine.itemsRedeemed && candyMachine.data?.itemsAvailable?(Number(candyMachine.itemsRedeemed) / Number(candyMachine.data.itemsAvailable)) * 100: 0}%`,                      
+                    height: '15px',
+                    backgroundColor: 'blue',
+                    transition: 'width 0.5s ease-in-out',
+                    borderRadius: '0px 10px 10px 0px',
+                }}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+              
+                {/* POPUP */}
+    <div>
+      <button onClick={() => setPopupOpen(true)}
+        style={{
+          padding: "8px",
+          backgroundColor: "#3b82f6",
+          color: "white",
+          borderRadius: "4px",
+          border: "none",
+          textAlign: 'left',
+          fontWeight: '300',
+          textDecoration: 'none',
+          cursor: 'pointer',
+          transition: '5s'
+        }}
+        onMouseEnter={(e) => {
+          const target = e.target as HTMLElement;  // Cast de e.target en HTMLElement
+          target.style.textDecoration = 'underline';  // Applique l'underline
+        }}
+        onMouseLeave={(e) => {
+          const target = e.target as HTMLElement;  // Cast de e.target en HTMLElement
+          target.style.textDecoration = 'none';  // Retire l'underline
+        }}
+      >
+        Why should I mint free Elixir?
+      </button>
+      {popupOpen && (
+        <div 
+          style={{ 
+            position: "fixed", 
+            top: 0, 
+            left: 0, 
+            width: "100%", 
+            height: "100%", 
+            display: popupOpen ? "flex" : "none",
+            flexDirection: "column",
+            alignItems: "center", 
+            justifyContent: "center", 
+            backgroundColor: "rgba(0, 0, 0, 0.75)", 
+            zIndex: 50,
+            color: "white",
+            opacity: popupOpen ? 1 : 0,
+            visibility: popupOpen ? "visible" : "hidden",
+            transition: "opacity 0.3s ease-in-out, visibility 0.3s ease-in-out"
+          }}
+        >
+          <div 
+            style={{ 
+              backgroundColor: "rgba(63, 63, 63, 1)", 
+              padding: "0px", 
+              borderRadius: "8px", 
+              boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3)",
+              textAlign: "center",
+              transform: popupOpen ? "scale(1)" : "scale(0.8)",
+              transition: "transform 5s ease-in-out"
+            }}
+          >
+          <button 
+          onClick={() => setPopupOpen(false)} 
+          style={{
+            //backgroundColor: "white", 
+            color: "white", 
+            borderRadius: "8px", 
+            //boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)", 
+            border: "none",
+            position: "relative", 
+            top: "-0", 
+            right: "-0%",
+            padding: "5px",
+            zIndex: '100',
+            marginLeft: "auto", // Aligne à droite
+            display: "block" // Assure que l'auto-margin fonctionne
+          }}
+        >
+          ❌
+        </button>
+        <div style={{fontFamily: 'Freeman', fontSize: '16px', padding: '0px 24px 24px 24px'}}>
+            <p style={{ fontFamily: 'Clash', fontSize: "18px", fontWeight: "600", position: "relative", top: "-10%" }}>Why should I mint Free Elixir?</p>
+            </div>
           </div>
-        ) : (
-          <ButtonList
-            guardList={guards}
-            candyMachine={candyMachine}
-            candyGuard={candyGuard}
-            umi={umi}
-            ownedTokens={ownedTokens}
-            setGuardList={setGuards}
-            mintsCreated={mintsCreated}
-            setMintsCreated={setMintsCreated}
-            onOpen={onShowNftOpen}
-            setCheckEligibility={setCheckEligibility}
-          />
-        )}
-      </Stack>
-    </CardBody>
-  </Card >
-  {umi.identity.publicKey === candyMachine?.authority ? (
-    <>
-      <Center>
-        <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
-      </Center>
-      <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
-        <ModalOverlay />
-        <ModalContent maxW="600px">
-          <ModalHeader>Initializer</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            < InitializeModal umi={umi} candyMachine={candyMachine} candyGuard={candyGuard} />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+        </div>
+      )}
+    </div>
+            </div>
 
-      
+            
 
-    </>)
-    :
-    (<></>)
-  }
 
-  <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
-    <ModalOverlay />
-    <ModalContent>
-      <ModalHeader>Your minted NFT:</ModalHeader>
-      <ModalCloseButton />
-      <ModalBody>
-        <ShowNft nfts={mintsCreated} />
-      </ModalBody>
-    </ModalContent>
-  </Modal>
+
+
+
+              </div>
+      </div>
+
+      {/* Image Section */}
+      <div
+        style={{
+          backgroundColor: 'transparent',
+          flex: 1,
+          margin: '0 10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%', // Assure la hauteur reste contrôlée
+        }}
+      >
+        <div
+        style={{
+          border: '2px solid grey',
+          borderRadius: '20px',
+          backgroundColor: 'rgb(0,0,0,0.1)',
+          display: 'flex',
+          justifyContent: 'center',
+          //alignItems: 'center',
+          flex: 1, // Permet au conteneur de s'ajuster dynamiquement dans un contexte flex
+          aspectRatio: 1, // Assure que la largeur et la hauteur restent égales
+          maxWidth: '75%', // Limite à 60% de la largeur du parent
+        }}>
+        <div
+        style={{
+          width: '85%', // Largeur du conteneur
+          aspectRatio: '1', // Garder le ratio original de l'image
+          borderRadius: '20px', // Applique le rayon de bord sur le conteneur
+          overflow: 'hidden', // Cache tout dépassement de l'image en dehors du conteneur
+          display: 'flex', // Aligne l'image de manière appropriée
+          justifyContent: 'center', // Centrer horizontalement
+          alignItems: 'center', // Centrer verticalement
+        }}
+      >
+        <img
+          src="gobelin.png"
+          alt="Gobelin"
+          style={{
+            width: '100%', // L'image occupe 100% de la largeur du conteneur
+            height: 'auto', // Assure que l'image conserve son ratio d'origine
+            borderRadius: '20px',
+          }}
+        />
+      </div>
+
+        </div>
+      </div>
+    </div>
+    <hr/>
   </div>
+</div>
+
+
+
+
+
+
+
+
+        <Card margin='25px 0px 0px 10px'
+        bg='transparent'
+        boxShadow='none'
+        display='none'
+        >
+
+          <CardBody>
+            <Center>
+              <Box
+                rounded={'lg'}
+                mt={-12}
+                pos={'relative'}
+                marginTop={'-10px'}>
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'top'}}>
+                <Image
+                  rounded={'lg'}
+                  height={'22vw'}
+                  objectFit={'cover'}
+                  alt={"project Image"}
+                  src={image}
+                  cursor={'pointer'}
+                  boxShadow={'black 0px 0px 5px, brown 0px 0px 10px, brown 0px 0px 20px'}
+                  onMouseOver={(e) => (e.currentTarget.style.filter = 'brightness(1.1)')}
+                  onMouseOut={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
+                />
+                {loading ? (<></>) : (
+
+<div style={{ marginLeft: '50px', width: '40vw'}}>
+<h2
+              style={{
+                fontFamily: 'Clash',
+                textShadow: '4px 4px 0px black',
+                fontSize: '21px',
+                color: 'white',
+                textAlign: 'center',
+               }}>
+                MINT YOUR ELIXIR
+              </h2>
+      <div style={{ display: 'flex', paddingBottom: '5px', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+        <div style={{ color: 'white', fontWeight: '600'}}>{100*Number(candyMachine?.itemsRedeemed)/Number(candyMachine?.data.itemsAvailable)}% minted</div>
+        <div style={{ color: '#d2d2d2', fontWeight: '300'}}>{Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</div>
+      </div>
+
+
+
+
+                <div style={{ width: '100%', backgroundColor: '#e0e0e0', borderRadius: '8px', overflow: 'hidden' }}>
+                  <div
+                    style={{
+                      width: `${candyMachine && candyMachine.itemsRedeemed && candyMachine.data?.itemsAvailable?(Number(candyMachine.itemsRedeemed) / Number(candyMachine.data.itemsAvailable)) * 100: 0}%`,                      
+                      height: '20px',
+                      backgroundColor: 'blue',
+                      transition: 'width 0.5s ease-in-out',
+                    }}
+                  />
+              </div>
+              <Stack divider={<StackDivider />} spacing='8'>
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <ButtonSection
+                guardList={guards}
+                candyMachine={candyMachine}
+                candyGuard={candyGuard!}
+                umi={umi}
+                ownedTokens={ownedTokens}
+                setGuardList={setGuards}
+                mintsCreated={mintsCreated}
+                setMintsCreated={setMintsCreated}
+                onOpen={onShowNftOpen}
+                setCheckEligibility={setCheckEligibility}
+                />
+              )}
+            </Stack>
+              </div>
+              )}</div>
+              </Box>
+            </Center>
+            <Stack divider={<StackDivider />} spacing='8'>
+              {loading ? (
+                <div>
+                  <Divider my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                  <Skeleton height="30px" my="10px" />
+                </div>
+              ) : (
+                <div style={{marginTop: '35px', padding: '30px'}}>
+                  <Divider/>
+                    <Text fontSize='200%'>
+                      Mint Schedule
+                    </Text>
+                  <ButtonList
+                  guardList={guards}
+                  candyMachine={candyMachine}
+                  candyGuard={candyGuard!}
+                  umi={umi}
+                  ownedTokens={ownedTokens}
+                  setGuardList={setGuards}
+                  mintsCreated={mintsCreated}
+                  setMintsCreated={setMintsCreated}
+                  onOpen={onShowNftOpen}
+                  setCheckEligibility={setCheckEligibility}
+                  />
+                </div>
+              )}
+            </Stack>
+          </CardBody>
+        </Card >
+        {umi.identity.publicKey === candyMachine?.authority ? (
+          <>
+            <Center>
+              <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
+            </Center>
+            <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
+              <ModalOverlay />
+              <ModalContent maxW="600px">
+                <ModalHeader>Initializer</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  < InitializeModal umi={umi} candyMachine={candyMachine} candyGuard={candyGuard} />
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+
+            <hr/>
+
+            
+
+          </>)
+          :
+          (<></>)
+        }
+
+        <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Your minted NFT:</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <ShowNft nfts={mintsCreated} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        </div>
 
 
 

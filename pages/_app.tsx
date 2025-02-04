@@ -118,7 +118,7 @@ export default function App({ Component, pageProps }: AppProps) {
       style={{
         fontFamily: 'Clash', fontSize: '16px',
       }}
-      href="/mint"
+      href="/elixir"
       color="white"
       marginRight="40px"
       padding="6px 12px 6px 12px"

@@ -65,7 +65,7 @@ useEffect(() => {
     if (offsetBottom !== offsetTop) {
       const width = divRef2.current.getBoundingClientRect().width;
       // Appliquer la formule pour calculer tacPosition
-      const calculatedPosition = 0.3*width - width * (offsetMiddle - offsetTop) / (offsetBottom - offsetTop);
+      const calculatedPosition = 0.82*width - 2.1 * width * (offsetMiddle - offsetTop) / (offsetBottom - offsetTop);
       setTacPosition(calculatedPosition);
     }
   };
@@ -165,7 +165,7 @@ const horizontalOffset = tacPosition;
                       style={{
                         fontFamily: 'Clash',
                       }}
-                      href="/mint"
+                      href="/elixir"
                       color="white"
                       marginRight="6.61dvh"
                       padding="1dvh 2dvh"
@@ -199,7 +199,7 @@ const horizontalOffset = tacPosition;
                       style={{
                         fontFamily: 'Clash',
                       }}
-                      href="/test"
+                      href="/#goblinomics"
                       color="white"
                       marginRight="6.61dvh"
                       padding="1dvh 2dvh"
@@ -417,7 +417,7 @@ const horizontalOffset = tacPosition;
 
 
             {/* Boutton Elixir */}
-            <a href="/test" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
+            <a href="/elixir" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
@@ -543,7 +543,19 @@ const horizontalOffset = tacPosition;
 }}>
   <Image src="Bubble_01.png" style={{position: "absolute", width:"3%", left: "6dvh", top: "110dvh", transform: 'rotate(65deg)'}}></Image>
   <Image src="Biere_01.png" style={{position: "absolute", width:"9%", left: "4dvh", top: "124dvh", transform: 'rotate(-5deg)'}}></Image>
-  <Image src="Bubble_02.png" style={{position: "absolute", width:"2%", left: "100dvh", top: "185dvh", transform: 'rotate(65deg)'}}></Image>
+  <Image 
+  src="Bubble_02.png" 
+  style={{
+    position: "absolute", 
+    width: "2%", 
+    left: "100dvh", 
+    top: "185dvh", 
+    transform: "rotate(65deg)", 
+    transition: "transform 0.3s ease-in-out"
+  }}
+  onMouseEnter={(e) => e.currentTarget.style.transform = "rotate(84deg) scale(1.2)"}
+  onMouseLeave={(e) => e.currentTarget.style.transform = "rotate(65deg)"} 
+/>
   {/* Titre */}
   <h1 style={{
     fontSize: '5.95dvh', 
@@ -587,7 +599,7 @@ const horizontalOffset = tacPosition;
                     textShadow: '0dvh 0dvh 0dvh black', }}>Live</span>
               </div>
   {/* Boutton Elixir */}
-  <a href="/test" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
+  <a href="/elixir" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
               <div
                   style={{
                     zIndex: 100,
@@ -646,7 +658,7 @@ const horizontalOffset = tacPosition;
 {/* STICKY */}
 {/* Ajoutez ici votre composant StickyScrollEffect<StickyScrollEffect /> */}
 
-<div style={{ height: '300vh', backgroundColor: 'pink', position: 'relative' }}  ref={divRef} className="div-element">
+<div style={{ height: '450vh', backgroundColor: 'pink', position: 'relative' }}  ref={divRef} className="div-element">
       <div
         style={{
           position: 'sticky',
@@ -669,42 +681,120 @@ const horizontalOffset = tacPosition;
                 fontFamily: 'Clash', 
                 textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
                 fontSize: '300%',
-                paddingBottom: '10dvh',
+                paddingBottom: '4dvh',
               }}>
                 GOBLINZ ROADMAP
               </div>
               <div style={{
+                marginTop: '5dvh',
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
+                zIndex: '20',
               }}>
                     <div style={{
-                      fontSize: '70%',
-                      height: '600%',
-                      width: '600%',
-                      padding: '30dvh',
+                      height: '60vh',
+                      padding: '8dvh',
                       backgroundImage: "url('forme.png')",
                       backgroundSize: "100% auto", // L'image couvre tout l'espace
                       backgroundRepeat: "no-repeat", // Pas de répétition
                       backgroundPosition: "center", // L'image est centrée
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      whiteSpace: "nowrap",
                       transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
                     }}>
+                      <img src="/magic_beer.png"
+                      style={{
+                        position: 'absolute',
+                        width: '22%',
+                        inset: 'auto auto -1.8dvh -4.3dvw',
+                      }}>
+                      </img>
                         
-                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                      <div style={{display: 'flex', flexDirection: 'row'}}>
-                      <div>#1</div>
-                      <div>🍻 Twitter Launch /b
-                      🍻 Organic Growth</div>
-                      </div>
-                      <div></div>
-                    </div>
+                        <div style={{
+                          fontSize: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          fontFamily: 'Freeman',
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            fontFamily: 'Clash',
+                            alignItems: 'center',
+                            marginBottom: '15px',
+                            textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                          }}>
+                            <div style={{fontSize: '360%'}}>#1</div>
+                            <div style={{fontSize: '150%', marginLeft: '20px'}}>Twitter Launch 🍻<br/>Organic Growth 🍻</div>
+                          </div>
+                          <div style={{fontFamily: 'Loved', fontSize: '130%'}}>
+                          The first GoblinZ join the Before Party. These OGz<br/>fans set the vibe for what’s to come!
+                          </div>
+                        </div>
                     </div>
                     <div style={{
                       fontSize: '70%',
-                      height: '30%',
-                      width: '30%',
+                      height: '10vh',
                       padding: '50px',
-                      margin: '30px',
+                      margin: '10px',
+                      backgroundImage: "url('fleche.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      transform: `translateX(${horizontalOffset}px) rotate(0deg)`, // Appliquer la translation horizontale
+                    }}>
+                    </div>
+                    <div style={{
+                      height: '60vh',
+                      padding: '8dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      whiteSpace: "nowrap",
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                      <img src="/magic_beer.png"
+                      style={{
+                        position: 'absolute',
+                        width: '22%',
+                        inset: 'auto auto -1.8dvh -4.3dvw',
+                      }}>
+                      </img>
+                        
+                        <div style={{
+                          fontSize: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          fontFamily: 'Freeman',
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            fontFamily: 'Clash',
+                            alignItems: 'center',
+                            marginBottom: '15px',
+                            textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                          }}>
+                            <div style={{fontSize: '362%'}}>#2</div>
+                            <div style={{fontSize: '152%', marginLeft: '20px'}}>Discord launch 🍻<br/>Elixir minting🍻</div>
+                          </div>
+                          <div style={{fontFamily: 'Loved', fontSize: '130%'}}>
+                          GoblinZ fever takes over as the community grow<br/> and the goblins brew their magical elixirs.
+                          </div>
+                        </div>
+                    </div>
+                    <div style={{
+                      fontSize: '70%',
+                      height: '10vh',
+                      padding: '50px',
+                      margin: '10px',
                       backgroundImage: "url('fleche.png')",
                       backgroundSize: "100% auto", // L'image couvre tout l'espace
                       backgroundRepeat: "no-repeat", // Pas de répétition
@@ -713,53 +803,54 @@ const horizontalOffset = tacPosition;
                     }}>
                     </div>
                     <div style={{
-                      fontSize: '70%',
-                      height: '600%',
-                      width: '600%',
-                      padding: '30dvh',
+                      height: '60vh',
+                      padding: '9dvh',
                       backgroundImage: "url('forme.png')",
                       backgroundSize: "100% auto", // L'image couvre tout l'espace
                       backgroundRepeat: "no-repeat", // Pas de répétition
                       backgroundPosition: "center", // L'image est centrée
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      whiteSpace: "nowrap",
                       transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
                     }}>
+                      <img src="/magic_beer.png"
+                      style={{
+                        position: 'absolute',
+                        width: '22%',
+                        inset: 'auto auto -1.8dvh -4.3dvw',
+                      }}>
+                      </img>
                         
-                    Je suis sticky !
-                    </div>
-                    <div style={{
-                      fontSize: '70%',
-                      height: '30%',
-                      width: '30%',
-                      padding: '50px',
-                      margin: '30px',
-                      backgroundImage: "url('fleche.png')",
-                      backgroundSize: "100% auto", // L'image couvre tout l'espace
-                      backgroundRepeat: "no-repeat", // Pas de répétition
-                      backgroundPosition: "center", // L'image est centrée
-                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
-                    }}>
-                    </div>
-                    <div style={{
-                      fontSize: '70%',
-                      height: '600%',
-                      width: '600%',
-                      padding: '30dvh',
-                      backgroundImage: "url('forme.png')",
-                      backgroundSize: "100% auto", // L'image couvre tout l'espace
-                      backgroundRepeat: "no-repeat", // Pas de répétition
-                      backgroundPosition: "center", // L'image est centrée
-                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
-                    }}>
-                        
-                    Je suis sticky !
+                        <div style={{
+                          fontSize: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          fontFamily: 'Freeman',
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            fontFamily: 'Clash',
+                            alignItems: 'center',
+                            marginBottom: '15px',
+                            textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                          }}>
+                            <div style={{fontSize: '365%'}}>#3</div>
+                            <div style={{fontSize: '155%', marginLeft: '20px'}}>The First ever<br/>Weekly Rave ! 🍻</div>
+                          </div>
+                          <div style={{fontFamily: 'Loved', fontSize: '130%'}}>
+                          The mighty #0 Weekly Rave 🎉<br/>Free for all : just come, enjoy and earn rewards!
+                          </div>
+                        </div>
                     </div>
                     
                     <div style={{
                       fontSize: '70%',
-                      height: '30%',
-                      width: '30%',
+                      height: '10vh',
                       padding: '50px',
-                      margin: '30px',
+                      margin: '10px',
                       backgroundImage: "url('fleche.png')",
                       backgroundSize: "100% auto", // L'image couvre tout l'espace
                       backgroundRepeat: "no-repeat", // Pas de répétition
@@ -768,18 +859,104 @@ const horizontalOffset = tacPosition;
                     }}>
                     </div>
                     <div style={{
-                      fontSize: '70%',
-                      height: '600%',
-                      width: '600%',
-                      padding: '30dvh',
+                      height: '60vh',
+                      padding: '12.5dvh',
                       backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      whiteSpace: "nowrap",
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                      <img src="/magic_beer.png"
+                      style={{
+                        position: 'absolute',
+                        width: '22%',
+                        inset: 'auto auto -1.8dvh -4.3dvw',
+                      }}>
+                      </img>
+                        
+                        <div style={{
+                          fontSize: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          fontFamily: 'Freeman',
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            fontFamily: 'Clash',
+                            alignItems: 'center',
+                            marginBottom: '15px',
+                            textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                          }}>
+                            <div style={{fontSize: '365%'}}>#4</div>
+                            <div style={{fontSize: '155%', marginLeft: '20px'}}>Mint Week! 🍻</div>
+                          </div>
+                          <div style={{fontFamily: 'Loved', fontSize: '130%'}}>
+                          This is THE event - the rave of raves!<br/>Seat your belt, the real madness begins.
+                          </div>
+                        </div>
+                    </div>
+
+
+                    <div style={{
+                      fontSize: '70%',
+                      height: '10vh',
+                      padding: '50px',
+                      margin: '10px',
+                      backgroundImage: "url('fleche.png')",
                       backgroundSize: "100% auto", // L'image couvre tout l'espace
                       backgroundRepeat: "no-repeat", // Pas de répétition
                       backgroundPosition: "center", // L'image est centrée
                       transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
                     }}>
+                    </div>
+                    <div style={{
+                      height: '60vh',
+                      padding: '9dvh',
+                      backgroundImage: "url('forme.png')",
+                      backgroundSize: "100% auto", // L'image couvre tout l'espace
+                      backgroundRepeat: "no-repeat", // Pas de répétition
+                      backgroundPosition: "center", // L'image est centrée
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      whiteSpace: "nowrap",
+                      transform: `translateX(${horizontalOffset}px)`, // Appliquer la translation horizontale
+                    }}>
+                      <img src="/magic_beer.png"
+                      style={{
+                        position: 'absolute',
+                        width: '22%',
+                        inset: 'auto auto -1.8dvh -4.3dvw',
+                      }}>
+                      </img>
                         
-                    Je suis sticky !
+                        <div style={{
+                          fontSize: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          fontFamily: 'Freeman',
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            fontFamily: 'Clash',
+                            alignItems: 'center',
+                            marginBottom: '15px',
+                            textShadow: '0.6dvh 0.6dvh 0.25dvh rgb(3, 0, 14)',
+                          }}>
+                            <div style={{fontSize: '352%'}}>#5</div>
+                            <div style={{fontSize: '142%', marginLeft: '20px'}}>One Weekly Rave,<br/>each week 🍻</div>
+                          </div>
+                          <div style={{fontFamily: 'Loved', fontSize: '130%'}}>
+                          Dance, degen, and dollar signs<br/>we rave, we thrive, we conquer the goblinverse!
+                          </div>
+                        </div>
                     </div>
               </div>
 
@@ -805,8 +982,48 @@ const horizontalOffset = tacPosition;
         }}>
           GOBLINZ ROADMAP
         </h2>
-        <Image src="potion_01.png" style={{position: "absolute", width:"10%", right: "20dvh", top: "225dvh", transform: 'rotate(-5deg)'}}></Image>
-        <Image src="Bubble_01.png" style={{position: "absolute", width:"2%", right: "31dvh", top: "215dvh", transform: 'rotate(-40deg)'}}></Image>
+        <Image 
+  src="potion_01.png" 
+  style={{
+    position: "absolute", 
+    width: "10%", 
+    right: "20dvh", 
+    top: "220dvh", 
+    transform: "rotate(-5deg)", 
+    transformOrigin: "50% 30%", // Déplace le point de rotation
+    transition: "transform 0.1s ease-in-out"
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.animation = "shake 4s ease-in-out infinite";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.animation = "none";
+  }}
+/>
+
+<style>
+  {`
+    @keyframes shake {
+  0% { transform: rotate(-13deg); }
+  1.5% { transform: rotate(3deg); }
+  3% { transform: rotate(-13deg); }
+  4.5% { transform: rotate(2.5deg); }
+  7% { transform: rotate(-12deg); }
+  9% { transform: rotate(2deg); }
+  12% { transform: rotate(-11.5deg); }
+  15% { transform: rotate(1deg); }
+  18% { transform: rotate(-10.5deg); }
+  25% { transform: rotate(-0.5deg); }
+  34% { transform: rotate(-8.5deg); }
+  45% { transform: rotate(-3deg); }
+  60% { transform: rotate(-6.2deg); }
+  75% { transform: rotate(-4.5deg); }
+  100% { transform: rotate(-5deg); }
+}
+  `}
+</style>
+
+        <Image src="Bubble_01.png" style={{position: "absolute", width:"2.5%", right: "31dvh", top: "212vh", transform: 'rotate(-40deg)'}}></Image>
 
         <div
           style={{ position: "relative", width: "auto", margin: "0dvh 41.32dvh 0dvh 41.32dvh", height: "49.59dvh" }}
@@ -1176,8 +1393,8 @@ const horizontalOffset = tacPosition;
     color: "white",
   }}
 >
-<Image src="potion_02.png" style={{position: "absolute", width:"7%", left: "5dvh", top: "670dvh", transform: 'rotate(5deg)'}}></Image>
-<Image src="Bubble_01.png" style={{position: "absolute", width:"2%", left: "10dvh", top: "660dvh", transform: 'rotate(-40deg)'}}></Image>
+<Image src="potion_02.png" style={{position: "absolute", width:"7%", left: "5dvh", top: "1120dvh", transform: 'rotate(5deg)'}}></Image>
+<Image src="Bubble_01.png" style={{position: "absolute", width:"2%", left: "10dvh", top: "1112dvh", transform: 'rotate(-40deg)'}}></Image>
   <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
     FAQ
   </h2>
