@@ -23,14 +23,24 @@ export default function Home() {
     };
   
     const timelineData: TimelineEvent[] = [
-      { id: 0, date: ["Twitter Launch", "Organic Growth"], description: "The first GoblinZ joined the Before Party. These OGz fans set the vibe for what’s to come!", position: "above" },
+      { id: 0,
+        date: [
+          <div style={{ backgroundColor: 'black', width: '4dvw', borderRadius: '5px', zIndex: '500' }}>
+            <a href="https://x.com/GoblinzRave">
+              <img src="/zone_x.png" style={{ position: 'absolute', width: '10dvw', left: '8.2dvw' }} />
+            </a>
+          </div>
+          ],
+        description:
+        "",
+        position: "above" },
       { id: 1, date: ["Discord and Guild launch", "Elixir minting"], description: "GoblinZ fever takes over as the community grows and the goblins brew their magical elixirs.", position: "below" },
       { id: 2, date: ["Mint Week!"], description: "This is THE event - the rave of raves! The real madness begins.", position: "above" },
       { id: 3, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
     ];
 
     //const idActuel = 3
-    const [idActuel, setIdActuel] = useState(3);
+    const [idActuel, setIdActuel] = useState(0);
 
     const [scrollPosition, setScrollPosition] = useState(0);
     
@@ -970,7 +980,7 @@ const horizontalOffset = tacPosition;
 
 
         
-{/* ROADMAP */}
+{/* How can I join */}
 <div id="Roadmap" style={{ height: '105vh', background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '12.40dvh' }}>
       <div style={{ margin: "2dvh 0", textAlign: "center" }}>
         <h2 style={{
@@ -980,7 +990,7 @@ const horizontalOffset = tacPosition;
           textShadow: '0.5dvh 0.5dvh 0dvh black',
           fontFamily: 'Clash',
         }}>
-          GOBLINZ ROADMAP
+          HOW CAN I JOIN THE RAVE ?
         </h2>
         <Image 
   src="potion_01.png" 
@@ -1064,7 +1074,7 @@ const horizontalOffset = tacPosition;
               height: "3.31dvh",
               backgroundColor: "#ccc",
               border: "0.5dvh solid #fff",
-              background: `linear-gradient(to right, #007BFF ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
+              background: `linear-gradient(to right,rgb(238, 255, 4) ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
             }}
           />
 
@@ -1121,17 +1131,17 @@ const horizontalOffset = tacPosition;
                     top: event.position === "above" ? "-28.1dvh" : "5dvh",
                   }}
                 >
-                  <span>
+                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                     {Array.isArray(event.date) ? (
                       event.date.map((line, i) => (
                         <React.Fragment key={i}>
-                          🍻 {line}
-                          <br />
+                          {line}
+                          <br/>
                         </React.Fragment>
                       ))
                     ) : (
                       <>
-                        🍻 {event.date}
+                        {/*{event.date}*/}
                         <br />
                       </>
                     )}
