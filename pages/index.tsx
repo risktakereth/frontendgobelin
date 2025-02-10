@@ -17,23 +17,13 @@ export default function Home() {
   const PageContent = () => {
     type TimelineEvent = {
       id: number;
-      date: string | string[];
+      date: string[];
       description: string;
       position: "above" | "below";
     };
   
     const timelineData: TimelineEvent[] = [
-      { id: 0,
-        date: [
-          <div style={{ backgroundColor: 'black', width: '4dvw', borderRadius: '5px', zIndex: '500' }}>
-            <a href="https://x.com/GoblinzRave">
-              <img src="/zone_x.png" style={{ position: 'absolute', width: '10dvw', left: '8.2dvw' }} />
-            </a>
-          </div>
-          ],
-        description:
-        "",
-        position: "above" },
+      { id: 0, date: ["coucou"], description:"", position: "above" },
       { id: 1, date: ["Discord and Guild launch", "Elixir minting"], description: "GoblinZ fever takes over as the community grows and the goblins brew their magical elixirs.", position: "below" },
       { id: 2, date: ["Mint Week!"], description: "This is THE event - the rave of raves! The real madness begins.", position: "above" },
       { id: 3, date: ["GoblinZ Weekly Party 🎉"], description: "Dance, degen, and dollar signs - we rave, we thrive, we conquer the goblinverse!", position: "below" },
@@ -665,6 +655,137 @@ const horizontalOffset = tacPosition;
 
 
 
+<div style={{
+  display: 'flex', 
+  alignItems: 'center',
+  justifyContent: 'space-evenly',
+  backgroundColor: '#42a6ff', 
+  padding: '3.31dvh',
+  height: '114.9dvh',
+}}>
+  
+  
+{/* Texte à droite */}
+<div style={{
+  color: 'white', 
+  fontFamily: 'Clash',
+  maxWidth: '70vh',
+  margin: '0dvh 3dvh 3.31dvh 15dvh',
+}}>
+  <Image src="Bubble_01.png" style={{position: "absolute", width:"3%", left: "6dvh", top: "110dvh", transform: 'rotate(65deg)'}}></Image>
+  <Image src="Biere_01.png" style={{position: "absolute", width:"9%", left: "4dvh", top: "124dvh", transform: 'rotate(-5deg)'}}></Image>
+  <Image 
+  src="Bubble_02.png" 
+  style={{
+    position: "absolute", 
+    width: "2%", 
+    left: "100dvh", 
+    top: "185dvh", 
+    transform: "rotate(65deg)", 
+    transition: "transform 0.3s ease-in-out"
+  }}
+  onMouseEnter={(e) => e.currentTarget.style.transform = "rotate(84deg) scale(1.2)"}
+  onMouseLeave={(e) => e.currentTarget.style.transform = "rotate(65deg)"} 
+/>
+  {/* Titre */}
+  <h1 style={{
+    fontSize: '5.95dvh', 
+    textShadow: '0.5dvh 0.5dvh 0dvh black',
+  }}>
+    WHO ARE THE GOBLINZ?
+  </h1>
+
+  {/* Paragraphe */}
+  <div style={{fontFamily: 'Freeman', fontSize: '3.47dvh',}}>
+      <p style={{ marginBottom: '1.65dvh' }}>
+        The Goblinz are neon-fueled chaos incarnate.
+      </p>
+      <p style={{ marginBottom: '1.65dvh' }}>
+        We don’t sleep — we rave, we scheme, and we conquer the Eclipse night.
+      </p>
+      <p style={{}}>
+        Let’s glow, let’s goblin, let’s rave!
+      </p>
+  </div>
+  {/* Petit "Live" avec un point vert */}
+  <div
+                style={{
+                  marginTop: '5.79dvh', // Espacement entre le bouton et le texte
+                  display: 'flex',
+                  alignItems: 'center',
+                  position: 'relative',
+                  left: '67%',
+                }}
+              >
+                <div
+                  style={{
+                    width: '1.16dvh',
+                    height: '1.16dvh',
+                    backgroundColor: 'green',
+                    borderRadius: '50%', // Faire un cercle
+                    marginRight: '0.83dvh', // Espacement entre le point et le texte
+                  }}
+                ></div>
+                <span style={{ fontSize: '1.82dvh', color: 'white', 
+                    textShadow: '0dvh 0dvh 0dvh black', }}>Live</span>
+              </div>
+  {/* Boutton Elixir */}
+  <a href="/elixir" rel="noopener noreferrer" style={{marginTop: '0.83dvh', display: 'flex', justifyContent: 'center'}}>
+              <div
+                  style={{
+                    zIndex: 100,
+                    fontSize: '2.6dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
+                    position: 'absolute',
+                    backgroundColor: 'red',
+                    textShadow: '0dvh 0dvh 0dvh black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(0dvh, 0dvh)', // Inclinaison de l'icône
+                    transition: 'transform 0.3s ease', // Transition pour le mouvement au survol
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0.5dvh, 0.66dvh)'} // Décalage vers la droite et le bas
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(-2deg) translate(0dvh, 0dvh)'} // Rétablir la position originale
+                >
+                  MINT FREE ELIXIR
+                </div>
+                <div
+                  style={{
+                    zIndex: 5,                    
+                    fontSize: '2.6dvh',
+                    padding: '3.31dvh 3.31dvh 2.98dvh 3.31dvh',
+                    color: 'black',
+                    marginRight: '3.31dvh',
+                    position: 'absolute',
+                    backgroundColor: 'black',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '0.83dvh',
+                    transform: 'rotate(-2deg) translate(1.99dvh, 0.66dvh)',
+                  }}>MINT FREE ELIXIR
+                </div>
+              </a>
+</div>
+
+
+  {/* Image à gauche */}
+  <img 
+    src="fete.webp" 
+    alt="Fête" 
+    style={{
+      height: '80vh',
+      width: 'auto',
+      marginRight: '3.31dvh' // Espace entre l'image et le texte
+    }} 
+  />
+</div>
+
+
+
+
 {/* STICKY */}
 {/* Ajoutez ici votre composant StickyScrollEffect<StickyScrollEffect /> */}
 
@@ -980,182 +1101,7 @@ const horizontalOffset = tacPosition;
 
 
         
-{/* How can I join */}
-<div id="Roadmap" style={{ height: '105vh', background: 'radial-gradient(circle at 50% 50%, #33d822, #1dc80c)', paddingTop: '12.40dvh' }}>
-      <div style={{ margin: "2dvh 0", textAlign: "center" }}>
-        <h2 style={{
-          color: "white",
-          fontSize: '6.94dvh',
-          marginBottom: "34dvh",
-          textShadow: '0.5dvh 0.5dvh 0dvh black',
-          fontFamily: 'Clash',
-        }}>
-          HOW CAN I JOIN THE RAVE ?
-        </h2>
-        <Image 
-  src="potion_01.png" 
-  style={{
-    position: "absolute", 
-    width: "10%", 
-    right: "20dvh", 
-    top: "220dvh", 
-    transform: "rotate(-5deg)", 
-    transformOrigin: "50% 30%", // Déplace le point de rotation
-    transition: "transform 0.1s ease-in-out"
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.animation = "shake 4s ease-in-out infinite";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.animation = "none";
-  }}
-/>
 
-<style>
-  {`
-    @keyframes shake {
-  0% { transform: rotate(-13deg); }
-  1.5% { transform: rotate(3deg); }
-  3% { transform: rotate(-13deg); }
-  4.5% { transform: rotate(2.5deg); }
-  7% { transform: rotate(-12deg); }
-  9% { transform: rotate(2deg); }
-  12% { transform: rotate(-11.5deg); }
-  15% { transform: rotate(1deg); }
-  18% { transform: rotate(-10.5deg); }
-  25% { transform: rotate(-0.5deg); }
-  34% { transform: rotate(-8.5deg); }
-  45% { transform: rotate(-3deg); }
-  60% { transform: rotate(-6.2deg); }
-  75% { transform: rotate(-4.5deg); }
-  100% { transform: rotate(-5deg); }
-}
-  `}
-</style>
-
-        <Image src="Bubble_01.png" style={{position: "absolute", width:"2.5%", right: "31dvh", top: "212vh", transform: 'rotate(-40deg)'}}></Image>
-
-        <div
-          style={{ position: "relative", width: "auto", margin: "0dvh 41.32dvh 0dvh 41.32dvh", height: "49.59dvh" }}
-        >
-          {timelineData.map((event, index) => (
-            <div
-              key={event.id}
-              style={{
-                position: "absolute",
-                left: `${(index / (timelineData.length - 1)) * 100}%`,
-                transform: "translateX(-50%)",
-                zIndex: "10",
-                textAlign: "center",
-              }}
-            >
-              <div
-                style={{
-                  width: "5.29dvh",
-                  height: "5.29dvh",
-                  borderRadius: "50%",
-                  backgroundColor: "#ccc",
-                  border: "1dvh solid #fff",
-                  margin: "auto",
-                  top: "-1.5dvh",
-                  position: "relative",
-                }}
-              />
-            </div>
-          ))}
-
-          <div
-            style={{
-              zIndex: "10",
-              top: "-0.58dvh",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              height: "3.31dvh",
-              backgroundColor: "#ccc",
-              border: "0.5dvh solid #fff",
-              background: `linear-gradient(to right,rgb(238, 255, 4) ${(timelineData.findIndex(event => event.id === idActuel) / (timelineData.length - 1)) * 100}%, #ccc 0%)`,
-            }}
-          />
-
-          {timelineData.map((event, index) => (
-            <div
-              key={event.id}
-              style={{
-                position: "absolute",
-                left: `${(index / (timelineData.length - 1)) * 100}%`,
-                transform: "translateX(-50%)",
-                zIndex: "100",
-                textAlign: "center",
-                cursor: "pointer",
-              }}
-              onClick={() => setIdActuel(event.id)}
-            >
-              <div
-                style={{
-                  width: "4.3dvh",
-                  height: "4.3dvh",
-                  borderRadius: "50%",
-                  backgroundColor: index <= timelineData.findIndex(e => e.id === idActuel) ? "#007BFF" : "#ccc",
-                  border: "0dvh solid #fff",
-                  margin: "auto",
-                  top: "-1dvh",
-                  position: "relative",
-                }}
-              />
-            </div>
-          ))}
-
-          {timelineData.map((event, index) => (
-            event.id <= idActuel && (
-              <div
-                key={event.id}
-                style={{
-                  position: "absolute",
-                  left: `${(index / (timelineData.length - 1)) * 100}%`,
-                  transform: "translateX(-50%)",
-                  textAlign: "center",
-                  fontFamily: 'Freeman',
-                  zIndex: "2",
-                }}
-              >
-                <div
-                  style={{
-                    marginTop: "1.32dvh",
-                    fontSize: "3.7dvh",
-                    color: "white",
-                    position: "absolute",
-                    display: "block",
-                    width: "60vh",
-                    left: "-30vh",
-                    top: event.position === "above" ? "-28.1dvh" : "5dvh",
-                  }}
-                >
-                  <span style={{display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                    {Array.isArray(event.date) ? (
-                      event.date.map((line, i) => (
-                        <React.Fragment key={i}>
-                          {line}
-                          <br/>
-                        </React.Fragment>
-                      ))
-                    ) : (
-                      <>
-                        {/*{event.date}*/}
-                        <br />
-                      </>
-                    )}
-                  </span>
-                  <span style={{ fontFamily: 'Loved', fontStyle: 'italic', fontWeight: '400' }}>
-                    {event.description}
-                  </span>
-                </div>
-              </div>
-            )
-          ))}
-        </div>
-      </div>
-    </div>
 
 
 
@@ -1340,7 +1286,7 @@ const horizontalOffset = tacPosition;
 <div
             style={{
               position: 'relative',
-              bottom: '0',
+              bottom: '-2dvh',
               width: '120%',
               overflow: 'hidden',
               backgroundColor: '#42a6ff',
@@ -1348,6 +1294,7 @@ const horizontalOffset = tacPosition;
               borderBottom: "0.17dvh solid black",
               transform: 'rotate(1.2deg) translate(0dvh, 2dvh)',
               fontFamily: 'Clash',
+              zIndex: '500',
             }}
           >
             <div
@@ -1356,7 +1303,7 @@ const horizontalOffset = tacPosition;
                 animation: 'scroll 20s linear infinite',
                 fontSize: '3.97dvh',
                 color: 'white',
-                padding: '1.65dvh 0',
+                padding: '1.65dvh 0 1.45dvh 0',
               }}
             >
               {/* Cette div contient le texte qui défile */}
@@ -1392,455 +1339,7 @@ const horizontalOffset = tacPosition;
 
 
 
-{/* FAQ */}
-<div
-  id="FAQ"
-  style={{
-    padding: '8dvh 2dvh 6dvh 2dvh',
-    background: 'radial-gradient(circle at 50% 50%,rgb(55, 20, 255),rgb(7, 3, 245))',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    fontFamily: 'Clash',
-    color: "white",
-  }}
->
-<Image src="potion_02.png" style={{position: "absolute", width:"7%", left: "5dvh", top: "1120dvh", transform: 'rotate(5deg)'}}></Image>
-<Image src="Bubble_01.png" style={{position: "absolute", width:"2%", left: "10dvh", top: "1112dvh", transform: 'rotate(-40deg)'}}></Image>
-  <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
-    FAQ
-  </h2>
-  <div
-    style={{
-      maxWidth: '165dvh',
-      margin: '0 auto',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-    }}
-  >
 
-    {/* Question 1 */}
-    <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '3.7dvh',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>What is GoblinZ Rave ?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-    Every four years, GoblinZ from across the Kingdom unite in one place to throw the wildest
-    rave of the century - getting hilariously high and outrageously drunk!<br/><br/>
-    This year, you've been lucky enough to receive an official invitation,
-    granting you access to join the chaos alongside 1,555 other GoblinZ.
-    Get ready to party like never before!
-  </p>
-</details>
-
-
-    
-    {/* Question 5 */}
-    <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '3.7dvh',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>Can I buy GoblinZ NFTs for now ?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-   Short answer: No, you can’t.<br/>
-   The best thing you can do is join us on Discord to get whitelisted.<br/>
-   We pay attention to your efforts 💪
-  </p>
-</details>
-
-    
-    {/* Question 2 */}
-    <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '3.7dvh',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>Why did you chose to build on Eclipse?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-    It's Solana on Ethereum bro
-  </p>
-</details>
-
-
-    {/* Question 3 */}
-    <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '3.7dvh',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>What is the vision of GoblinZ Rave ?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-    We’re not here for the usual "let's do a community" talk - forget that<br/>
-    We’re here to party like there’s no tomorrow and stack our bags with the filthiest memecoins out there.<br/>
-    The Weekly Party is going to be insane - stay tuned, more info dropping soon! 🎉
-  </p>
-</details>
-
-
-    {/* Question 4 */}
-    <details
-  style={{
-    background: 'transparent',
-    textTransform: 'uppercase',
-    padding: '3dvh 6dvh',
-    borderRadius: '0.3dvh',
-    border: '0.7dvh solid #f3f306',
-  }}
-  onToggle={(e) => {
-    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
-    const img = target.querySelector('img');
-    const p = target.querySelector('p');
-  
-    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
-    const detailsElement = target as HTMLDetailsElement;
-  
-    if (detailsElement.open) {
-      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
-      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
-      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
-    } else {
-      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
-      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
-      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
-    }
-  }}
-  
->
-  <summary
-    style={{
-      fontSize: '3.7dvh',
-      fontWeight: 'bold',
-      cursor: 'pointer',
-      listStyle: 'none',
-      userSelect: 'none',
-    }}
-  >
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <div>What is the Weekly Party?</div>
-      <div style={{ marginLeft: '0px' }}>
-        <img src='+.svg' alt="toggle" />
-      </div>
-    </div>
-  </summary>
-  <p
-    style={{
-      marginTop: '0.5rem',
-      lineHeight: '1.6',
-      fontFamily: 'Freeman',
-      textAlign: 'left',
-      fontWeight: '500',
-      fontSize: '3dvh',
-      maxHeight: '0', // Par défaut, on cache le contenu
-      overflow: 'hidden',
-      transition: 'max-height 0.5s ease', // Animation de 0.5s
-    }}
-  >
-    Looks like you’re dying to know more 👀<br/><br/>
-    Short answer: Weekly Parties are epic community events we host every week, filled with ETH and beer 🍺<br/>
-    They’re 100% FREE - just bring your creativity and LET’S RAVE!<br/>
-    The more you participate, the more you earn... 🤑🎉
-  </p>
-</details>
-
-
-
-
-
-
-
-  </div>
-
-
-
-
-  <div style={{padding: '4dvh'}}></div>
-
-
-
-
-
-  {/* ================= BANDE CIRCULANTE =============== */}
-<div
-            style={{
-              position: 'relative',
-              zIndex: 10,
-              bottom: '0',
-              width: '120%',
-              overflow: 'hidden',
-              backgroundColor: '#42a6ff',
-              borderTop: "0.17dvh solid black",
-              borderBottom: "0.17dvh solid black",
-              transform: 'rotate(-1.7deg) translate(-5dvh, 9dvh)',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                animation: 'scroll 20s linear infinite',
-                fontSize: '3.97dvh',
-                color: 'white',
-                padding: '1.65dvh 0',
-              }}
-            >
-              {/* Cette div contient le texte qui défile */}
-              <div
-                style={{
-                  display: 'inline-block',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {'GOBLINZ '.repeat(100)} {/* On répète plusieurs fois le texte */}
-              </div>
-
-              {/* Dupliquez le même texte immédiatement après pour un défilement fluide */}
-              <div
-                style={{
-                  display: 'inline-block',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {'GOBLINZ '.repeat(30)}
-              </div>
-            </div>
-          </div>
-</div>
 
         
 
@@ -1854,7 +1353,6 @@ const horizontalOffset = tacPosition;
     padding: "8.26dvh",
     fontSize: "3dvh",
     height: "88dvh",
-    overflow: "hidden", // Empêche le débordement du pseudo-élément
   }}
 >
   <div
@@ -1939,9 +1437,614 @@ AAAAAAAAAAAAa BBBBBBBBBBBBBBBBBBBBBBBb Description go
 
 
         
+  {/* ================= BANDE CIRCULANTE =============== */}
+            <div
+            style={{
+              position: 'relative',
+              zIndex: 10,
+              bottom: '0',
+              width: '120%',
+              overflow: 'hidden',
+              backgroundColor: '#42a6ff',
+              borderTop: "0.17dvh solid black",
+              borderBottom: "0.17dvh solid black",
+              transform: 'rotate(-1.7deg) translate(-5dvh, 9dvh)',
+              fontFamily: 'Clash',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                animation: 'scroll 20s linear infinite',
+                fontSize: '3.97dvh',
+                color: 'white',
+                padding: '1.65dvh 0',
+              }}
+            >
+              {/* Cette div contient le texte qui défile */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(100)} {/* On répète plusieurs fois le texte */}
+              </div>
 
+              {/* Dupliquez le même texte immédiatement après pour un défilement fluide */}
+              <div
+                style={{
+                  display: 'inline-block',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {'GOBLINZ '.repeat(30)}
+              </div>
+            </div>
+          </div>
+
+
+
+
+{/* FAQ */}
+<div
+  id="FAQ"
+  style={{
+    padding: '15dvh 2dvh 6dvh 2dvh',
+    background: 'radial-gradient(circle at 50% 50%,rgb(55, 20, 255),rgb(7, 3, 245))',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Clash',
+    color: "white",
+  }}
+>
+<Image
+src="potion_02_green.png"
+style={{position: "absolute", width:"7%", left: "5dvh", top: "1232.4dvh", transform: 'rotate(5deg)'}}
+onMouseEnter={(e) => {
+  e.currentTarget.style.animation = "tremble 4s ease-in-out infinite";
+}}
+onMouseLeave={(e) => {
+  e.currentTarget.style.animation = "none";
+}}>
+</Image>
+<style>
+  {`
+    @keyframes tremble {
+  0% { transform: rotate(-5deg); }
+  1.5% { transform: rotate(15deg); }
+  3% { transform: rotate(-4.5deg); }
+  4.5% { transform: rotate(14.5deg); }
+  7% { transform: rotate(-4deg); }
+  9% { transform: rotate(14deg); }
+  12% { transform: rotate(-2deg); }
+  15% { transform: rotate(13deg); }
+  18% { transform: rotate(-1deg); }
+  25% { transform: rotate(11deg); }
+  34% { transform: rotate(0.5deg); }
+  45% { transform: rotate(9.5deg); }
+  60% { transform: rotate(2.5deg); }
+  75% { transform: rotate(7.5deg); }
+  100% { transform: rotate(5deg); }
+}
+  `}
+</style>
+
+<Image src="Bubble_01.png" style={{position: "absolute", width:"2%", left: "10dvh", top: "1225dvh", transform: 'rotate(-40deg)'}}></Image>
+  <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '9dvh', textShadow: '0.66dvh 0.66dvh 0dvh black', }}>
+    FAQ
+  </h2>
+  <div
+    style={{
+      maxWidth: '165dvh',
+      margin: '0dvh 12dvw 0dvh 12dvw',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2.8dvh',
+    }}
+  >
+
+    {/* Question 1 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src="+.svg" alt="toggle" style={{ height: "5dvh" }} />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Every four years, GoblinZ from across the Kingdom unite in one place to throw the wildest
+    rave of the century - getting hilariously high and outrageously drunk!<br/><br/>
+    This year, you've been lucky enough to receive an official invitation,
+    granting you access to join the chaos alongside 1,555 other GoblinZ.
+    Get ready to party like never before!
+  </p>
+</details>
+
+
+    
+    {/* Question 2 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>Can I buy GoblinZ NFTs for now ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src="+.svg" alt="toggle" style={{ height: "5dvh" }} />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+   Short answer: No, you can’t.<br/>
+   The best thing you can do is join us on Discord to get whitelisted.<br/>
+   We pay attention to your efforts 💪
+  </p>
+</details>
+
+    
+    {/* Question 3 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>Why did you chose to build on Eclipse?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src="+.svg" alt="toggle" style={{ height: "5dvh" }} />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    It's Solana on Ethereum bro
+  </p>
+</details>
+
+
+    {/* Question 4 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is the vision of GoblinZ Rave ?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src="+.svg" alt="toggle" style={{ height: "5dvh" }} />
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    We’re not here for the usual "let's do a community" talk - forget that<br/>
+    We’re here to party like there’s no tomorrow and stack our bags with the filthiest memecoins out there.<br/>
+    The Weekly Party is going to be insane - stay tuned, more info dropping soon! 🎉
+  </p>
+</details>
+
+
+    {/* Question 5 */}
+    <details
+  style={{
+    background: 'transparent',
+    textTransform: 'uppercase',
+    padding: '3dvh 6dvh',
+    borderRadius: '0.3dvh',
+    border: '0.7dvh solid #f3f306',
+  }}
+  onToggle={(e) => {
+    const target = e.target as HTMLElement; // Caste e.target comme HTMLElement
+    const img = target.querySelector('img');
+    const p = target.querySelector('p');
+  
+    // Cast supplémentaire pour garantir que target est un <details> et qu'il possède la propriété `open`
+    const detailsElement = target as HTMLDetailsElement;
+  
+    if (detailsElement.open) {
+      // Modifier le src de l'image et le texte du paragraphe lorsqu'on ouvre
+      if (img) img.src = '-.svg';  // Modifie le fichier source de l'image
+      if (p) p.style.maxHeight = '500px';  // Par exemple, changer le texte du paragraphe
+    } else {
+      // Réinitialiser le src de l'image et le texte du paragraphe lorsqu'on ferme
+      if (img) img.src = '+.svg';  // Rétablir le fichier source initial de l'image
+      if (p) p.style.maxHeight = '0';  // Réinitialiser le texte du paragraphe
+    }
+  }}
+  
+>
+  <summary
+    style={{
+      fontSize: '3.7dvh',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      listStyle: 'none',
+      userSelect: 'none',
+    }}
+  >
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>What is the Weekly Party?</div>
+      <div style={{ marginLeft: '0px' }}>
+        <img src="+.svg" alt="toggle" style={{ height: "5dvh" }} />
+
+      </div>
+    </div>
+  </summary>
+  <p
+    style={{
+      marginTop: '0.5rem',
+      lineHeight: '1.6',
+      fontFamily: 'Freeman',
+      textAlign: 'left',
+      fontWeight: '500',
+      fontSize: '3dvh',
+      maxHeight: '0', // Par défaut, on cache le contenu
+      overflow: 'hidden',
+      transition: 'max-height 0.5s ease', // Animation de 0.5s
+    }}
+  >
+    Looks like you’re dying to know more 👀<br/><br/>
+    Short answer: Weekly Parties are epic community events we host every week, filled with ETH and beer 🍺<br/>
+    They’re 100% FREE - just bring your creativity and LET’S RAVE!<br/>
+    The more you participate, the more you earn... 🤑🎉
+  </p>
+</details>
+
+
+
+  </div>
+
+
+  <div style={{padding: '4dvh'}}></div>
+
+
+  <div style={{
+      fontFamily: 'Clash',      
+      fontSize: '2.3dvh',
+      margin: '28dvh 0dvw 4dvh 0dvw',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      textTransform: 'uppercase',
+      alignItems: 'center',
+
+    }}>
+      <a 
+        href="/" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
+      >
+        Website
+      </a>
+      <Image 
+        src="stick.svg" 
+        style={{ 
+          margin: '0dvh 2.5dvw',
+          height: '3.5dvh',
+          width: 'auto',
+        }} 
+      />
+      <a 
+        href="https://x.com/goblinzrave" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
+
+      >
+        Twitter
+      </a>
+      <Image 
+        src="stick.svg" 
+        style={{ 
+          margin: '0dvh 2.5dvw',
+          height: '3.5dvh',
+          width: 'auto',
+        }} 
+      />
+      <a 
+        href="/" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
         
+      >
+        Discord
+      </a>
+      <Image 
+        src="stick.svg" 
+        style={{ 
+          margin: '0dvh 2.5dvw',
+          height: '3.5dvh',
+          width: 'auto',
+        }} 
+      />
+      <a 
+        href="/" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
+        
+      >
+        Guild
+      </a>
+      <Image 
+        src="stick.svg" 
+        style={{ 
+          margin: '0dvh 2.5dvw',
+          height: '3.5dvh',
+          width: 'auto',
+        }} 
+      />
+      <a 
+        href="/#FAQ" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
+        
+      >
+        FAQ
+      </a>
+      <Image 
+        src="stick.svg" 
+        style={{ 
+          margin: '0dvh 2.5dvw',
+          height: '3.5dvh',
+          width: 'auto',
+        }} 
+      />
+      <a 
+        href="/#goblinomics" 
+        style={{ transition: "color 0.05s ease" }} 
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.color = "black"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.color = "inherit"}
+        
+      >
+        Goblinomics
+      </a>
+    </div>
 
+
+  <div style={{
+      fontFamily: 'Freeman',
+      fontSize: '2.7dvh',
+      marginBottom: '4dvh',
+      padding: '0dvh 12dvw 0dvh 12dvw',
+
+    }}>
+      Disclaimer : GoblinzRave is a NFT project created for fun and exprimentation,
+      with absolutely no intrinsic value or any expectation of financial return.
+      The whole project is for entertainment purposes only and we are not reponsible
+      for any financial loss. Let's fucking rave!
+    </div>
+
+    <div style={{
+      fontFamily: 'Freeman',      
+      fontSize: '3.5dvh',
+      marginBottom: '8dvh',
+
+    }}>
+      2025 GoblinzRave. All right reserved.
+    </div>
+
+
+
+</div>
 
 
 
